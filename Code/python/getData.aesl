@@ -1,0 +1,19 @@
+<!DOCTYPE aesl-source>
+<network>
+<!--list of global events-->
+<!--list of constants-->
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II">
+var status=0
+var written=False
+var read=0
+var dataR=""
+sd.open(100,status)
+sd.read(dataR,read)
+print(dataR)
+
+</node>
+</network>

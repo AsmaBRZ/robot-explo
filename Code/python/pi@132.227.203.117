@@ -1,0 +1,37 @@
+import camera.py
+from picamera import PiCamera
+from time import sleep
+import os.path
+import os
+import datetime
+from PIL import Image
+from movementAnalysis import *
+
+urlDirectory="/home/pi/VisualNav/testMovementOutput"
+imgName=datetime.datetime.now().strftime('%m%d%H%M%S')
+
+if not os.path.exists(urlDirectory):
+    os.makedirs(urlDirectory)			
+#https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/6
+
+urlImg0=urlDirectory+'/'+imgName+'_0.jpg'
+urlImg1=urlDirectory+'/'+imgName+'_1.jpg'
+
+camera = PiCamera()
+camera.resolution = (800, 600)
+
+camera.start_preview()
+input("First image hit enter to express your consent")
+sleep(2)
+camera.capture(urlImg0)
+camera.stop_preview()
+
+camera.start_preview()
+input("Second image hit enter to express your consent")
+sleep(2)
+camera.capture(urlImg1)
+camera.stop_preview()
+
+movementAnalysis(urlImg0, urlImg1)
+
+

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<!--Rational Software Architect Designer 9.5-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<umlnotation:UMLDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xmi:id="_Fzbr8F2xEei-aNzPyu08jQ" type="Class" name="classdiagram2.dnx">
+  <eAnnotations xmi:id="_Fzbr8V2xEei-aNzPyu08jQ" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_Fzbr8l2xEei-aNzPyu08jQ" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2aug12xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2bVkF2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2bVkV2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2bVkl2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2bVk12xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2bVlF2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2bVlV2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2eY4F2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2eY4V2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2auhF2xEei-aNzPyu08jQ" x="4092" y="4884"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2iDQF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2iDQl2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2iDQ12xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2iDRF2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2iqUF2xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2iqUV2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2iqUl2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2iqU12xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2iqVF2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ObjectRecognition%5Bjcu%5Ename=ObjectRecognition.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2iDQV2xEei-aNzPyu08jQ" x="14256" y="10164"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2lGkF2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2lGkV2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2lGkl2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2lGk12xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2lGlF2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2lGlV2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2mUsF2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2m7wF2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2kfgl2xEei-aNzPyu08jQ" x="3564" y="12144"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2m7wV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2ni0F2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2ni0V2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2ni0l2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2ni012xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2ni1F2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2ni1V2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2ow8F2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2ow8V2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Wall%5Bjcu%5Ename=Wall.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2m7wl2xEei-aNzPyu08jQ" x="2640" y="14520"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2pYAF2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2pYAV2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2pYAl2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2pYA12xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2p_EF2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2p_EV2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2p_El2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2p_E12xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2ow812xEei-aNzPyu08jQ" x="15048" y="4620"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2qmIF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2rNMF2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2rNMV2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2rNMl2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2r0QF2xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2r0QV2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2r0Ql2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2sbUF2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2tCYF2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=WallAttachedPlanarObject%5Bjcu%5Ename=WallAttachedPlanarObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2qmIV2xEei-aNzPyu08jQ" x="6996" y="12540"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2tCYV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2tCY12xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2tCZF2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2tpcF2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2tpcV2xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2tpcl2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2tpc12xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2tpdF2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2tpdV2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2tCYl2xEei-aNzPyu08jQ" x="10560" y="5412"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2uQgF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2uQgl2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2uQg12xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2u3kF2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2u3kV2xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2u3kl2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2u3k12xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2u3lF2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2u3lV2xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2uQgV2xEei-aNzPyu08jQ" x="9768" y="8728"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_F2u3ll2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F2veoF2xEei-aNzPyu08jQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_F2veoV2xEei-aNzPyu08jQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2veol2xEei-aNzPyu08jQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2veo12xEei-aNzPyu08jQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_F2wFsF2xEei-aNzPyu08jQ" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2wFsV2xEei-aNzPyu08jQ" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2wFsl2xEei-aNzPyu08jQ" type="ANNOTATED_ATTRIBUTE_COMPARTMENT" collapsed="true"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_F2wFs12xEei-aNzPyu08jQ" type="ANNOTATED_OPERATION_COMPARTMENT" collapsed="true"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=PiThymioRobot%5Bjcu%5Ename=PiThymioRobot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F2u3l12xEei-aNzPyu08jQ" x="18876" y="6336"/>
+  </children>
+  <element xsi:nil="true"/>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9cjkF2xEei-aNzPyu08jQ" source="_F2aug12xEei-aNzPyu08jQ" target="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9dKoF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9dKol2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9dKpF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9dKo12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9dKoV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9cjkV2xEei-aNzPyu08jQ" points="[-1116, -225, -12047, 264]$[-1116, -506, -12047, -17]$[5310, -506, -5621, -17]$[5310, -491, -5621, -2]$[10591, -491, -340, -2]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFRp4F2xEei-aNzPyu08jQ" id="(0.986003404577265,0.1424326833797586)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFRp4V2xEei-aNzPyu08jQ" id="(0.14300617418791117,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9eYwF2xEei-aNzPyu08jQ" source="_F2aug12xEei-aNzPyu08jQ" target="_F2uQgF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9eYwl2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9eYxF2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9e_0F2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9eYxV2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9eYw12xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9eYwV2xEei-aNzPyu08jQ" points="[-753, 31, -5498, -2261]$[-753, 416, -5498, -1876]$[2895, 416, -1850, -1876]$[2895, 2665, -1850, 373]$[3694, 2665, -1051, 373]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFTfEF2xEei-aNzPyu08jQ" id="(0.8333785257471156,0.9805013927576601)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFTfEV2xEei-aNzPyu08jQ" id="(0.25008754492871793,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9e_0V2xEei-aNzPyu08jQ" source="_F2aug12xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9e_012xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9e_1V2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9fm4V2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9fm4F2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9e_1F2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9e_0l2xEei-aNzPyu08jQ" points="[-166, 110, 599, -5677]$[-166, 5787, 599, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFUGIF2xEei-aNzPyu08jQ" id="(0.22945484133441824,0.9306872037914692)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFUGIV2xEei-aNzPyu08jQ" id="(0.11129745817245817,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9fm4l2xEei-aNzPyu08jQ" source="_F2aug12xEei-aNzPyu08jQ" target="_F2m7wV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9fm5F2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9gN8F2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9gN8l2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9gN8V2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9fm5V2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Wall%5Bjcu%5Ename=Wall.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9fm412xEei-aNzPyu08jQ" points="[-214, -719, 3497, -8792]$[-3275, -719, 436, -8792]$[-3275, 8073, 436, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFUtMF2xEei-aNzPyu08jQ" id="(0.09022129752222433,0.9875580315691737)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFVUQF2xEei-aNzPyu08jQ" id="(0.25011812999266386,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9oJwF2xEei-aNzPyu08jQ" source="_F2m7wV2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9ow0F2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9ow0l2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9ow1F2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9ow012xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9ow0V2xEei-aNzPyu08jQ" x="92" y="-1644"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Wall%5Bjcu%5Ename=Wall.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9oJwV2xEei-aNzPyu08jQ" points="[-601, -1535, -547, 2376]$[-601, -2328, -547, 1583]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFaz0V2xEei-aNzPyu08jQ" id="(0.8001180026287904,0.9698708751793379)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFba4F2xEei-aNzPyu08jQ" id="(0.33351984797297296,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9pX4F2xEei-aNzPyu08jQ" source="_F2m7wV2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9pX4l2xEei-aNzPyu08jQ" type="NameLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9p-8F2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9p-8V2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9pX412xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=Wall%5Bjcu%5Ename=Wall.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9pX4V2xEei-aNzPyu08jQ" points="[404, -1535, 291, 2376]$[404, -2328, 291, 1583]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFcB8F2xEei-aNzPyu08jQ" id="(0.6001180344697588,0.9698708751793379)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFcB8V2xEei-aNzPyu08jQ" id="(0.22240890444015443,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9rNFV2xEei-aNzPyu08jQ" source="_F2ow8l2xEei-aNzPyu08jQ" target="_F2iDQF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9r0IF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9r0Il2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9r0JF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9r0I12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9r0IV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ObjectRecognition%5Bjcu%5Ename=ObjectRecognition.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9rNFl2xEei-aNzPyu08jQ" points="[1308, 14, 197, -3961]$[1308, 3975, 197, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFeeMF2xEei-aNzPyu08jQ" id="(0.33348203960217854,0.9912754466140423)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFeeMV2xEei-aNzPyu08jQ" id="(0.7500348150623886,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9tCRV2xEei-aNzPyu08jQ" source="_F2qmIF2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9tpUF2xEei-aNzPyu08jQ" type="NameLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9tpUl2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9tpU12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9tpUV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=WallAttachedPlanarObject%5Bjcu%5Ename=WallAttachedPlanarObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9tCRl2xEei-aNzPyu08jQ" points="[-2339, -617, 1007, -271]$[-2997, -617, 349, -271]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFfsUF2xEei-aNzPyu08jQ" id="(0.5000395550726022,0.9585798816568019)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFgTYF2xEei-aNzPyu08jQ" id="(0.8743886743886744,0.990370955011839)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9tpVF2xEei-aNzPyu08jQ" source="_F2qmIF2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9uQYF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9uQYl2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9uQZF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9uQY12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9uQYV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=WallAttachedPlanarObject%5Bjcu%5Ename=WallAttachedPlanarObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9tpVV2xEei-aNzPyu08jQ" points="[-1169, -1278, 1274, 635]$[-1827, -1278, 616, 635]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFgTYV2xEei-aNzPyu08jQ" id="(0.2500395550726015,0.9585798816568019)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFg6cF2xEei-aNzPyu08jQ" id="(0.7779641248391248,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9vegF2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2uQgF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9vegl2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wFkV2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wFk12xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wFkl2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9wFkF2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9vegV2xEei-aNzPyu08jQ" points="[293, 374, -942, -1733]$[293, 2107, -942, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFhhgF2xEei-aNzPyu08jQ" id="(0.523704520396913,0.9940758293838863)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFhhgV2xEei-aNzPyu08jQ" id="(0.5000875449287181,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9wFlF2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9wsoF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wsol2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wspF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9wso12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9wsoV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9wFlV2xEei-aNzPyu08jQ" points="[-2816, -1066, 6228, -5685]$[-5222, -1066, 3822, -5685]$[-5222, 4993, 3822, 374]$[-6930, 4993, 2114, 374]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFiIkF2xEei-aNzPyu08jQ" id="(0.5000831044256694,0.9845814977973568)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFiIkV2xEei-aNzPyu08jQ" id="(0.4446307915057915,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9wspV2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2u3ll2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9xTsF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9xTsl2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9xTtF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9xTs12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9xTsV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=PiThymioRobot%5Bjcu%5Ename=PiThymioRobot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9wspl2xEei-aNzPyu08jQ" points="[13, -2, -8728, 225]$[7667, -2, -1074, 225]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFivoF2xEei-aNzPyu08jQ" id="(0.9952722815618981,0.727165932452276)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFjWsF2xEei-aNzPyu08jQ" id="(0.3333533252670227,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9xTtV2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9x6wF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9x6wl2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9x6xF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9x6w12xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9x6wV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9xTtl2xEei-aNzPyu08jQ" points="[62, -230, -4845, 883]$[3888, -230, -1019, 883]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFjWsV2xEei-aNzPyu08jQ" id="(0.9767116091752758,0.2027900146842878)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFj9wF2xEei-aNzPyu08jQ" id="(0.4287201730828536,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9x6xV2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2iDQF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9yh0F2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9yh0l2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9yh1F2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9yh012xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9yh0V2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ObjectRecognition%5Bjcu%5Ename=ObjectRecognition.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9x6xl2xEei-aNzPyu08jQ" points="[1652, 15, -4831, -3179]$[5700, 15, -783, -3179]$[5700, 3194, -783, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFkk0F2xEei-aNzPyu08jQ" id="(0.3750831044256698,0.9845814977973568)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFkk0V2xEei-aNzPyu08jQ" id="(0.5000348150623884,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F9zI5V2xEei-aNzPyu08jQ" source="_F2tCYV2xEei-aNzPyu08jQ" target="_F2aug12xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F9zv8F2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9zv8l2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9zv9F2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F9zv812xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F9zv8V2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Exploration%5Bjcu%5Ename=Exploration.java%5Bjpack%5Ename=Explorator%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Scene%5Bjcu%5Ename=Scene.java%5Bjpack%5Ename=Representation%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F9zI5l2xEei-aNzPyu08jQ" points="[-330, -1242, 4882, 844]$[-4419, -1242, 793, 844]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFly8F2xEei-aNzPyu08jQ" id="(0.12508310442566944,0.9845814977973568)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFly8V2xEei-aNzPyu08jQ" id="(0.6667116128002648,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F90-EF2xEei-aNzPyu08jQ" source="_F2uQgF2xEei-aNzPyu08jQ" target="_F2m7wV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F90-El2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F90-FF2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F90-Fl2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F90-FV2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F90-E12xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Wall%5Bjcu%5Ename=Wall.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F90-EV2xEei-aNzPyu08jQ" points="[1882, 16, 8421, -4209]$[1882, 4601, 8421, 376]$[-5349, 4601, 1190, 376]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFmaAF2xEei-aNzPyu08jQ" id="(0.1429447046408723,0.9901036757775683)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFnBEF2xEei-aNzPyu08jQ" id="(0.5001181299926636,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F92MMF2xEei-aNzPyu08jQ" source="_F2uQgF2xEei-aNzPyu08jQ" target="_F2kfgV2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F92MMl2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F92MNF2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F92zQF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F92MNV2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F92MM12xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RoomObject%5Bjcu%5Ename=RoomObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F92MMV2xEei-aNzPyu08jQ" points="[-1801, -818, 4663, -2667]$[-6437, -818, 27, -2667]$[-6437, 1849, 27, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFoPMF2xEei-aNzPyu08jQ" id="(0.42865914205025973,0.9901036757775683)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFoPMV2xEei-aNzPyu08jQ" id="(0.55574173503861,-2.297066334390979E-15)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F93aUV2xEei-aNzPyu08jQ" source="_F2uQgF2xEei-aNzPyu08jQ" target="_F2qmIF2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F93aU12xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F93aVV2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F94BYF2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F93aVl2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F93aVF2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=WallAttachedPlanarObject%5Bjcu%5Ename=WallAttachedPlanarObject.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F93aUl2xEei-aNzPyu08jQ" points="[-2946, 16, 1869, -2229]$[-2946, 2245, 1869, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFpdUF2xEei-aNzPyu08jQ" id="(0.8572305032016426,0.9901036757775683)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFqEYF2xEei-aNzPyu08jQ" id="(0.3333727640189148,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F94BYV2xEei-aNzPyu08jQ" source="_F2uQgF2xEei-aNzPyu08jQ" target="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F94BY12xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F94BZV2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F94ocV2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F94ocF2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F94BZF2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=InternalRepresentation%5Bjcu%5Ename=InternalRepresentation.java%5Bjpack%5Ename=envStructures%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F94BYl2xEei-aNzPyu08jQ" points="[1201, -665, -1757, 5010]$[2787, -665, -171, 5010]$[2787, -4092, -171, 1583]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFqEYV2xEei-aNzPyu08jQ" id="(0.7143732255044098,0.9901036757775683)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFqrcF2xEei-aNzPyu08jQ" id="(0.2858629728618421,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F95Pgl2xEei-aNzPyu08jQ" source="_F2u3ll2xEei-aNzPyu08jQ" target="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F95PhF2xEei-aNzPyu08jQ" type="NameLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F952kF2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F952kV2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F95PhV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=PiThymioRobot%5Bjcu%5Ename=PiThymioRobot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F95Pg12xEei-aNzPyu08jQ" points="[-1687, -1558, 3021, 1716]$[-1687, -2430, 3021, 844]$[-4028, -2430, 680, 844]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFsgoF2xEei-aNzPyu08jQ" id="(0.800020252698041,0.9845814977973563)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFsgoV2xEei-aNzPyu08jQ" id="(0.7144345735248759,0.0)"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F952kl2xEei-aNzPyu08jQ" source="_F2u3ll2xEei-aNzPyu08jQ" target="_F2ow8l2xEei-aNzPyu08jQ" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F952lF2xEei-aNzPyu08jQ" visible="false" type="KindLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F952ll2xEei-aNzPyu08jQ" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F96doV2xEei-aNzPyu08jQ" type="Kind"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_F96doF2xEei-aNzPyu08jQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F952lV2xEei-aNzPyu08jQ" y="-186"/>
+    </children>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=PiThymioRobot%5Bjcu%5Ename=PiThymioRobot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Robot%5Bjcu%5Ename=Robot.java%5Bjpack%5Ename=Actionners%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Visual%20Navigation%20-%20stadimetre%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F952k12xEei-aNzPyu08jQ" points="[-283, -1558, 4120, 1716]$[-283, -3026, 4120, 248]$[-3383, -3026, 1020, 248]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFtHsF2xEei-aNzPyu08jQ" id="(0.6000200788551394,0.9845814977973563)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GFtuwF2xEei-aNzPyu08jQ" id="(0.5715773733038644,0.0)"/>
+  </edges>
+</umlnotation:UMLDiagram>

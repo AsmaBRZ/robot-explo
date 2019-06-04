@@ -1,0 +1,30 @@
+<!DOCTYPE aesl-source>
+<network>
+<!--list of global events-->
+<!--list of constants-->
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II">
+var distance=0
+var realSpeed=0
+var speed=100
+var reverse=1
+motor.left.target=0
+timer.period[0]=1000
+
+speed*=reverse
+onevent timer0
+
+if 2&lt;distance then
+	realSpeed=motor.left.speed
+	distance=distance-realSpeed*reverse*1/25	
+	motor.left.target=speed
+	motor.right.target=speed
+else
+	motor.left.target=0
+	motor.right.target=0
+	end
+	</node>
+</network>
