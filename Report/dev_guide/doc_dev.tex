@@ -1,0 +1,195 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[french]{babel}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{listings}
+
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center 
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Developer Guide: \\Representation and relative positioning from visual information}\\[0.4cm]
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+	\begin{flushleft} \large
+		\emph{Realized by:}\\
+		\textsc{Asma BRAZI}
+	\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+	\begin{flushright} \large
+		\emph{Proposed by:} \\
+		\textsc{Cédric HERPSON}\\
+	\end{flushright}
+\end{minipage}\\[4cm]
+
+
+{\large Laboratory of Computer Sciences, Paris 6 \\ Sorbonne University - Faculty of Science and Engineering}\\[3cm] 
+{\large August 2019 }\\[3cm] 
+\includegraphics[width=0.6\textwidth]{logo.png}\\[1cm] 
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+\tableofcontents
+
+\chapter{Présentation du code}
+\section{La partie robot}
+\subsection{Python}
+\paragraph{}
+Le premier language utilisé est le python, qui est executé sur le Raspberry PI. Nous avons utilisé ce language car il était déjà utilisé par le groupe d'avant, mais il peut être modifié par du C pour gagner en performance.
+
+\paragraph{}
+La première chose que fait le programme en Python est le traitement d'image, la librairie OpenCV. Cette partie nous permet de faire de la reconnaissance d'image, mais nous avons aussi calculer les lignes de fuites d'images, qui nous sert à replacer le robot.
+
+\paragraph{}
+Nous utilisons aussi le python pour pouvoir gérer facilement des fichiers. Nous écrivons régulièrement des données dans des fichiers, qui seront ensuite envoyés vers le PC pour mettre à jour le modèle 3D.
+
+\paragraph{}
+Pour finir, nous utilisons aussi le python pour modifier les fichiers Aseba, qui sera ensuite compilé pour être utilisé pour le Thymio.
+
+\subsection{Aseba}
+\paragraph{}
+Comme précisé ci-dessus, le Thymio utilise du code Aseba pour se déplacer. Nous ne programmons cependant pas en Aseba directement, nous le faisons avec Python. Il est cependant utile de connaitre les bases en Aseba pour programmer dans les meilleurs conditions.
+
+\section{La partie ordinateur}
+\paragraph{}
+Pour la partie du code dédié à l'ordinateur, nous utilisont du Java. Java nous permet d'abord à communiquer avec le Raspberry PI, notemment en récupérant les données qu'il écrit pendant son exploration.
+
+\paragraph{}
+Ensuite, Java nous permet aussi d'avoir un retour vidéo de l'exploration du robot. A l'aide de la librairie JMonkey Engine nous pouvons afficher une modèle 3D que le robot construit pendant son exploration.
+
+\paragraph{}
+Pour finir, nous utilisons aussi Java pour écrire les fichiers python sur le Raspberry PI, ce qui nous oblige pas à copier manuellement les fichiers à chaque fois que nous les modifions.
+
+\chapter{Documentation interne}
+\paragraph{}
+La documentation interne du code que nous fournissons ne concerne que les fonctions que nous avons ajouté ou modifié. Pour en savoir d'avantage sur les autres fonctions du code, il est préférable de se référé à la documentation interne des étudiants de l'an dernier.
+
+\section{Python}
+
+\subsubsection{Fichier imageRecognition}
+\paragraph{}
+\textit{imageRecognition}(string imageURL, string imageName)\\
+Cette fonction permet de reconnaître un des repères de la base de données dans l'image donnée en paramètre. Elle permet aussi de calculer la distance à ce repère.\\
+Renvoie: double distance
+
+\subsubsection{Fichier imageUtil}
+
+\paragraph{}
+\textit{normalise}(np.array image)\\
+Calcule la matrice passée en paramètre, normalisée entre 0 et 255.\\
+Renvoie: np.array normImage
+
+\paragraph{}
+\textit{resize}(np.array image, int width)\\
+Redimensionne la matrice donnée en paramètre en une matrice dont la taille est proportionnelle à la largeur de l'image divisé par width.\\
+Renvoie: np.array resizedImage
+
+\subsubsection{fichier imageVanishingLines}
+
+\paragraph{}
+Ce script calcul l'angle moyen des lignes de fuites horizontales pour calculer l'angle par rapport au mur.
+Renvoie: l'angle par rapport au mur.
+
+\subsubsection{fichier initWorkspace}
+
+\paragraph{}
+Ce script permet de créer un dossier DB dans lequel sera déplacé toutes les images.
+
+\subsubsection{Fichier utils}
+\paragraph{}
+\textit{HoughLines}(string im, int maxLG)\\
+En utilisant les lignes de fuite verticales, cette fonction calcule la hauteur du mur sur l'image im. La paramètre maxLG est la valeur maximale que nous autorisons pour cette hauteur.
+Renvoie: la hauteur du mur.
+
+\paragraph{}
+\textit{takePicture}(int r1, int r2)\\
+Permet de prendre une photo, avec la résolution r1 et r2.
+Renvoie: l'url de l'image
+
+\paragraph{}
+\textit{getThreshold}(type)\\
+Renvoie un score limite selon de type de photo pour considérer qu'une image est reconnue ou non dans l'image.
+Renvoie: le score correspondant.
+
+\paragraph{}
+\textit{recognition}(string image, string ref, string multi, string nbRefs)\\
+Cette fonction permet de reconnaître les objets de la base de donnée dans l'image dont l'url est passée en paramètre. Si multi est à 'm', alors on cherchera parmis les nbRefs objets de la base de donnée. Sinon, on cherchera seulement l'objet ref de la base de donnée.
+Renvoie: Une liste contenant la distance à chaque objet et leurs coordonnées si les images sont trouvés, sinon des valeurs négatives.
+
+\section{Java}
+
+\subsection{Package Representation}
+
+\subsubsection{Classe Scene}
+
+\paragraph{}
+\textit{simpleUpdate}()\\
+Met à jour tous les elements de la scène.
+
+\paragraph{}
+\textit{initKeys}()\\
+Attribut des fonctions que le robot devra effectuer à certaines touches du clavier.
+
+\paragraph{}
+\textit{onAction}()\\
+Appelle des fonctions lorsque les touches attribuées sont appuyées.
+
+\paragraph{}
+\textit{updateWall}(wall w)\\
+Met à jour le wall passé en paramètre en modifiant sa taille et son angle.
+
+\subsection{Package exploratior}
+
+\subsubsection{Classe Exploration}
+
+\paragraph{}
+\textit{start}()\\
+La méthode appelée au début de l'exploration. Elle demande à l'utilisateur quel est l'objet à recherché, et va lancer la méthode \textit{explore} sur les murs de la pièce.
+
+
+\paragraph{}
+\textit{explore}(int facingWall, int target)\\
+C'est dans cette méthode que l'algorithme d'exploration a été implémentée. Le robot va alors faire son exploration sur le mur d'ID facingWall jusqu'à trouver l'objet dont l'indice est égal au paramètre target, ou alors arriver jusqu'au bout du mur. L'ID du mur que nous explorons permet aussi de mettre à jour le bon mur dans le représentation 3D de l'environnement.\\
+Renvoie: 1 si l'objet est trouvé. 0 si on a atteint le coin du mur. -1 si on a détecté un objet ne faisant pas parti de la base de donnée.
+
+\paragraph{}
+\textit{readDBObjects}()\\
+Cette méthode permet de récupérer tous les les objets de la base de donnée. La base de donnée est le fichier \textit{dataBase}.
+
+\paragraph{}
+\textit{getINdexOfPreviousWall}()\\
+Permet d'obtenir l'indice du mur précédemment exploré.\\
+Renvoie: l'indice du mur précédent.
+
+\subsection{Package envStructures}
+
+\subsubsection{Classe InternalRepresentation}
+
+\paragraph{}
+\textit{createa4WallsRoom}()\\
+Initialise la représentation 3D de l'environnement en créant 4 points qui représenteront les 4 coins de la pièce, et les murs associés.
+
+\subsection{Package Actionners}
+
+\subsubsection{Classe PiThymioRobot}
+
+\paragraph{}
+\textit{captureData}(int type,boolean init,String multi)\\
+Cette méthode ordonne au robot de prendre une photo et d'en extraire les données importantes. L'argument multi permet de procéder à une reconnaissance d 'image uniquement pour un coin (avec la valeur u) ou de tester toutes les images de la base de donnée (avec la valeur m). Les arguments type et init sont utilisés pour la commande envoyée au raspberry PI.
+Renvoie: Une liste contenant la liste d'information des objets trouvés (taille, hauteur, coordonnée).
+
+\paragraph{}
+\textit{captureNewAngle}()\\
+Cette méthode ordonne au robot de prendre une photo et de calculer l'angle par rapport au mur. Cette fonction n'est cependant plus utilisée.
+Renvoie: l'angle de rotation pour être face au mur.
+\end{document}
+
