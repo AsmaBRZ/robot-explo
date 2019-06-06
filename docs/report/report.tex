@@ -1,0 +1,79 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pgfgantt}
+\usepackage{algorithm2e}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[backend=biber]{biblatex}
+\usepackage[toc]{glossaries}
+\usepackage{appendix}
+\makeglossaries
+ 
+\addbibresource{references.bib}
+
+\bibliography{references}
+
+% Comments
+\usepackage{color}
+\usepackage[normalem]{ulem} %pour le format barré
+\newcommand{\hcp}[1]{\textcolor{blue}{[#1]}}
+\newcommand{\hcr}[2]{\textcolor{red}{\sout{[#1]} - \textcolor{blue}{ [#2]}}}
+\newcommand{\hc}[1]{\textcolor{red}{[#1]}}
+\newcommand{\hcc}[1]{\textcolor{green}{Pour info - [#1]}}
+
+\begin{document}
+\begin{titlepage}
+	
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+	
+	\center 
+	\HRule \\[0.4cm]
+	{ \huge \bfseries Report: \\Representation and relative positioning from visual information}\\[0.4cm]
+	\HRule \\[1.5cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+			\emph{Submitted by:}\\
+			\textsc{Asma BRAZI}
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright} \large
+			\emph{Supervised by:} \\
+			\textsc{Cédric HERPSON}\\
+		\end{flushright}
+	\end{minipage}\\[4cm]
+	
+	
+	{\large Laboratory of Computer Sciences, Paris 6 \\ Sorbonne University - Faculty of Sciences and Engineering}\\[3cm] 
+	{\large June - July 2019 }\\[3cm] 
+	\includegraphics[width=0.6\textwidth]{logo.png}\\[1cm] 
+	\vfill % Fill the rest of the page with whitespace
+	
+\end{titlepage}
+\tableofcontents
+\chapter{Abstract}
+\chapter{Introduction}
+\paragraph{}
+The internship at LIP6 was mainly considered as a continuation of works that we carried out during a university project in first Master's degree. These previous works presented a naive approach of object recognition and an exploration strategy that allows an autonomous robot with a camera to roughly reconstruct its environment.
+
+\paragraph{}
+During this internship, we focused the most on the object recognition, because it was the processing which took the most time to execute. To remedy this situation, we rely on a learning approach where the robot becomes able to recognize an object based on its knowledge. Unlike our previous work where the robot was trying to match the detected object in its environment with all objects in the database, hoping to recognize it.
+
+\paragraph{}
+We summarize in this report our work and the results obtained.
+
+\chapter{Litterature review}
+
+\chapter{Requirements}
+\chapter{Design Specification}
+\section{Programming Languages}
+\section{APIs}
+\chapter{Implementation}
+
+\chapter{Testing}
+\chapter{Conclusion, Limitation and Futre work}
+\chapter{References}
+\end{document}
