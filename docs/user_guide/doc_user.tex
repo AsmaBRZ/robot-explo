@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
-
+\usepackage{hyperref}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{listings}
 
@@ -59,22 +59,124 @@ The global system can be seen as two independent physical subsystems in interact
 	\end{center}
 \end{figure}
 \paragraph{}
-The computer and the autonomous robot are exchanging via Wi-Fi. Nevertheless, the autonomous robot's components are connecting with USB. So, we have to connect the Raspberry-Pi Camera by inserting the cable into the Raspberry-Pi. In the same way, we do so with the Thymio. After that and in order to power the Raspberry-Pi, we use the power-bank which is connected to it with USB. 
+The computer and the autonomous robot are exchanging via Wi-Fi. Nevertheless, the autonomous robot's components are connecting with cables. 
+So, to connect the autonomous robot's components, we insert the Raspberry-Pi Camera's cable by into the Raspberry-Pi, so as that the cable is placed between Ethernet and HDMI ports, see Fig 2.2. 
 
-
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{campirasp.png}
+		\caption{The connection of the Raspberry-Pi camera }
+	\end{center}
+\end{figure}
+\paragraph{}
+Then we connect the Thymio to the Raspberry-Pi with a cable. Finally, in order to power the Raspberry-Pi, we use the power-bank which is connected to it with USB. see Fig 2.3.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{robot_comp.png}
+		\caption{The connected autonomous robot's components}
+	\end{center}
+\end{figure}
 \section{OS/Software prerequisites}
 \paragraph{}
-We need several programs for both subsystems to be able to launch the application. The programs that we have to install on the Raspberry-Pi are:
+We need several programs for both subsystems to be able to launch the application. The programs that we have to install on the computer are:
 \begin{itemize}
-    \item OpenCV 2.
-    \item Python 3.
+	\item Java 8.
+	\item Java IDE.
+	\item JMonkey Engine.
+\end{itemize}
+\paragraph{}
+Then those to install on the Raspberry-Pi are:
+\begin{itemize}
+	\item Python 3 and Pip 3.
+    \item OpenCV.
     \item Asebamedulla.
 \end{itemize}
 Then, those to install on the computer are:
+
+\paragraph{}
+We begin with the set of programs to install on the computer. 
+\subsection{Java 8}
+\paragraph{}
+Java can be installed with the following commands:
+
 \begin{itemize}
-    \item Java 8.
-    \item JMonkey Engine.
-    \item Java IDE.
+	\item Go to the website \url{https://www.java.com/fr/download/linux_manual.jsp}
+	\item Download the version corresponding to your OS (64x or 32x)
+	\item The complete instructions to install it are available on the same web page.They are available by clicking on the button \emph{instructions} beside your the file to download.
+	\item Go to the website \url{https://www.oracle.com/technetwork/java/javase/downloads/index.html}
+	\item Download the latest version of JDK available.
+	\item The installation instructions can been consulted on the same web page.
+\end{itemize}
+
+
+\subsection{Java IDE}
+\paragraph{}
+There are many Java IDE that may be used (IntelliJ IDEA, Eclipse, Netbeans, etc). In our project scope, we use Eclipse 2019-03. The following steps indicate how to install this IDE: 
+
+\begin{itemize}
+	\item Go to the website \url{https://www.eclipse.org/downloads/}
+	\item Download the version of Eclipse IDE corresponding to your OS (64x or 32x)
+	\item Extract the downloaded archive, open the extracted directory and launch \emph{eclipse-inst}
+	\item Now, click on \emph{Eclipse IDE for Java Developers} 
+	\item The followed instructions ask for the installation folder and the environment configuration (Eclipse's theme, etc), an installation by default can be done too.
+\end{itemize}
+
+\subsection{JMonkey Engine}
+\paragraph{}
+JMonkey Engine can be installed with the following commands:
+
+\begin{itemize}
+	\item Go to the website \url{https://github.com/jMonkeyEngine/sdk/releases}
+	\item Download the latest stable version corresponding to your OS (64x or 32x).
+	\item Open a terminal and execute the command \emph{sudo ./jmonkeyplatform-linux-*}
+	\item The followed instructions ask for the installation folder and the environment configuration (Eclipse's theme, etc), an installation by default can be done too.
+\end{itemize}
+
+
+\subsection{Python 3}
+\paragraph{}
+Python can be installed with the following commands:
+
+\begin{itemize}
+	\item \emph{sudo apt-get update}
+	\item \emph{sudo apt-get install python3.6}
+\end{itemize}
+The following command is used to verify if Python has been correctly installed: \emph{python3 - -version}
+
+\subsection{Pip 3}
+\paragraph{}
+Pip can be installed with the following commands:
+\begin{itemize}
+	\item \emph{sudo apt-get update}
+	\item \emph{sudo apt install python3-pip}
+\end{itemize}
+The following command is used to verify if Pip has been correctly installed: \emph{pip3 - -version}
+
+\subsection{OpenCV}
+\paragraph{}
+OpenCV can be installed with the following commands:
+\begin{itemize}
+	\item \emph{sudo apt-get update}
+	\item \emph{sudo pip install opencv-python}
+	\item \emph{sudo pip install opencv-contrib-python}
+\end{itemize}
+\paragraph{}
+To verify if OpenCV  has been correctly installed, open a terminal and execute the following commands:
+\begin{itemize}
+	\item \emph{python}
+	\item \emph{import cv2}
+\end{itemize}
+\paragraph{} 
+If the error \emph{ImportError: No module named cv2} appears, this means that OpenCV has not been installed correctly, otherwise, the installation is successful.
+
+
+\subsection{Asebamedulla}
+\paragraph{}
+Asebamedulla can be installed with the following commands:
+\begin{itemize}
+	\item Go to the website \url{http://wiki.thymio.org/en:linuxinstall}
+	\item Download the version corresponding to your OS (64x or 32x)
+	\item Open a terminal and execute the command \emph{sudo dpkg -i aseba\_*}
 \end{itemize}
 \section{Environment configuration}
 \paragraph{}
@@ -106,7 +208,7 @@ After that, we need to set the IP address attributed to the Raspberry-Pi on the 
 
 \chapter{Launching the application}
 \paragraph{}
-After having succeeded the configuration, the application is now ready to be launched. Being on a JAVA IDE, the main class to run bears the name of \emph{Principal.java} whose complete path is: \emph{robot-explo/Code/src/explorator/Principal.java} 
+After having succeeded the configuration of the environment. You can now go on the website \url{https://github.com/AsmaBRZ/robot-explo/} and download the project. After that, launch Eclipse and import the project. Then, run the main class which bears the name of \emph{Principal.java}, and whose complete path is: \emph{robot-explo/Code/src/explorator/Principal.java} 
 \paragraph{}
 The launching of the application opens a JME window. In this window, we can see a representation of the environment explored by the autonomous robot in real-time. We show in the figure below an instance of the execution of the application.
 \paragraph{}
@@ -121,7 +223,7 @@ Finally, the robot indicates whether it finds the target or not.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.4]{instanceApp.png}
+		\includegraphics[scale=0.35]{instanceApp.png}
 		\caption{An instance of the robot's exploration}
 	\end{center}
 \end{figure}
