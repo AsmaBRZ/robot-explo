@@ -12,7 +12,13 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Litterature review}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Requirements}{5}
+\contentsline {chapter}{\numberline {4}Requirement Specification and Analysis}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Functional Requirments}{5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Non Functional Requirments}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Design Specification}{6}
 \defcounter {refsection}{0}\relax 

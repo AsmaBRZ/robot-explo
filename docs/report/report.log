@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.9.13)  6 JUN 2019 10:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.9.13)  6 JUN 2019 17:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -985,14 +985,7 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 \@quotelevel=\count365
 \@quotereset=\count366
 
-(./report.aux
-
-Package babel Warning: Unknown language `french'. Very likely you
-(babel)                requested it in a previous run. Expect some
-(babel)                wrong results in this run, which should vanish
-(babel)                in the next one. Reported on input line 17.
-
-)
+(./report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
@@ -1007,7 +1000,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count367
 \scratchdimen=\dimen190
@@ -1085,33 +1079,17 @@ Package biblatex Info: ... file 'report.bbl' found.
 (./report.bbl)
 Package biblatex Info: Reference section=0 on input line 25.
 Package biblatex Info: Reference segment=0 on input line 25.
-<logo.png, id=4, 844.1136pt x 228.3732pt>
-File: logo.png Graphic file (type png)
-<use logo.png>
-Package pdftex.def Info: logo.png  used on input line 52.
+<res/logo.png, id=4, 844.1136pt x 228.3732pt>
+File: res/logo.png Graphic file (type png)
+<use res/logo.png>
+Package pdftex.def Info: res/logo.png  used on input line 52.
 (pdftex.def)             Requested size: 300.29344pt x 81.24205pt.
  [1
 
 \openout6 = `report.ist'.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>] (./report.toc
-
-
-! Package babel Error: Unknown language `french'. Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively. In
-(babel)                some cases, you may need to remove the aux file.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 \babel@toc {french}{}
-                         
-You may proceed, but expect wrong results
-
-)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./res/logo.png>] (./report
+.toc)
 \tf@toc=\write8
 \openout8 = `report.toc'.
 
@@ -1164,10 +1142,10 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25502 strings out of 492645
- 489286 string characters out of 6131956
- 963622 words of memory out of 5000000
- 28927 multiletter control sequences out of 15000+600000
+ 25501 strings out of 492645
+ 489278 string characters out of 6131956
+ 964622 words of memory out of 5000000
+ 28925 multiletter control sequences out of 15000+600000
  9621 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,5n,65p,1992b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1175,7 +1153,7 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (11 pages, 201353 bytes).
+Output written on report.pdf (11 pages, 203288 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  42 compressed objects within 1 object stream
