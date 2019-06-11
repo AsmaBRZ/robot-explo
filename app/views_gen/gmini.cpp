@@ -1,9 +1,10 @@
 #include <GL/glut.h>
+#include <GL/glext.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
-
-
 #include <thread>
 #include <chrono>
 #include <iostream>
@@ -13,21 +14,23 @@
 
 #include "src/Scene.h"
 
-const float PI = 3.14159f;
 float camera_theta = 2.042033;
-float camera_phi = 8.639376;
+float camera_phi = 0;
 float camera_r = 15;
 static GLint window;
+static GLubyte *pixels = NULL;
+static const GLenum FORMAT = GL_RGBA;
 static unsigned int SCREENWIDTH = 640;
 static unsigned int SCREENHEIGHT = 480;
+static const GLuint FORMAT_NBYTES = 4;
 Scene scene;
 double aspect_ratio = 0;
-
-
-void reshape(int w, int h)
+static unsigned int nscreenshots = 0;
+int cp=0;
+void reshape(int width, int high)
 {
-    aspect_ratio = (double)w / (double)h;
-    glViewport(0, 0, w, h);
+    aspect_ratio = (double)width / (double)high;
+    glViewport(0, 0, width, high);
 }
 
 void init()
@@ -35,27 +38,24 @@ void init()
     glClearColor(1,1,1,0);
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 }
-void draw () {
-    scene.draw();
-}
-
-void myaxes(double size)
+void axes()
 {
     glBegin(GL_LINES);
+    //axis X
     glColor3f(0,0,0);
     glVertex3f(0,0,0); 
     glColor3f(1,0,0);
-    glVertex3f(size,0,0); //x-axis
-
+    glVertex3f(4,0,0);
+    //axis Y
     glColor3f(0,0,0);
     glVertex3f(0,0,0); 
     glColor3f(0,1,0);
-    glVertex3f(0,size,0); //y-axis
-
+    glVertex3f(0,4,0); 
+    //axis Z
     glColor3f(0,0,0);
     glVertex3f(0,0,0);
     glColor3f(0,0,1);
-    glVertex3f(0,0,size); //z-axis
+    glVertex3f(0,0,4); 
     glEnd();
 }
 
@@ -74,41 +74,97 @@ void display(void)
 
     // spherical coordinate camera transform, +Z is "up"
     glTranslatef(0 ,0 , -camera_r);
-    glRotatef( (camera_theta - PI) * (180.0f/PI), 1,0,0 );
-    glRotatef( -camera_phi * (180.0f/PI), 0,0,1 );
+    glRotatef( (camera_theta - M_PI) * (180.0f/M_PI), 1,0,0 );
+    glRotatef( -camera_phi * (180.0f/M_PI), 0,0,1 );
 
     // draw the model
-    draw ();
-    myaxes(5);
+    scene.draw();
+    //axes();
     glutSwapBuffers();
 }
-
-void mykeyboardcontrol(unsigned char key, int x, int y)
+static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned int height,
+        unsigned int color_max, unsigned int pixel_nbytes, GLubyte *pixels) {
+    int i, j, k, cur;
+    enum Constants { max_filename = 256 };
+    char filename[max_filename];
+    snprintf(filename, max_filename, "%s%d.ppm", prefix, frame_id);
+    FILE *f = fopen(filename, "w");
+    fprintf(f, "P3\n%d %d\n%d\n", width, height, 255);
+    for (i = 0; i < height; i++) {
+       for (j = 0; j < width; j++) {
+            cur = pixel_nbytes * ((height - i - 1) * width + j);
+            fprintf(f, "%3d %3d %3d ", pixels[cur], pixels[cur + 1], pixels[cur + 2]);
+        }
+        fprintf(f, "\n");
+    }
+    fclose(f);
+}
+void processNormalKeys(unsigned char key, int x, int y)
 {
     switch(key){
-        case 'r': camera_r+=0.1;break; //increase radius
-        case 'p': camera_r-=0.1;break; //decrease radius
-
-        case 'i': camera_theta+=PI/20;break;//increase theta angle
-        case 'k': camera_theta-=PI/20;break;//increase theta angle
-        case 'j': camera_phi-=PI/20;break;//increase phi angle
-        case 'l': camera_phi+=PI/20;break;//increase phi angle
+        case '-': 
+            camera_r+=0.1;
+            break; 
+        case '+':       
+            camera_r-=0.1;
+            break; 
+        case 's':
+            pixels =  ( GLubyte *) malloc(FORMAT_NBYTES * SCREENWIDTH * SCREENHEIGHT);
+            create_ppm("tmp", nscreenshots, SCREENWIDTH, SCREENHEIGHT, 255, 4, pixels);
+            free(pixels);
+            break;
+        default:
+            break;
         }
     printf("r=%f  theta=%f  phi=%f\n",camera_r,camera_theta,camera_phi);
     if(key==27) exit(0);
 
     // clamp theta 
     if( camera_theta < 0 ) camera_theta = 0;
-    if( camera_theta > PI ) camera_theta = PI;
+    if( camera_theta > M_PI ) camera_theta = M_PI;
 
     // wrap phi
-    if( camera_phi > 2*PI ) camera_phi -= 2*PI;
-    if( camera_phi < 2*PI ) camera_phi += 2*PI;
+    if( camera_phi > 2*M_PI ) camera_phi -= 2*M_PI;
+    if( camera_phi < 2*M_PI ) camera_phi += 2*M_PI;
 
     printf("r=%f  theta=%f  phi=%f\n",camera_r,camera_theta,camera_phi);
 
     glutPostRedisplay();
 }
+void processSpecialKeys(int key, int x, int y)
+{
+    switch(key){
+        case GLUT_KEY_UP: 
+            camera_theta+=M_PI/30;
+            break;
+        case GLUT_KEY_DOWN: 
+            camera_theta-=M_PI/30;
+            break;
+        case GLUT_KEY_LEFT: 
+            camera_phi-=M_PI*30.0f/180.0f;
+            break;
+        case GLUT_KEY_RIGHT: 
+            camera_phi+= M_PI*30.0f/180.0f;
+            break;
+        default:
+            break;
+        }
+    printf("r=%f  theta=%f  phi=%f\n",camera_r,camera_theta,camera_phi);
+    if(key==27) exit(0);
+
+    // clamp theta 
+    if( camera_theta < 0 ) camera_theta = 0;
+    if( camera_theta > M_PI ) camera_theta = M_PI;
+
+    // wrap phi
+    if( camera_phi > 2*M_PI ) camera_phi -= 2*M_PI;
+    if( camera_phi < 2*M_PI ) camera_phi += 2*M_PI;
+
+    printf("r=%f  theta=%f  phi=%f\n",camera_r,camera_theta,camera_phi);
+
+    glutPostRedisplay();
+}
+
 
 int main(int argc, char **argv)
 {   // init GLUT and create window
@@ -121,8 +177,8 @@ int main(int argc, char **argv)
     // register callbacks
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-    glutKeyboardFunc(mykeyboardcontrol);
-
+    glutKeyboardFunc(processNormalKeys);
+    glutSpecialFunc(processSpecialKeys);
     //display the model
     scene.addMesh ("models/chair.off");
     
