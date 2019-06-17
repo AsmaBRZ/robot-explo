@@ -1,0 +1,14 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Getting\040started}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Hardware\040prerequisites}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{OS/Software\040prerequisites}{chapter.2}% 4
+\BOOKMARK [2][-]{subsection.2.2.1}{Java\0408}{section.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.2}{Java\040IDE}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.3}{JMonkey\040Engine}{section.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.2.4}{Python\0403}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.5}{Pip\0403}{section.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.6}{OpenCV}{section.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.7}{Asebamedulla}{section.2.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Environment\040configuration}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.3.1}{Wireless\040configuration}{section.2.3}% 13
+\BOOKMARK [0][-]{chapter.3}{Launching\040the\040application}{}% 14

@@ -11,21 +11,21 @@
 #include <fstream>
 #include <vector>
 #include <string>
-
 #include "src/Scene.h"
+using namespace std;
 
+
+std::string modelName;
 float camera_theta = 2.042033;
 float camera_phi = 0;
 float camera_r = 15;
 static GLint window;
-static GLubyte *pixels = NULL;
 static const GLenum FORMAT = GL_RGBA;
 static unsigned int SCREENWIDTH = 640;
 static unsigned int SCREENHEIGHT = 480;
 static const GLuint FORMAT_NBYTES = 4;
 Scene scene;
 double aspect_ratio = 0;
-static unsigned int nscreenshots = 0;
 int cp=0;
 void reshape(int width, int high)
 {
@@ -82,36 +82,39 @@ void display(void)
     //axes();
     glutSwapBuffers();
 }
-static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned int height,
-        unsigned int color_max, unsigned int pixel_nbytes, GLubyte *pixels) {
-    int i, j, k, cur;
-    enum Constants { max_filename = 256 };
-    char filename[max_filename];
-    snprintf(filename, max_filename, "%s%d.ppm", prefix, frame_id);
-    FILE *f = fopen(filename, "w");
-    fprintf(f, "P3\n%d %d\n%d\n", width, height, 255);
-    for (i = 0; i < height; i++) {
-       for (j = 0; j < width; j++) {
-            cur = pixel_nbytes * ((height - i - 1) * width + j);
-            fprintf(f, "%3d %3d %3d ", pixels[cur], pixels[cur + 1], pixels[cur + 2]);
-        }
-        fprintf(f, "\n");
-    }
-    fclose(f);
+void saveView() {    
+    const int nbPix = SCREENWIDTH * SCREENHEIGHT * 3;
+    unsigned char pixels[nbPix];
+    char fileName[12];
+    sprintf(fileName, "%d", cp);
+
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+    glReadBuffer(GL_FRONT);
+    glReadPixels(0, 0, SCREENWIDTH, SCREENWIDTH, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixels);
+
+    FILE *outputFile = fopen(fileName+".tga", "w");
+    short header[] = {0, 2, 0, 0, 0, 0, (short) SCREENWIDTH, (short) SCREENWIDTH, 24};
+
+    fwrite(&header, sizeof(header), 1, outputFile);
+    fwrite(pixels, nbPix, 1, outputFile);
+    fclose(outputFile);
+
+    printf("View %d captured\n",cp);
+    cp++;
 }
 void processNormalKeys(unsigned char key, int x, int y)
 {
     switch(key){
         case '-': 
-            camera_r+=0.1;
+            camera_r+=0.5;
             break; 
         case '+':       
-            camera_r-=0.1;
+            camera_r-=0.5;
             break; 
         case 's':
-            pixels =  ( GLubyte *) malloc(FORMAT_NBYTES * SCREENWIDTH * SCREENHEIGHT);
-            create_ppm("tmp", nscreenshots, SCREENWIDTH, SCREENHEIGHT, 255, 4, pixels);
-            free(pixels);
+            //pixels =  ( GLubyte *) malloc(FORMAT_NBYTES * SCREENWIDTH * SCREENHEIGHT);
+            saveView();
+            //free(pixels);
             break;
         default:
             break;
@@ -167,7 +170,15 @@ void processSpecialKeys(int key, int x, int y)
 
 
 int main(int argc, char **argv)
-{   // init GLUT and create window
+{   
+     if (argc < 2){
+        printf("The name of the model is required\n");
+        return 0;
+     }
+        
+    modelName = argv[1];
+    printf("Model reading... : %s \n", argv[1]);
+    // init GLUT and create window
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize (SCREENWIDTH, SCREENHEIGHT);
@@ -180,7 +191,7 @@ int main(int argc, char **argv)
     glutKeyboardFunc(processNormalKeys);
     glutSpecialFunc(processSpecialKeys);
     //display the model
-    scene.addMesh ("models/chair.off");
+    scene.addMesh ("models/"+modelName);
     
     glutMainLoop();
 
