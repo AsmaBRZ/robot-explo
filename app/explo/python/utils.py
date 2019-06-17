@@ -222,7 +222,12 @@ def goodFeatureCorner(im):
         print(x,y)
         cv2.circle(img, (x, y), 3, 255, -1) 
   
-    plt.imshow(img), plt.show() 
+    cv2.imshow("Image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    #return corners
+def PictureGFCornerDetection():
+    goodFeatureCorner(takePicture())
 
 ######################################
 # Second method for corner detection #
@@ -275,7 +280,7 @@ def HoughLinesCorner(im):
     cv2.destroyAllWindows()
     #return cornersFiltred
 
-def StreamCornerDetection():
+def StreamHLCornerDetection():
     camera=PiCamera()
     camera.resolution=(600,400)
     camera.framerate=32
@@ -297,7 +302,7 @@ def StreamCornerDetection():
         # if the `q` key was pressed, break from the loop
         if key == ord("q"):
             break
-def PictureCornerDetection():
+def PictureHLCornerDetection():
     HoughLinesCorner(takePicture())
 
 #######################################
