@@ -1,0 +1,19 @@
+'''
+    File name: config_dns
+    Author: Asma BRAZI
+    Date created: 17/05/2019
+    Python Version: 3.6.7
+'''
+
+Step1: 
+- Create a file named "init_wlan0.py" in /home/pi. Its content is defined in the file init_wlan0.py at https://github.com/AsmaBRZ/robot-explo/config_wlan/init_wlan0.py
+
+Step2
+To run the Python script at startup in raspberry you should open a terminal and follow the instructions bellow:
+- Modify the file ".bashrc" with sudo nano /home/pi/.bashrc
+- Add the following commands at the end of the file
+	echo Running at boot 
+	sudo python /home/pi/init_wlan0.py
+- Save and close ".bashrc"
+- On a terminal execute the command: reboot
+Inspiration: https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/
