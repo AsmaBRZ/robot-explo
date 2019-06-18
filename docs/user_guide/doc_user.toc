@@ -40,3 +40,11 @@
 \contentsline {paragraph}{}{8}{section*.27}
 \contentsline {paragraph}{}{8}{section*.28}
 \contentsline {paragraph}{}{8}{section*.29}
+\contentsline {chapter}{\numberline {A}Some Wi-Fi issues resolved}{9}{appendix.A}
+\contentsline {paragraph}{}{9}{section*.30}
+\contentsline {section}{\numberline {A.1}Verify your configuration files}{9}{section.A.1}
+\contentsline {paragraph}{}{9}{section*.31}
+\contentsline {section}{\numberline {A.2}Refresh local configuration settings}{9}{section.A.2}
+\contentsline {paragraph}{}{9}{section*.32}
+\contentsline {paragraph}{}{10}{section*.33}
+\contentsline {paragraph}{}{10}{section*.34}

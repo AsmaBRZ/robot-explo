@@ -227,5 +227,45 @@ Finally, the robot indicates whether it finds the target or not.
 		\caption{An instance of the robot's exploration}
 	\end{center}
 \end{figure}
+\appendix 
+	\chapter{Some Wi-Fi issues resolved}
+	\paragraph{}
+	In this section, we will try to give some solutions that helped us to resolve problems of the wi-fi connection which may occur the most. 
+	\section{Verify your configuration files}
+	\paragraph{}
+	It may seem totally silly to mention it, nevertheless, most errors are due to typos. So, be sure that the name and password of your router are correct. Also, make sure that paths mentioned in your configuration files are exact.
+	\section{Refresh local configuration settings}
+	\paragraph{}
+	If the path to wpa supplicant config file is not well defined, or you have upgraded or updated the OS, you may have trouble with DNS resolving which does not work correctly anymore. 
+	In this case, try to execute the following commands on a terminal:
+	\begin{itemize}
+		\item \textit{sudo su}
+		\item \textit{wpa\_supplicant -i wlan0}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[scale=0.6]{res/dns3.png}
+			\end{center}
+		\end{figure}
+		\item \textit{wpa\_supplicant -i wlan0 -c \/etc\/wpa\_supplicant\/wpa\_supplicant.conf}
+		\item Press on Ctrl+Z after getting the same result as in the picture below.
+	\end{itemize}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{res/dns1.png}
+	\end{center}
+\end{figure}
+\begin{itemize}
+	\item \textit{dhclient wlan0}
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[scale=0.6]{res/dns2.png}
+		\end{center}
+	\end{figure}
+	\item \textit{exit}
+\end{itemize}
+\paragraph{}
+These instructions permit to specify the path to wpa\_supplicant manually, which reveals any typos. Also, it refresh the ip address of the current machine.
 
+\paragraph{}
+You can easily copy the commands from the file  the file init\_wlan0.py at      \url{https://github.com/AsmaBRZ/robot-explo/config_wlan/init_wlan0.py}
 \end{document}
