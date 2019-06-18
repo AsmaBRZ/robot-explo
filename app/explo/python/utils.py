@@ -6,9 +6,12 @@
     Date last modified: 22/04/2019
     Python Version: 3.6.7
 '''
-
+from __future__ import print_function
 from picamera import PiCamera
 from time import sleep
+from shapely.geometry import LineString
+from shapely.geometry.collection import GeometryCollection
+from shapely.geometry.point import Point
 import os.path
 import os
 import datetime
@@ -26,7 +29,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 import sched
-
+import collections
 # the function HoughLinesP return the maximum vertical line detected (let it be our height of the wall)
 #maxLG:  the height of the wall that we allow to have
 def HoughLinesP(im='v.jpg',maxLG=350):
@@ -256,7 +259,7 @@ def PictureGFCornerDetection():
 ######################################
 def HoughLinesCorner(im):
     dic={}
-    img = im
+    img =  cv2.imread(im)
     n,m,_=np.array(img).shape
     borders=[0.0,n,m]
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -326,5 +329,28 @@ def StreamHLCornerDetection():
             break
 def PictureHLCornerDetection():
     HoughLinesCorner(takePicture())
+def LSDDetection(im):
+    img = cv2.imread(im)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    lsd = cv2.createLineSegmentDetector(0)
+    lines = lsd.detect(gray)[0]
+    for line in lines:
+        x0 = int(round(line[0][0]))
+        y0 = int(round(line[0][1]))
+        x1 = int(round(line[0][2]))
+        y1 = int(round(line[0][3]))
+        if np.sqrt((x0-x1)**2+(y0-y1)**2)>20:
+            if abs(x0-x1)<20:
+                cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
+            else:
+                cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
+    #drawn_img = lsd.drawSegments(img,lines)
+    cv2.imshow("Image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
+def PictureLSDDetection():
+    LSDDetection(takePicture())
 #######################################
+#PictureGFCornerDetection()
+PictureLSDDetection()
