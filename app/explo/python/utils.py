@@ -30,6 +30,23 @@ from picamera import PiCamera
 import time
 import sched
 import collections
+
+
+import itertools
+import random
+from itertools import starmap
+
+def takePicture(r1=600,r2=400):
+    urlDirectory="/home/pi/VisualNav"
+    imgName=datetime.datetime.now().strftime('%H%M%S%d%m')
+    urlImg=urlDirectory+'/'+imgName+'.jpg'
+    camera = PiCamera()
+    camera.resolution = (r1,r2)
+    camera.start_preview()
+    sleep(2)
+    camera.capture(urlImg)
+    camera.stop_preview()
+    return urlImg
 # the function HoughLinesP return the maximum vertical line detected (let it be our height of the wall)
 #maxLG:  the height of the wall that we allow to have
 def HoughLinesP(im='v.jpg',maxLG=350):
@@ -60,17 +77,7 @@ class AsebaThread(Thread):
         os.system(self.cmd)
 
 #taking picture by the rhe robot
-def takePicture(r1=600,r2=400):
-    urlDirectory="/home/pi/VisualNav"
-    imgName=datetime.datetime.now().strftime('%H%M%S%d%m')
-    urlImg=urlDirectory+'/'+imgName+'.jpg'
-    camera = PiCamera()
-    camera.resolution = (r1,r2)
-    camera.start_preview()
-    sleep(2)
-    camera.capture(urlImg)
-    camera.stop_preview()
-    return urlImg
+
 
 #type is the name of the picture 0:QRCODE 1:PEPPER 2:PLATON
 def getThreshold(type):
@@ -329,11 +336,106 @@ def StreamHLCornerDetection():
             break
 def PictureHLCornerDetection():
     HoughLinesCorner(takePicture())
-def LSDDetection(im):
+
+#Calculate the equation of the segment with two points p1 and p2
+#return the coef a and  of the equation
+def coefLine(p1,p2):
+    if abs(p2[0]-p1[0])<0.001:
+        a=0
+        c=p1[0]
+    else:
+        a=(p2[1]-p1[1])/(p2[0]-p1[0])
+        if p1[0]>0.001:
+            c=p1[1]/(a*p1[0])
+        if p2[0]>0.001:
+            c=p2[1]/(a*p2[0])
+    return a,1,c
+#Calculate the shortest distance between a point and a line
+def distPointLine(p1,p2,p3):
+    p1=np.array(p1)
+    p2=np.array(p2)
+    p3=np.array(p3)
+    return np.cross(p2-p1,p3-p1)/np.linalg.norm(p2-p1)
+
+#Calculate the longest distance between two lines, by checking each extremity with the other line. 
+def distLineLine(l1,l2):
+    x1,y1,x2,y2=l1
+    x3,y3,x4,y4=l2
+    e11=[x1,y1]
+    e12=[x2,y2]
+    e21=[x3,y3]
+    e22=[x4,y4]
+    d1=distPointLine(e11,e12,e21)
+    d2=distPointLine(e11,e12,e22)
+    d3=distPointLine(e21,e22,e11)
+    d4=distPointLine(e21,e22,e12)
+    return max(d1,d2,d3,d4)
+
+#Treat by a couple of lines from the entry 'lines', if they are too close depending on a threshold, they are merged
+#Teh set of kept lines is returned
+def mergeLines(lines,threshold):
+    filtred_lines=[]
+    lines_copy=lines.copy()
+    dic={}
+    #sort lines by length
+    sortedLineLength=[]
+    for line in lines:
+        x1, y1, x2, y2 = line
+        dic[-np.sqrt((x1-x2)**2+(y1-y2)**2)]=line
+        sortedLineLength.append(np.array([line,-np.sqrt((x1-x2)**2+(y1-y2)**2)]))
+    dic= collections.OrderedDict(sorted(dic.items()))
+    sortedDic=[]
+    for k, v in dic.items():
+        sortedDic.append([-k,v]) #distance + line
+
+
+    
+    #convert liens array to a dic, this facilitates to filter lines at deletion
+    dicLines = { i : sortedDic[i] for i in range(0, len(sortedDic) ) }
+    #print('dicLines',dicLines)
+    for Kl1 in list(dicLines):
+        if Kl1 in dicLines.keys():
+            #print("Kl1",Kl1)
+            l1_length,Vl1=dicLines[Kl1]
+            Kl1_OK=False
+            #print('Kl1,Vl1',Kl1,Vl1)
+            for Kl2 in list(dicLines):
+                if Kl2  in dicLines.keys():
+                    #print("Kl2",Kl2)
+                    l2_length,Vl2=dicLines[Kl2]
+                    if Kl1!=Kl2:
+                        #print('Kl2,Vl2',Kl2,Vl2)
+                        dist=distLineLine(Vl1,Vl2)
+                        #print('distance',dist)
+                        if(distLineLine(Vl1,Vl2)<threshold):
+                            #print('Merge lines',Kl1,Kl2)
+                            #l1_length=np.sqrt((Vl1[0]-Vl1[2])**2+(Vl1[1]-Vl1[3])**2)
+                            #l2_length=np.sqrt((Vl2[0]-Vl2[2])**2+(Vl2[1]-Vl2[3])**2)
+                            #print('length',l1_length,l2_length)
+                            if l1_length>l2_length:
+                                print('l1_length>l2_length',l1_length,l2_length)
+                                if not Kl1_OK:
+                                    filtred_lines.append(Vl1)
+                                    Kl1_OK=True
+                                #print("l1")
+                            else:
+                                filtred_lines.append(Vl2)
+                                print('l1_length<l2_length',l1_length,l2_length)
+                                #print("l2")
+                            dicLines.pop(Kl2)
+                            #print('Dic filt',dicLines.keys())
+    return filtred_lines
+
+#Use of the LSD detection in order to capture the necessary segments after filtering
+def LSDDetection(im,threshold=30,max_iter=2):
     img = cv2.imread(im)
+    img_ori=img
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray= cv2.Canny(gray, 100, 150)
     lsd = cv2.createLineSegmentDetector(0)
     lines = lsd.detect(gray)[0]
+    lines_vert=[]
+    lines_non_vert=[]
     for line in lines:
         x0 = int(round(line[0][0]))
         y0 = int(round(line[0][1]))
@@ -341,16 +443,52 @@ def LSDDetection(im):
         y1 = int(round(line[0][3]))
         if np.sqrt((x0-x1)**2+(y0-y1)**2)>20:
             if abs(x0-x1)<20:
-                cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
+                #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
+                lines_vert.append(line[0])
             else:
-                cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
+                lines_non_vert.append(line[0])
+    #print("Vertical lines are:",lines_vert)
+    #print("Non-Vertical lines are:",lines_non_vert)
+   # print("lines_non_vert:",lines_non_vert)
+
+    filtred_non_vert_lines=lines_non_vert
+    filtred_vert_lines=lines_vert
+    for i in range(max_iter):
+        rend_img=img_ori.copy()
+        for l1 in filtred_non_vert_lines:
+            cv2.line(rend_img, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+        for l1 in filtred_vert_lines:
+            cv2.line(rend_img, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+        cv2.imshow("Image"+str(i), rend_img)
+        print(i)
+        print('length',len(filtred_non_vert_lines),len(filtred_vert_lines))
+        filtred_non_vert_lines=mergeLines(filtred_non_vert_lines,threshold)
+        filtred_vert_lines=mergeLines(filtred_vert_lines,threshold)
+    rend_img=img_ori.copy()
+    for l1 in filtred_non_vert_lines:
+        cv2.line(rend_img, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+    for l1 in filtred_vert_lines:
+        cv2.line(rend_img, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+    cv2.imshow("Image"+str(max_iter), rend_img)
+    #print(max_iter)
+    print('length',len(filtred_non_vert_lines),len(filtred_vert_lines))
+    #print()
+    #print('filtred_non_vert_lines: ',filtred_non_vert_lines)
+    #for l1 in filtred_non_vert_lines:
+     #   cv2.line(img, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+    
+ #   for l1 in filtred_vert_lines:
+  #      cv2.line(img, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
     #drawn_img = lsd.drawSegments(img,lines)
-    cv2.imshow("Image", img)
+   # cv2.imshow("Image", img)
+    #cv2.imshow("Edges", gray)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-def PictureLSDDetection():
-    LSDDetection(takePicture())
+def PictureLSDDetection(threshold=30,max_iter=2):
+    LSDDetection(takePicture(),threshold,max_iter)
 #######################################
 #PictureGFCornerDetection()
-PictureLSDDetection()
+threshold=1
+max_iter=2
+PictureLSDDetection(threshold,max_iter)
