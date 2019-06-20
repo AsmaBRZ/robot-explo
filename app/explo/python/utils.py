@@ -30,7 +30,8 @@ from picamera import PiCamera
 import time
 import sched
 import collections
-
+from numpy import ones,vstack
+from numpy.linalg import lstsq
 
 import itertools
 import random
@@ -210,16 +211,12 @@ def intersection(l1,l2):
 #Calculate the equation of the segment with two points p1 and p2
 #return the coef a and  of the equation
 def coefLine(p1,p2):
-    if abs(p2[0]-p1[0])<0.001:
-        a=0
-        c=p1[0]
-    else:
-        a=(p2[1]-p1[1])/(p2[0]-p1[0])
-        if p1[0]>0.001:
-            c=p1[1]/(a*p1[0])
-        if p2[0]>0.001:
-            c=p2[1]/(a*p2[0])
-    return a,1,c
+    points = [p1,p2]
+    x_coords, y_coords = zip(*points)
+    A = vstack([x_coords,ones(len(x_coords))]).T
+    m, c = lstsq(A, y_coords)[0]
+    #print("Line Solution is y = {m}x + {c}".format(m=m,c=c))
+    return m,1,c
 #Calculate the shortest distance between a point and a line
 def distPointLine(p1,p2,p3):
     p1=np.array(p1)
@@ -242,13 +239,21 @@ def distLineLine(l1,l2):
     return max(d1,d2,d3,d4)
 
 #Calculate the longest distance between two lines, by checking each extremity with the other line. 
-def minDistLineLine(l1,l2,thresholdA=0.01,thresholdC=3):
+def minDistLineLine(l1,l2,thresholdA=10,thresholdC=100,thresholdX=10):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
     a1,b1,c1=coefLine([x1,y1],[x2,y2])
     a2,b2,c2=coefLine([x3,y3],[x4,y4])
-    if abs(a1-a2)<thresholdA and abs(c1-c2)<thresholdC:
+    if a1-a2<thresholdA and c1-c2<thresholdC:
+        #print("******************************************Merged:",a1,a2,c1,c2)
         return True
+    else:
+        if x1-x3<thresholdX and x2-x4<thresholdX:
+            #print("Surpriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiise")
+            #print("*****Merged:",a1,a2,c1,c2)
+            return True
+        else:
+            #print("Not merged:",a1,a2,c1,c2)
     return False
 
 def getTwoExtremities(index_min_dist):
@@ -301,7 +306,7 @@ def newLine4Points(l1,l2):
     else:
         return [a_x,a_y,l2[2],l2[3]]
 
-def mergeLines(lines,threshold=0.5):
+def mergeLines(lines,threshold=10):
     filtred_lines=[]
     lines_copy=lines.copy()
     dic={}
@@ -319,38 +324,54 @@ def mergeLines(lines,threshold=0.5):
     #convert liens array to a dic, this facilitates to filter lines at deletion
     dicLines = { i : sortedDic[i] for i in range(0, len(sortedDic) ) }
     n=len(dicLines)
+    q=0
     for Kl1 in list(dicLines):
+        
+        p=0
+        #print('FOR1 lendic',len(dicLines))
         if Kl1 in dicLines.keys():
-            Vl1=dicLines[Kl1][1]
+            #print(Kl1)
+            l1_length,Vl1=dicLines[Kl1]
             Kl_OK=False
             #print('Kl1,Vl1',Kl1,Vl1)
             for Kl2 in list(dicLines):
+                
+                #print('FOR2 lendic',len(dicLines))
                 if Kl2  in dicLines.keys():
+                    #print(Kl2)
                     #print("Kl2",Kl2)
-                    Vl2=dicLines[Kl2][1]
+                    l2_length,Vl2=dicLines[Kl2]
                     if Kl1!=Kl2:
                         #print('Kl2,Vl2',Kl2,Vl2)
                         #print('distance',dist)
                         #Is thes line sl1 and l2 close to merge?
-                        if(minDistLineLine(Vl1,Vl2)):
+                        if( distLineLine(Vl1,Vl2) <threshold and minDistLineLine(Vl1,Vl2)):
                             print('Merge lines',Kl1,Kl2)
-                            new_line=newLine4Points(Vl1,Vl2)
+
+                            if l1_length>l2_length:
+                                filtred_lines.append(Vl1)
+                            else:
+                                filtred_lines.append(Vl2)
+                            #new_line=newLine4Points(Vl1,Vl2)
                             dicLines.pop(Kl1)
                             dicLines.pop(Kl2)
                             #x1, y1, x2, y2 = new_line
                             #dist_new_line=np.sqrt((x1-x2)**2+(y1-y2)**2)
-                            filtred_lines.append(new_line)
+                            #filtred_lines.append(new_line)
                             n+=1
                             #print('Dic filt',dicLines.keys())
                             Kl_OK=True
                 if Kl_OK:
                     break
+                p+=1
+        q+=1
     for key,value in dicLines.items():
             filtred_lines.append(value[1])
     return filtred_lines
 
 #Use of the LSD detection in order to capture the necessary segments after filtering
-def LSDDetection(im):
+def LSDDetection(im,max_iter=4):
+    images=[]
     img = cv2.imread(im)
     img_iter=img.copy()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -359,12 +380,14 @@ def LSDDetection(im):
     lines = lsd.detect(gray)[0]
     lines_vert=[]
     lines_non_vert=[]
+    cp=0
     for line in lines:
         x0 = int(round(line[0][0]))
         y0 = int(round(line[0][1]))
         x1 = int(round(line[0][2]))
         y1 = int(round(line[0][3]))
         if np.sqrt((x0-x1)**2+(y0-y1)**2)>20:
+            cp+=1
             if abs(x0-x1)<20:
                 cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
                 lines_vert.append(line[0])
@@ -375,17 +398,26 @@ def LSDDetection(im):
     #print("Vertical lines are:",lines_vert)
     #print("Non-Vertical lines are:",lines_non_vert)
    # print("lines_non_vert:",lines_non_vert)
-    filtred_non_vert_lines=mergeLines(lines_non_vert)
-    #print()
-    #print('filtred_non_vert_lines: ',filtred_non_vert_lines)
-    for l1 in filtred_non_vert_lines:
-        cv2.line(img_iter, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
-    filtred_vert_lines=mergeLines(lines_vert)
-    for l1 in filtred_vert_lines:
-        cv2.line(img_iter, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
-    #drawn_img = lsd.drawSegments(img,lines)
     cv2.imshow("Image", img)
-    cv2.imshow("Image_ITER", img_iter)
+    filtred_non_vert_lines=lines_non_vert
+    filtred_vert_lines=lines_vert
+    for i in range(max_iter):
+        print('Iteration: ',i)
+        images.append(img_iter.copy())
+        #print("FILTRED**************************************************************************************")
+        filtred_vert_lines=mergeLines(filtred_vert_lines)
+        #print("NOT FILTRED**********************************************************************************")
+        filtred_non_vert_lines=mergeLines(filtred_non_vert_lines)
+        for l1 in filtred_non_vert_lines:
+            cv2.line(images[i], (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+        for l1 in filtred_vert_lines:
+            cv2.line(images[i], (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+        #drawn_img = lsd.drawSegments(img,lines)
+        print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
+        
+    
+    for i in range(len(images)):
+        cv2.imshow("Image_ITER"+str(i),images[i])
     #cv2.imshow("Edges", gray)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
