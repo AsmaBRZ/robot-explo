@@ -242,7 +242,7 @@ def distLineLine(l1,l2):
     return max(d1,d2,d3,d4)
 
 #Calculate the longest distance between two lines, by checking each extremity with the other line. 
-def minDistLineLine(l1,l2,thresholdA=0.01,thresholdC=0.25):
+def minDistLineLine(l1,l2,thresholdA=0.01,thresholdC=3):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
     a1,b1,c1=coefLine([x1,y1],[x2,y2])
@@ -250,10 +250,59 @@ def minDistLineLine(l1,l2,thresholdA=0.01,thresholdC=0.25):
     if abs(a1-a2)<thresholdA and abs(c1-c2)<thresholdC:
         return True
     return False
+
+def getTwoExtremities(index_min_dist):
+    if index_min_dist==0: #ac -> bd
+        return 3
+    if index_min_dist==1: #ad -> bc
+        return 2
+    if index_min_dist==2: #bc -> ad
+        return 1
+    if index_min_dist==3: #bd -> ac
+        return 0
 #Treat by a couple of lines from the entry 'lines', if they are too close depending on a threshold, they are merged
-#Teh set of kept lines is returned
-def mergeLines(lines,threshold=30):
-    filtred_lines={}
+#The set of kept lines is returned
+
+def newLine4Points(l1,l2):
+    a_x=l1[0]
+    a_y=l1[1]
+    b_x=l1[2]
+    b_y=l1[3]
+    c_x=l2[0]
+    c_y=l2[1]
+    d_x=l2[2]
+    d_y=l2[3]
+
+    a_c=np.sqrt((a_x-c_x)**2+(a_y-c_y)**2)
+    a_d=np.sqrt((a_x-d_x)**2+(a_y-d_y)**2)
+    b_c=np.sqrt((b_x-c_x)**2+(b_y-c_y)**2)
+    b_d=np.sqrt((b_x-d_x)**2+(b_y-d_y)**2)
+    dist_points=np.array([a_c,a_d,b_c,b_d])
+    newLines=[[a_x,a_y,c_x,c_y],[a_x,a_y,d_x,d_y],[b_x,b_y,c_x,c_y],[b_x,b_y,d_x,d_y]]
+    index_min_dist= np.argmin(dist_points)
+    #the two closet points are
+    index=getTwoExtremities(index_min_dist)
+    #get the others points two merge
+    x0,y0,x1,y1=newLines[index]
+    #projection of the point on the line
+    point = Point(x0,y0)
+    line = LineString([(l2[0], l2[1]), (l2[2], l2[3])])
+    x = np.array([x0,y0])
+    u = np.array([l2[0], l2[1]])
+    v = np.array(l2[2], l2[3])
+    n = v-u
+    n /= np.linalg.norm(n, 2)
+    projected_point= u + n*np.dot(x-u, n)
+    a_x,a_y=projected_point
+    dis_new_l1=np.sqrt((a_x-l2[0])**2+(a_y-l2[1])**2)
+    dis_new_l2=np.sqrt((a_x-l2[2])**2+(a_y-l2[3])**2)
+    if dis_new_l1>dis_new_l2:
+        return [a_x,a_y,l2[0],l2[1]]
+    else:
+        return [a_x,a_y,l2[2],l2[3]]
+
+def mergeLines(lines,threshold=0.5):
+    filtred_lines=[]
     lines_copy=lines.copy()
     dic={}
     #sort lines by length
@@ -266,44 +315,38 @@ def mergeLines(lines,threshold=30):
     sortedDic=[]
     for k, v in dic.items():
         sortedDic.append([-k,v]) #distance + line
-
-    #convert liens arry to a dic, this facilitates to filter lines at deletion
+    
+    #convert liens array to a dic, this facilitates to filter lines at deletion
     dicLines = { i : sortedDic[i] for i in range(0, len(sortedDic) ) }
+    n=len(dicLines)
     for Kl1 in list(dicLines):
         if Kl1 in dicLines.keys():
             Vl1=dicLines[Kl1][1]
             Kl_OK=False
             #print('Kl1,Vl1',Kl1,Vl1)
-            cp=1
             for Kl2 in list(dicLines):
-                cp+=1
                 if Kl2  in dicLines.keys():
                     #print("Kl2",Kl2)
                     Vl2=dicLines[Kl2][1]
                     if Kl1!=Kl2:
                         #print('Kl2,Vl2',Kl2,Vl2)
                         #print('distance',dist)
+                        #Is thes line sl1 and l2 close to merge?
                         if(minDistLineLine(Vl1,Vl2)):
                             print('Merge lines',Kl1,Kl2)
-                            x0,y0,x1,y1=Vl1
-                            l1_length=np.sqrt((x0-x1)**2+(y0-y1)**2)
-                            x0,y0,x1,y1=Vl2
-                            l2_length=np.sqrt((x0-x1)**2+(y0-y1)**2)
-                            if l1_length>l2_length:
-                                filtred_lines[Kl1]=Vl1
-                            else:
-                                filtred_lines[Kl2]=Vl2
+                            new_line=newLine4Points(Vl1,Vl2)
                             dicLines.pop(Kl1)
                             dicLines.pop(Kl2)
+                            #x1, y1, x2, y2 = new_line
+                            #dist_new_line=np.sqrt((x1-x2)**2+(y1-y2)**2)
+                            filtred_lines.append(new_line)
+                            n+=1
                             #print('Dic filt',dicLines.keys())
                             Kl_OK=True
                 if Kl_OK:
                     break
-            #L1 is far from all the other lines, we add it to the set of filtred lines and we delete it from the dictionary,
-            #so that it will not checked again with the other elements
-            if cp==len(dicLines) and (Kl1 not in filtred_lines):
-                filtred_lines[Kl1]=Vl1
-                dicLines.pop(Kl1)
+    for key,value in dicLines.items():
+            filtred_lines.append(value[1])
     return filtred_lines
 
 #Use of the LSD detection in order to capture the necessary segments after filtering
@@ -335,10 +378,10 @@ def LSDDetection(im):
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     #print()
     #print('filtred_non_vert_lines: ',filtred_non_vert_lines)
-    for l1 in filtred_non_vert_lines.values():
+    for l1 in filtred_non_vert_lines:
         cv2.line(img_iter, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
     filtred_vert_lines=mergeLines(lines_vert)
-    for l1 in filtred_vert_lines.values():
+    for l1 in filtred_vert_lines:
         cv2.line(img_iter, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
     #drawn_img = lsd.drawSegments(img,lines)
     cv2.imshow("Image", img)
