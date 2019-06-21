@@ -38,7 +38,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Programming Languages}{6}{section.5.1}
 \defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{6}{section*.11}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.2}APIs}{6}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{6}{section*.12}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {6}Implementation}{7}{chapter.6}
 \defcounter {refsection}{0}\relax 
@@ -56,24 +60,24 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {A.1}Thymio II}{11}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{11}{section*.11}
+\contentsline {paragraph}{}{11}{section*.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{11}{section*.12}
+\contentsline {paragraph}{}{11}{section*.14}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {A.2}Raspberry-Pi}{11}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{11}{section*.13}
-\defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{12}{section*.14}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{12}{section.A.3}
-\defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{12}{section*.15}
+\contentsline {paragraph}{}{11}{section*.15}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{12}{section*.16}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Powerbank}{12}{section.A.4}
+\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{12}{section.A.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{12}{section*.17}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{13}{section*.18}
+\contentsline {paragraph}{}{12}{section*.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.4}Power-bank}{12}{section.A.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{12}{section*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{13}{section*.20}
