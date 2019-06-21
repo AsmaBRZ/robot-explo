@@ -303,8 +303,16 @@ def newLine4Points(l1,l2):
 
 #Treat by a couple of lines from the entry 'lines', if they are too close depending on a threshold, they are merged
 #The set of kept lines is returned
+def projectPointLine(a, b, p):
+    a=np.array(a)
+    b=np.array(b)
+    p=np.array(p)
+    ap = p-a
+    ab = b-a
+    result = a + np.dot(ap,ab)/np.dot(ab,ab) * ab
+    return result
 
-def newExtremL(l1,l2):
+def newLineMerging(l1,l2):
     s=getSepar(l1,l2)
     a,b,c=coefLine([s[0],s[1]],[s[2],s[3]])
     a_x=l1[0]
@@ -329,26 +337,10 @@ def newExtremL(l1,l2):
     #get the future points to project
     x0,y0,x1,y1=newLines[index]
     #projection of the point on the line
-    point = Point(x0,y0)
-    line = LineString([(l2[0], l2[1]), (l2[2], l2[3])])
-    x = np.array([x0,y0])
-    u = np.array([l2[0], l2[1]])
-    v = np.array(l2[2], l2[3])
-    n = v-u
-    n /= np.linalg.norm(n, 2)
-    projected_point1= u + n*np.dot(x-u, n)
-
-    #projection of the point on the line
-    point = Point(x1,y1)
-    line = LineString([(l2[0], l2[1]), (l2[2], l2[3])])
-    x = np.array([x0,y0])
-    u = np.array([l2[0], l2[1]])
-    v = np.array(l2[2], l2[3])
-    n = v-u
-    n /= np.linalg.norm(n, 2)
-    projected_point2= u + n*np.dot(x-u, n)
-
-    return projected_point1,projected_point2
+    projected_point1_x,projected_point1_y=projectPointLine([l2[0], l2[1]],[l2[2], l2[3]],[x0,y0])
+    projected_point2_x,projected_point2_y=projectPointLine([l2[0], l2[1]],[l2[2], l2[3]],[x1,y1])
+    print('projection',projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y)
+    return projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y
 
 def getSepar(l1,l2):
     x1,y1,x2,y2=l1
@@ -379,44 +371,26 @@ def mergeLines(lines,threshold=5):
     #convert liens array to a dic, this facilitates to filter lines at deletion
     dicLines = { i : sortedDic[i] for i in range(0, len(sortedDic) ) }
     n=len(dicLines)
-    q=0
     for Kl1 in list(dicLines):
-        
-        p=0
-        #print('FOR1 lendic',len(dicLines))
         if Kl1 in dicLines.keys():
-            #print(Kl1)
             l1_length,Vl1=dicLines[Kl1]
             Kl_OK=False
-            #print('Kl1,Vl1',Kl1,Vl1)
             for Kl2 in list(dicLines):
-                
-                #print('FOR2 lendic',len(dicLines))
                 if Kl2  in dicLines.keys():
-                    #print(Kl2)
-                    #print("Kl2",Kl2)
                     l2_length,Vl2=dicLines[Kl2]
                     if Kl1!=Kl2:
-                        #print('Kl2,Vl2',Kl2,Vl2)
-                        #print('distance',dist)
                         #Is thes line sl1 and l2 close to merge?
                         if( distLineLine(Vl1,Vl2) <threshold and minDistLineLine(Vl1,Vl2)):
                             print('Merge lines',Kl1,Kl2)
-                            new_line=getSepar(Vl1,Vl2)
+                            new_line=newLineMerging(Vl1,Vl2)
+                            print(new_line)
                             filtred_lines.append(new_line)
-                            #new_line=newLine4Points(Vl1,Vl2)
                             dicLines.pop(Kl1)
                             dicLines.pop(Kl2)
-                            #x1, y1, x2, y2 = new_line
-                            #dist_new_line=np.sqrt((x1-x2)**2+(y1-y2)**2)
-                            #filtred_lines.append(new_line)
                             n+=1
-                            #print('Dic filt',dicLines.keys())
                             Kl_OK=True
                 if Kl_OK:
                     break
-                p+=1
-        q+=1
     for key,value in dicLines.items():
             filtred_lines.append(value[1])
     return filtred_lines
