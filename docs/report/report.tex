@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{pgfgantt}
+\usepackage{hyperref}
 \usepackage{algorithm2e}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[backend=biber]{biblatex}
@@ -65,25 +66,92 @@ During this internship, we focused the most on the object recognition, because i
 \paragraph{}
 We summarize in this report our work and the results obtained.
 
-\chapter{Litterature review}
+\chapter{Literature review}
+\section{improvement of existing works}
+
+\paragraph{}
+The main purpose of our works is to improve the functionalities developed previously. These functionalities allowed the autonomous robot to move in its environment and explore it, in order to build a representation of this environment, and to recognize a target object. The target object is an object from the knowledge database of the autonomous robot. And the user specified the target object by the user at the launching of the application.
+
+\paragraph{}
+In short, at each move, the autonomous robot took a picture and analyzed it. The analysis of the picture brought new knowledge to the autonomous robot. With this new knowledge, The autonomous robot was able to represent its environment and to recognize the target object. 
+
+\paragraph{}
+However, we assumed some hypothesis that facilitated the process of the exploration. For example, we placed some objects in each corner of the environment and every time the autonomous robot met these objects, it concluded that this was a wall end. So the autonomous robot relied on these objects to decide whether or not it finished exploring the current wall. 
+
+\paragraph{}
+To no longer depend on this hypothesis, we present in our works another manner to construct the environment. Firstly, the autonomous does not try to detect the walls anymore by detecting corners. Instead, it takes a picture, analyzes it to extract the contours of the environment. With these contours, the robot decides if it is in front of a face, or if it still has a way to go...etc.
+By this way, the autonomous robot gathers the analysis's results to estimate the dimensions of the walls.
+
+\paragraph{}
+Regarding the lengths and heights of walls, we globally estimate them in the same way as in the previous work. Nevertheless, the algorithm behind the calculations is a little bit different.  
+
+
 \chapter{Requirement Specification and Analysis}
 \paragraph{}
-In this chapter, we present the functional and non functional requirments of the system. Before that, we specify the system architecture with a brief overview.
+In this chapter, we present the functional and non functional requirements of the system. Before that, we specify the system architecture with a brief overview. 
 \section{System architecture}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[scale=0.6]{res/sys_arch.png}
-		\caption{System architecture}
-	\end{center}
-\end{figure}
-\section{Functional Requirments}
-\section{Non Functional Requirments}
+
+\section{Functional Requirements}
+\section{Non Functional Requirements}
 \chapter{Design Specification}
 \section{Programming Languages}
 \section{APIs}
 \chapter{Implementation}
+\subsection{The strategy of exploration}
+\subsection{3D Object recognition}
 
 \chapter{Testing}
-\chapter{Conclusion, Limitation and Futre work}
+\chapter{Conclusion, Limitation and Future work}
 \chapter{References}
+\appendix
+\chapter{List of components}
+\section{Thymio II}
+\textbf{Description} 
+\paragraph{}
+Thymio II is a mobile robot dedicated to the education field. It has many sensors for different purposes. These sensors covered:infrared receiver,proximity, 3 axis accelerometer, ground sensors for line following...etc.
+\\ \\
+\textbf{Data sheet} 
+\paragraph{}
+\url{https://www.generationrobots.com/fr/401213-robot-mobile-thymio-2.htmlURL}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{res/thymio.jpg}
+	\end{center}
+\end{figure}
+\section{Raspberry-Pi}
+\textbf{Description}
+\paragraph{}
+The Raspberry-Pi is a s single-board computer with wireless LAN and Bluetooth connectivity. It needs a micro USB power supply (2.1 A) in order to be plugged into a power-bank. It has 1GB RAM, 4 USB 2 ports, Full size HDMI, 100 base Ethernet and including a quad core 1.2GHz Broadcom BCM2837 64bit CPU.\\ \\
+\textbf{Data sheet} 
+\paragraph{}
+\url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b/}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{res/raspberry.jpg}
+	\end{center}
+\end{figure}
+\section{Raspberry-Pi Camera}
+\textbf{Description}
+\paragraph{}
+The Raspberry-Pi Camera delivers a 5MP resolution image, and 1080p HD video recording at 30 frame/second. It plugs into the Camera Serial Interface connector on the Raspberry-Pi. \\ \\
+\textbf{Data sheet} 
+\paragraph{}
+\url{https://uk.pi-supply.com/products/raspberry-pi-camera-board-v1-3-5mp-1080p?lang=fr}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{res/camera.jpg}
+	\end{center}
+\end{figure}
+\section{Power-bank}
+\textbf{Description}
+\paragraph{}
+For testing, we used RAVPower powerbank to power the Raspberry-Pi. It has 2A input which can charge the 6700 mAh portable charger. this feature guarantees that the Raspberry-Pi's services work correctly. \\ \\
+\textbf{Data sheet} 
+\paragraph{}
+\url{https://www.ravpower.com/p/Ravpower-6700mAh-Portable-Charger.html}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{res/power.jpg}
+	\end{center}
+\end{figure}
 \end{document}
