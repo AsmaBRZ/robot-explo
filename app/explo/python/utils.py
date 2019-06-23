@@ -236,7 +236,13 @@ def distLineLine(l1,l2):
     return max(d1,d2,d3,d4)
 
 #Calculate the longest distance between two lines, by checking each extremity with the other line. 
-def minDistLineLine(l1,l2,thresholdA=3,thresholdC=20,thresholdX=10):
+def vertTherExcept(l1,l2,thresholdX=20,thresholdY=20):
+    x1,y1,x2,y2=l1
+    x3,y3,x4,y4=l2
+    if x1-x3<thresholdX and x2-x4<thresholdX :
+        return True
+    return False
+def minDistLineLine(l1,l2,thresholdA=3,thresholdC=30,thresholdX=20,thresholdY=20):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
     a1,b1,c1=coefLine([x1,y1],[x2,y2])
@@ -245,7 +251,7 @@ def minDistLineLine(l1,l2,thresholdA=3,thresholdC=20,thresholdX=10):
         #print("******************************************Merged:",a1,a2,c1,c2)
         return True
     else:
-        if x1-x3<thresholdX and x2-x4<thresholdX:
+        if(x1-x3<thresholdX and x2-x4<thresholdX and y1-y3<thresholdY and y2-y4<thresholdY) or (x1-x4<thresholdX and x2-x3<thresholdX and y1-y4<thresholdY and y2-y3<thresholdY):
             #print("Surpriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiise")
             #print("*****Merged:",a1,a2,c1,c2)
             return True
@@ -339,7 +345,7 @@ def newLineMerging(l1,l2):
     #projection of the point on the line
     projected_point1_x,projected_point1_y=projectPointLine([l2[0], l2[1]],[l2[2], l2[3]],[x0,y0])
     projected_point2_x,projected_point2_y=projectPointLine([l2[0], l2[1]],[l2[2], l2[3]],[x1,y1])
-    print('projection',projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y)
+    #print('projection',projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y)
     return projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y
 
 def getSepar(l1,l2):
@@ -356,8 +362,16 @@ def getSepar(l1,l2):
         return [int((e11[0]+e21[0])/2),int((e11[1]+e21[1])/2),int((e12[0]+e22[0])/2),int((e12[1]+e22[1])/2)]
     else:
         return [int((e11[0]+e22[0])/2),int((e11[1]+e22[1])/2),int((e12[0]+e21[0])/2),int((e12[1]+e21[1])/2)]
+def CaptureLongestSeg(lines,threshold=45):
+    result=[]
+    for line in lines:
+        x1, y1, x2, y2 = line
+        norm=np.sqrt((x1-x2)**2+(y1-y2)**2)
+        if norm >threshold:
+            result.append(line)
+    return result
 
-def mergeLines(lines,threshold=5):
+def mergeLines(lines,threshold=30):
     filtred_lines=[]
     lines_copy=lines.copy()
     dic={}
@@ -370,7 +384,7 @@ def mergeLines(lines,threshold=5):
         sortedDic.append([k,v]) #distance + line
     #convert liens array to a dic, this facilitates to filter lines at deletion
     dicLines = { i : sortedDic[i] for i in range(0, len(sortedDic) ) }
-    n=len(dicLines)
+    n=400
     for Kl1 in list(dicLines):
         if Kl1 in dicLines.keys():
             l1_length,Vl1=dicLines[Kl1]
@@ -381,10 +395,11 @@ def mergeLines(lines,threshold=5):
                     if Kl1!=Kl2:
                         #Is thes line sl1 and l2 close to merge?
                         if( distLineLine(Vl1,Vl2) <threshold and minDistLineLine(Vl1,Vl2)):
-                            print('Merge lines',Kl1,Kl2)
+                            #print('Merge lines',Kl1,Kl2)
                             new_line=newLineMerging(Vl1,Vl2)
-                            print(new_line)
-                            filtred_lines.append(new_line)
+                            length_new_line=np.sqrt((new_line[0]-new_line[2])**2+(new_line[1]-new_line[3])**2)
+                            #print(new_line)
+                            dicLines[n]=[length_new_line,new_line]
                             dicLines.pop(Kl1)
                             dicLines.pop(Kl2)
                             n+=1
@@ -396,15 +411,15 @@ def mergeLines(lines,threshold=5):
     return filtred_lines
 
 #Use of the LSD detection in order to capture the necessary segments after filtering
-def LSDDetection(im,max_iter=2):
-    images=[]
+def LSDDetection(im="VisualNav/0804451806.jpg"):
     img = cv2.imread(im)
-    img_iter=img.copy()
+    img_filtered=img.copy()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray= cv2.Canny(gray, 100, 150)
     lsd = cv2.createLineSegmentDetector(0)
     lines = lsd.detect(gray)[0]
     lines_vert=[]
+    lines_horz=[]
     lines_non_vert=[]
     cp=0
     for line in lines:
@@ -414,36 +429,36 @@ def LSDDetection(im,max_iter=2):
         y1 = int(round(line[0][3]))
         if np.sqrt((x0-x1)**2+(y0-y1)**2)>20:
             cp+=1
-            if abs(x0-x1)<20:
+            if abs(x0-x1)<14:
                 cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
                 lines_vert.append(line[0])
+            elif abs(y0-y1)<=14:
+                cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
+                lines_horz.append(line[0])
             else:
                 cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
                 lines_non_vert.append(line[0])
 
-    #print("Vertical lines are:",lines_vert)
-    #print("Non-Vertical lines are:",lines_non_vert)
-   # print("lines_non_vert:",lines_non_vert)
     cv2.imshow("Image", img)
-    filtred_non_vert_lines=lines_non_vert
-    filtred_vert_lines=lines_vert
-    for i in range(max_iter):
-        print('Iteration: ',i)
-        images.append(img_iter.copy())
-        #print("FILTRED**************************************************************************************")
-        filtred_vert_lines=mergeLines(filtred_vert_lines)
-        #print("NOT FILTRED**********************************************************************************")
-        filtred_non_vert_lines=mergeLines(filtred_non_vert_lines)
-        for l1 in filtred_non_vert_lines:
-            cv2.line(images[i], (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
-        for l1 in filtred_vert_lines:
-            cv2.line(images[i], (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
-        #drawn_img = lsd.drawSegments(img,lines)
-        print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
+    filtred_non_vert_lines=mergeLines(lines_non_vert)
+    filtred_horz_lines=mergeLines(lines_horz)
+    filtred_vert_lines=mergeLines(lines_vert)
+
+    #post-merge: Eliminate the shortest segments 
+    filtred_non_vert_lines=CaptureLongestSeg(filtred_non_vert_lines)
+    filtred_vert_lines=CaptureLongestSeg(filtred_vert_lines)
+    filtred_horz_lines=CaptureLongestSeg(filtred_horz_lines)
+
+    for l1 in filtred_non_vert_lines:
+        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+    for l1 in filtred_vert_lines:
+        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+    for l1 in filtred_horz_lines:
+        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
+    #print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
         
     
-    for i in range(len(images)):
-        cv2.imshow("Image_ITER"+str(i),images[i])
+    cv2.imshow("Image_Filtered",img_filtered)
     #cv2.imshow("Edges", gray)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
