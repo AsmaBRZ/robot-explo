@@ -92,12 +92,57 @@
 
     \chapter{Realization}
     \paragraph{}
-    We suppose that the robot is situated in a closed environment, and it has been informed about the target object to serach. 
+    We suppose that the robot is situated in a closed environment, and it has been informed about the target object to search. 
 	\section{Exploration strategy}
 	 \subsection{3D modeling}
+	 \paragraph{}
+	 The first task of the autonomous robot is to represent roughly the environment, using visual information. For walls detection, we distinguish three types of segments on the picture taken by the autonomous robot:
+	 \begin{itemize}
+	 	\item Vertical segment which makes 90 degrees with the X-axis.
+	 	\item Horizontal segment which makes 0 degrees with the  X-axis.
+	 	\item The rest of segments with the other angles.
+	 \end{itemize} 
+	 
+	 
+	 \paragraph{}
+	 In the sections to come, we present the differnt strategies that we have developed and the one we have particularly kept.
+	 
+	 \subsubsection{Corners-based detection}
+	 \paragraph{}
+	 We have begun with a strategy based on corners detection. Where we kept the same exploration strategy as in our previous works. But, we replaced only the part of corners detection. So instead of detecting a specific objects substituting the corners, we tried two methods. We developed an approach based on \textit{segments intersection} and we used a pre-defined  method from OpenCV for \textit{corners detection}. These two methods were used under a certain constraints, to decide whether it is a corner or not.
+	 \paragraph{}
+	 Defining these constraints is not that easy. For example, it is getting arduous if we have a textured floor or walls. So the method consider all the intersection points of the walls and the floor as corners. 
+	
+	 Also, if the floor and the walls have almost the same color, the segment separating the wall from the floor may not be detected.
+	 
+	 As a result, these methods detect a lot of features which are not all correct corners.
+	 
+	 \paragraph{}
+	 On the other hand, if we assume that corners are situated in most cases on the bottom of the image, this assumption becomes incorrect if the robot is so far from the corner. In this case, the corner is situated on the top of the image. The figure below explicits that:
+	 	\begin{figure}[H]
+	 	\begin{center}
+	 		\includegraphics[scale=0.6]{res/start1_c1.png}
+	 		\caption{An ignored corner because of the corners placement constraint}
+	 	\end{center}
+	 \end{figure}
+	 \paragraph{}
+	 So, this corner will be ignored as it is not situated on the bottom of the image.
+	 
+	 \paragraph{}
+	 These particular pictures taken by the autonomous robot make the strategy not really captivating, because it is sensitive to the autonomous robot's position.
+	 
+	 \subsubsection{Non corners-based detection}
+	 \paragraph{}
+	 After encounting some difficulties to detect the right corners, we decided to ditch this strategy because it was impractical. 
+	 
+	 \paragraph{}
+	 The next idea is to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) segments are used to estimate the walls height (resp. width). However the other segments detected indicate that there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is still space between them and the wall in front. So, it can always move forward.
+	  
+	  \paragraph{}
+	  We have used the algorithm: \textit{Line Segment Detector} (LSD) to detect straight contours on the image. 
 	 \subsection{Indoor navigation}
 	\section{3D Object recognition}
-	
+
 	\chapter{Testing}
 	\chapter{Conclusion, Limitation and Future work}
 	\chapter{References}

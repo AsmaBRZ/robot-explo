@@ -30,38 +30,62 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.1.1}3D modeling}{5}{subsection.4.1.1}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.2}Indoor navigation }{5}{subsection.4.1.2}% 
+\contentsline {paragraph}{}{5}{section*.11}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}3D Object recognition}{5}{section.4.2}% 
+\contentsline {paragraph}{}{5}{section*.12}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Testing}{6}{chapter.5}% 
+\contentsline {subsubsection}{Corners-based detection}{5}{section*.13}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{7}{chapter.6}% 
+\contentsline {paragraph}{}{5}{section*.14}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}References}{8}{chapter.7}% 
+\contentsline {paragraph}{}{5}{section*.15}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}List of components}{9}{appendix.A}% 
+\contentsline {paragraph}{}{6}{section*.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Thymio II}{9}{section.A.1}% 
+\contentsline {paragraph}{}{6}{section*.17}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{9}{section*.11}% 
+\contentsline {paragraph}{}{6}{section*.18}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{9}{section*.12}% 
+\contentsline {subsubsection}{Non corners-based detection}{6}{section*.19}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}Raspberry-Pi}{9}{section.A.2}% 
+\contentsline {paragraph}{}{6}{section*.20}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{9}{section*.13}% 
+\contentsline {paragraph}{}{6}{section*.21}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{10}{section*.14}% 
+\contentsline {paragraph}{}{6}{section*.22}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{10}{section.A.3}% 
+\contentsline {subsection}{\numberline {4.1.2}Indoor navigation}{6}{subsection.4.1.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{10}{section*.15}% 
+\contentsline {section}{\numberline {4.2}3D Object recognition}{6}{section.4.2}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{10}{section*.16}% 
+\contentsline {chapter}{\numberline {5}Testing}{7}{chapter.5}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Power-bank}{10}{section.A.4}% 
+\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{8}{chapter.6}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{10}{section*.17}% 
+\contentsline {chapter}{\numberline {7}References}{9}{chapter.7}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{11}{section*.18}% 
+\contentsline {chapter}{\numberline {A}List of components}{10}{appendix.A}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}Thymio II}{10}{section.A.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{10}{section*.23}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{10}{section*.24}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Raspberry-Pi}{10}{section.A.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{10}{section*.25}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{11}{section*.26}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{11}{section.A.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{11}{section*.27}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{11}{section*.28}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.4}Power-bank}{11}{section.A.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{11}{section*.29}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{12}{section*.30}% 
