@@ -9,6 +9,7 @@
 \usepackage[backend=biber]{biblatex}
 \usepackage[toc]{glossaries}
 \usepackage{appendix}
+\usepackage{cite}
 \usepackage{mathptmx}
 \makeglossaries
 
@@ -127,7 +128,7 @@
 	 	\end{center}
 	 \end{figure}
 	 \paragraph{}
-	 So, this corner will be ignored as it is not situated on the bottom of the image.
+	 As a result, this corner will be ignored as it is not situated on the bottom of the image.
 	 
 	 \paragraph{}
 	 These particular pictures taken by the autonomous robot make the strategy not really captivating, because it is sensitive to the autonomous robot's position.
@@ -154,6 +155,8 @@
 
     \subsection{Indoor navigation}
     \paragraph{}
+    Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting spot to a target one. 
+    \paragraph{}
     We remind that our goal is to build a rough 3D representation of the environment and look for the target object. We represent the environement by defining the walls composing it. The detection of walls is based on LSD's segments. 
     
     \paragraph{}
@@ -175,12 +178,14 @@
  	
  \end{itemize}
  \paragraph{}
- The vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only on the X and Z axis.
+ We mention that the vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only on the X and Z axis.
 	\section{3D Object recognition}
 
 	\chapter{Testing}
 	\chapter{Conclusion, Limitation and Future work}
 	\chapter{References}
+
+
 	\appendix
 	\chapter{List of components}
 	\section{Thymio II}
