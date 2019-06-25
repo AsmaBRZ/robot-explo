@@ -9,6 +9,7 @@
 \usepackage[backend=biber]{biblatex}
 \usepackage[toc]{glossaries}
 \usepackage{appendix}
+\usepackage{mathptmx}
 \makeglossaries
 
 \addbibresource{references.bib}
@@ -94,7 +95,7 @@
     \paragraph{}
     We suppose that the robot is situated in a closed environment, and it has been informed about the target object to search. 
 	\section{Exploration strategy}
-	 \subsection{3D modeling}
+	 \subsection{Image processing}
 	 \paragraph{}
 	 The first task of the autonomous robot is to represent roughly the environment, using visual information. For walls detection, we distinguish three types of segments on the picture taken by the autonomous robot:
 	 \begin{itemize}
@@ -136,11 +137,45 @@
 	 After encounting some difficulties to detect the right corners, we decided to ditch this strategy because it was impractical. 
 	 
 	 \paragraph{}
-	 The next idea is to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) segments are used to estimate the walls height (resp. width). However the other segments detected indicate that there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is still space between them and the wall in front. So, it can always move forward.
+	 The next idea is to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) segments are used to estimate the walls height (resp. width). However the diagonal segments detected indicate that there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is still space between them and the wall in front. So, it can always move forward.
 	  
 	  \paragraph{}
-	  We have used the algorithm: \textit{Line Segment Detector} (LSD) to detect straight contours on the image. 
-	 \subsection{Indoor navigation}
+	  We have used the algorithm: \textit{Line Segment Detector} (LSD) to detect straight contours on the image. At each pixel of the image, LSD estimates the angle of the gradient. After that, the pixels sharing nearly the same angle of gradient are merged into regions. The connected regions are called \textit{line support regions}. Then, the algorithm keeps some of these \textit{line support regions} to be a \textit{line segment}.
+	  
+	  the picture below shows an image on which the LSD was applied and as a result, the \textit{line support regions} that were detected.
+	  	\begin{figure}[H]
+	  	\begin{center}
+	  		\includegraphics[scale=0.6]{res/lsr.png}
+	  		\caption{Line Support Regions. Adapted from "Rafael Grompone von Gioi, Jérémie Jakubowicz, Jean-Michel Morel, and Gregory Randall, LSD: a Line Segment Detector, Image Processing On Line, 2 (2012)" }
+	  	\end{center}
+	  \end{figure}
+  \paragraph{}
+  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation.
+
+    \subsection{Indoor navigation}
+    \paragraph{}
+    We remind that our goal is to build a rough 3D representation of the environment and look for the target object. We represent the environement by defining the walls composing it. The detection of walls is based on LSD's segments. 
+    
+    \paragraph{}
+    Depending on the autonomous robot's position, the picture obtained may in one of the general cases showed in the picture below. 
+    
+    
+    	\begin{figure}[H]
+    	\begin{center}
+    		\includegraphics[scale=0.6]{res/cases_seg.png}
+    	\end{center}
+    \end{figure}
+ \paragraph{}
+ The useful information that we can retrieve from each case is as follows:
+ \begin{itemize}
+ 	\item Case A: 3 types of segments are detected, an horizontal one and 2 diagonals on 2 opposing walls.
+ 	\item Case B: 2 types of segments (horizontal and diagonal) sharing an endpoint are detected.
+ 	\item Case C: An horizontal segment is detected.
+ 	\item Case D: Any segment is detected.
+ 	
+ \end{itemize}
+ \paragraph{}
+ The vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only on the X and Z axis.
 	\section{3D Object recognition}
 
 	\chapter{Testing}
