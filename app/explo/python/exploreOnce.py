@@ -16,10 +16,24 @@ if __name__=='__main__':
 	res2=400
 	picturePath=takePicture(res1,res2)
 	height,width,depth=LSDDetection(picturePath)
-	with open('data/heightWall', 'w') as outfile:
+	with open('data/dimWall', 'w') as outfile:
 		outfile.write(str(height))
 		outfile.write("\n")
 		outfile.write(str(width))
 		outfile.write("\n")
 		outfile.write(str(depth))
 		outfile.close()
+	objects=recognition(picturePath)
+	with open('data/distanceCaptured', 'w') as outfile:
+	    #add resolution
+	    outfile.write(str(res1)+"/")
+	    outfile.write(str(res2))
+	    outfile.write("\n")
+	    for o in objects:
+	    	distance,objLocalization=o
+	    	#add distance to the wall
+	    	#add obj's dimensions
+	    	for d in objLocalization:
+	    		outfile.write(str(d)+"/")
+	    	outfile.write("\n")
+	    outfile.close()
