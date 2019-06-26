@@ -94,13 +94,9 @@ def getThreshold(type):
 #nbRefs: number of objects in the DB
 #objects must have their name in the range of (0,nbRefs)
 
-def recognition(img,ref="0",multi='u',nbRefs=3):
+def recognition(img,nbRefs=1):
     results=[]
-    if (multi=='m'):
-        references=np.arange(0,nbRefs,1).tolist()
-    else:
-        references=[int(ref)] 
-
+    references=np.arange(0,nbRefs,1).tolist()
     for t in references:
         threshold=getThreshold(t)
         reference="DB/"+str(t)+".png"
@@ -124,7 +120,6 @@ def recognition(img,ref="0",multi='u',nbRefs=3):
         # loop over the scales of the image
         # might take a long time to execute if the 2nd argument of linespace is to high
         for scale in np.linspace(0.1, 2, 20)[::-1]:
-            #print(yes)
             # resize the image according to the scale, and keep track of the ratio of the resizing
             resized = resize(image, int(image.shape[1] * scale))
             r = image.shape[1] / float(resized.shape[1])
@@ -138,7 +133,7 @@ def recognition(img,ref="0",multi='u',nbRefs=3):
             edged = cv2.Canny(resized, 50, 150)
             result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF)
             (minVal, maxVal, _, maxLoc) = cv2.minMaxLoc(result)
-
+            print(minVal, maxVal)
             # draw a bounding box around the detected region
             clone = np.dstack([edged, edged, edged])
             cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),
@@ -149,7 +144,7 @@ def recognition(img,ref="0",multi='u',nbRefs=3):
             # if we have found a new maximum correlation value, then update the variable
             if found is None or maxVal > found[0]:
                 found = (maxVal, maxLoc, r)
-                #print(found)
+                print(found)
                 if(maxVal>=threshold):
                     match=True
           
@@ -159,9 +154,10 @@ def recognition(img,ref="0",multi='u',nbRefs=3):
         (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
 
         # draw a bounding box around the detected result and display the image
-        #cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-        #cv2.imshow("Image", image)
-        #cv2.waitKey(0)
+        cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
+        cv2.imshow("Image", image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
         imgWidth=(np.shape(image)[1]/int(tW * r) *11.5)
         # camera wide angle by default
         angle = 54
@@ -455,15 +451,15 @@ def LSDDetection(im="VisualNav/0804451806.jpg"):
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
     filtred_vert_lines=mergeLines(lines_vert)
-'''
-    for l1 in filtred_non_vert_lines:
-        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
-    for l1 in filtred_vert_lines:
-        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
-    for l1 in filtred_horz_lines:
-        cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
+
+    #for l1 in filtred_non_vert_lines:
+    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+    #for l1 in filtred_vert_lines:
+    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+    #for l1 in filtred_horz_lines:
+    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
     #print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
-    '''    
+ 
     
     #cv2.imshow("Image_Filtered",img_filtered)
     #cv2.imshow("Edges", gray)
@@ -475,4 +471,5 @@ def PictureLSDDetection():
     filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(takePicture())
 #######################################
 #PictureGFCornerDetection()
-PictureLSDDetection()
+#PictureLSDDetection()
+recognition(takePicture(),nbRefs=1)
