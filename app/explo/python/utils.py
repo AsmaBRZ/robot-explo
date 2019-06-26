@@ -410,9 +410,21 @@ def mergeLines(lines,threshold=30):
             filtred_lines.append(value[1])
     return filtred_lines
 
+def get_angle(p0, p1=np.array([0,0]), p2=np.array([600, 0])):
+    ''' compute angle (in degrees) for p0p1p2 corner
+    Inputs:
+        p0,p1,p2 - points in the form of [x,y]
+    '''
+    v0 = np.array(p0) - np.array(p1)
+    v1 = np.array(p2) - np.array(p1)
+
+    angle = np.math.atan2(np.linalg.det([v0,v1]),np.dot(v0,v1))
+    return np.degrees(angle)
+
 #Use of the LSD detection in order to capture the necessary segments after filtering
 def LSDDetection(im="VisualNav/0804451806.jpg"):
     img = cv2.imread(im)
+    n,m,_= np.array(img).shape
     img_filtered=img.copy()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray= cv2.Canny(gray, 100, 150)
@@ -421,34 +433,29 @@ def LSDDetection(im="VisualNav/0804451806.jpg"):
     lines_vert=[]
     lines_horz=[]
     lines_non_vert=[]
-    cp=0
     for line in lines:
         x0 = int(round(line[0][0]))
         y0 = int(round(line[0][1]))
         x1 = int(round(line[0][2]))
         y1 = int(round(line[0][3]))
-        if np.sqrt((x0-x1)**2+(y0-y1)**2)>20:
-            cp+=1
-            if abs(x0-x1)<14:
-                cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
-                lines_vert.append(line[0])
-            elif abs(y0-y1)<=14:
-                cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
-                lines_horz.append(line[0])
-            else:
-                cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
-                lines_non_vert.append(line[0])
+        line_len=np.sqrt((x0-x1)**2+(y0-y1)**2)
+        if line_len>20:
+            angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
+            if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
+                #cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
+                lines_horz.append([line[0],line_len])
+            elif  (angle >=80 and angle <=100) :
+                #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
+                lines_vert.append([line[0],line_len])
+            elif (angle >=25 and angle <=70) or (angle >=110 and angle <=165):
+                #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
+                lines_non_vert.append([line[0],line_len])
 
-    cv2.imshow("Image", img)
+    #cv2.imshow("Image", img)
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
     filtred_vert_lines=mergeLines(lines_vert)
-
-    #post-merge: Eliminate the shortest segments 
-    filtred_non_vert_lines=CaptureLongestSeg(filtred_non_vert_lines)
-    filtred_vert_lines=CaptureLongestSeg(filtred_vert_lines)
-    filtred_horz_lines=CaptureLongestSeg(filtred_horz_lines)
-
+'''
     for l1 in filtred_non_vert_lines:
         cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
     for l1 in filtred_vert_lines:
@@ -456,15 +463,16 @@ def LSDDetection(im="VisualNav/0804451806.jpg"):
     for l1 in filtred_horz_lines:
         cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
     #print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
-        
+    '''    
     
-    cv2.imshow("Image_Filtered",img_filtered)
+    #cv2.imshow("Image_Filtered",img_filtered)
     #cv2.imshow("Edges", gray)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
+    return filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines
 
 def PictureLSDDetection():
-    LSDDetection(takePicture())
+    filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(takePicture())
 #######################################
 #PictureGFCornerDetection()
 PictureLSDDetection()
