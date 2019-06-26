@@ -7,6 +7,7 @@
     Python Version: 3.6.7
 '''
 from __future__ import print_function
+from numpy import linalg as LA
 from picamera import PiCamera
 from time import sleep
 from shapely.geometry import LineString
@@ -88,6 +89,8 @@ def getThreshold(type):
         return 30000000.0
     if(type==2):
         return 30000000.0
+    if type==6:
+        return 2600000.0
 
 #multi= u: unique object to detect; m: multi, because for corners we assume that there is only PEPPER on.
 #So we dont really need to check each element on the DB
@@ -99,6 +102,7 @@ def recognition(img,nbRefs=1):
     references=np.arange(0,nbRefs,1).tolist()
     for t in references:
         threshold=getThreshold(t)
+        print(t)
         reference="DB/"+str(t)+".png"
         urlDirectory="/home/pi/VisualNav"
         match=False
@@ -110,7 +114,7 @@ def recognition(img,nbRefs=1):
         template = resize(template, int(template.shape[1] * 0.25))
         template = cv2.Canny(template, 50, 150)
         (tH, tW) = template.shape[:2]
-        #cv2.imshow("Template", template)
+        cv2.imshow("Template", template)
 
         # load the image, convert it to grayscale,
         image = cv2.imread(imgURL,0)
@@ -133,7 +137,6 @@ def recognition(img,nbRefs=1):
             edged = cv2.Canny(resized, 50, 150)
             result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF)
             (minVal, maxVal, _, maxLoc) = cv2.minMaxLoc(result)
-            print(minVal, maxVal)
             # draw a bounding box around the detected region
             clone = np.dstack([edged, edged, edged])
             cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),
@@ -144,7 +147,6 @@ def recognition(img,nbRefs=1):
             # if we have found a new maximum correlation value, then update the variable
             if found is None or maxVal > found[0]:
                 found = (maxVal, maxLoc, r)
-                print(found)
                 if(maxVal>=threshold):
                     match=True
           
@@ -368,7 +370,7 @@ def CaptureLongestSeg(lines,threshold=45):
     return result
 
 def mergeLines(lines,threshold=30):
-    filtred_lines=[]
+    filtred_lines={}
     lines_copy=lines.copy()
     dic={}
     for line in lines:
@@ -403,9 +405,11 @@ def mergeLines(lines,threshold=30):
                 if Kl_OK:
                     break
     for key,value in dicLines.items():
-            filtred_lines.append(value[1])
+        filtred_lines[value[0]]=value[1]
     return filtred_lines
-
+def getLineLength(l):
+    x0, y0, x1, y1 = line
+    return np.sqrt((x0-x1)**2+(y0-y1)**2)
 def get_angle(p0, p1=np.array([0,0]), p2=np.array([600, 0])):
     ''' compute angle (in degrees) for p0p1p2 corner
     Inputs:
@@ -418,7 +422,7 @@ def get_angle(p0, p1=np.array([0,0]), p2=np.array([600, 0])):
     return np.degrees(angle)
 
 #Use of the LSD detection in order to capture the necessary segments after filtering
-def LSDDetection(im="VisualNav/0804451806.jpg"):
+def LSDDetection(im):
     img = cv2.imread(im)
     n,m,_= np.array(img).shape
     img_filtered=img.copy()
@@ -439,19 +443,19 @@ def LSDDetection(im="VisualNav/0804451806.jpg"):
             angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
             if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
                 #cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
-                lines_horz.append([line[0],line_len])
+                lines_horz.append(line[0])
             elif  (angle >=80 and angle <=100) :
                 #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
-                lines_vert.append([line[0],line_len])
+                lines_vert.append(line[0])
             elif (angle >=25 and angle <=70) or (angle >=110 and angle <=165):
                 #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
-                lines_non_vert.append([line[0],line_len])
+                lines_non_vert.append(line[0])
 
     #cv2.imshow("Image", img)
+
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
     filtred_vert_lines=mergeLines(lines_vert)
-
     #for l1 in filtred_non_vert_lines:
     #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
     #for l1 in filtred_vert_lines:
@@ -465,11 +469,23 @@ def LSDDetection(im="VisualNav/0804451806.jpg"):
     #cv2.imshow("Edges", gray)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
-    return filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines
+    width=0
+    height=0
+    depth=0
+    if len(filtred_horz_lines) !=0:
+        width=max(filtred_horz_lines.keys())
 
-def PictureLSDDetection():
-    filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(takePicture())
+    if len(filtred_vert_lines) !=0:
+        height=max(filtred_vert_lines.keys())
+
+    if len(filtred_non_vert_lines) !=0:
+        depth=max(filtred_non_vert_lines.keys())
+
+    return height,width,depth
+
+def PictureLSDDetection(img):
+    filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(img)
 #######################################
 #PictureGFCornerDetection()
-#PictureLSDDetection()
-recognition(takePicture(),nbRefs=1)
+#PictureLSDDetection(takePicture())
+#recognition(takePicture(),nbRefs=1)
