@@ -52,7 +52,7 @@ public class PiThymioRobot extends Robot {
 	//this function order to the robot to take a picture, analyse it, and collect the results
 	//the information retrieved may be the height estimated of the wall or the distance to the wall calculated according to the obj detected on the wall
 
-	public List<ArrayList<Float>> captureData(int type,boolean init,String multi) { 
+	public List<ArrayList<Float>> captureData() { 
 		//list contains in the order: distance starX starY endX endY resoltution1 resoltution 2
 		List<ArrayList<Float>> list=new ArrayList<ArrayList<Float>>();
 		ArrayList<Float> tmp;
@@ -61,7 +61,7 @@ public class PiThymioRobot extends Robot {
 		    //u: case: corner, we assume that there is PEPEER in each corner, we dont need to check all the elements of the DB
 			//m: multi, on a random place of a wall, we check all the elements of the DB to verify if one of them matches with the picture taken by the robot
 			
-		    pfile_returned = executeCommandRPi("python3 exploreOnce.py "+type +" "+multi+" "+ init,true);
+		    pfile_returned = executeCommandRPi("python3 exploreOnce.py ",true);
 			pfile_returned=pfile_returned.trim();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -105,24 +105,21 @@ public class PiThymioRobot extends Robot {
 		        } catch (IOException e) {
 	            System.err.format("IOException: %s%n", e);
 	        }
-		 if(init) {
-				float height;
-				sendToPC("data/heightWall",localURL+"/ressources/data/");
-				 try (FileReader reader = new FileReader(localURL+"/ressources/data/heightWall");
+
+				float dimension;
+				tmp=new ArrayList<Float>();
+				sendToPC("data/dimWall",localURL+"/ressources/data/");
+				 try (FileReader reader = new FileReader(localURL+"/ressources/data/dimWall");
 				            BufferedReader br = new BufferedReader(reader)) {
 				            String line;
-				           if ((line = br.readLine()) != null) {
-				               height=Float.parseFloat(line);     
-				               System.out.println("The height of the wall is: "+height);
-				               tmp=new ArrayList<Float>();
-				               tmp.add(height);
+				           while((line = br.readLine()) != null) {
+				               dimension=Float.parseFloat(line);     
+				               tmp.add(dimension);
 				               list.add(tmp);
 				           }
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
-				 init=false;
-			}
 	return list;
 }
 	/**
@@ -250,7 +247,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= { "imageVanishingLines.py", "0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
+		String[] files= { "6.png","imageVanishingLines.py", "0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
 
 		String urlToScript;
 

@@ -160,7 +160,7 @@ public class Robot {
 
     }
 
-	public List<ArrayList<Float>>  captureData(int type ,boolean init,String multi) {
+	public List<ArrayList<Float>>  captureData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
