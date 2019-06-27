@@ -114,7 +114,7 @@ def recognition(img,nbRefs=1):
         template = resize(template, int(template.shape[1] * 0.25))
         template = cv2.Canny(template, 50, 150)
         (tH, tW) = template.shape[:2]
-        cv2.imshow("Template", template)
+        #cv2.imshow("Template", template)
 
         # load the image, convert it to grayscale,
         image = cv2.imread(imgURL,0)
@@ -157,9 +157,9 @@ def recognition(img,nbRefs=1):
 
         # draw a bounding box around the detected result and display the image
         cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-        cv2.imshow("Image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
         imgWidth=(np.shape(image)[1]/int(tW * r) *11.5)
         # camera wide angle by default
         angle = 54
@@ -456,32 +456,45 @@ def LSDDetection(im):
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
     filtred_vert_lines=mergeLines(lines_vert)
-    #for l1 in filtred_non_vert_lines:
-    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
-    #for l1 in filtred_vert_lines:
-    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
-    #for l1 in filtred_horz_lines:
-    #    cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
-    #print('len',len(filtred_non_vert_lines),len(filtred_vert_lines),cp)
- 
-    
+    #print(filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines)
+    #for key,l1 in filtred_non_vert_lines.items():
+        #cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (255,0,0), 1, cv2.LINE_AA)
+    #for key,l1 in filtred_vert_lines.items():
+        #cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
+    #for key,l1 in filtred_horz_lines.items():
+        #cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
+   
     #cv2.imshow("Image_Filtered",img_filtered)
     #cv2.imshow("Edges", gray)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
-    width=0
-    height=0
-    depth=0
+    width=-1
+    height=-1
+    depthL=-1
+    depthR=-1
     if len(filtred_horz_lines) !=0:
         width=max(filtred_horz_lines.keys())
 
     if len(filtred_vert_lines) !=0:
         height=max(filtred_vert_lines.keys())
-
+    #classify the diagonals situated on the left and on the right of the picture
+    diagL={}
+    diagR={}
     if len(filtred_non_vert_lines) !=0:
-        depth=max(filtred_non_vert_lines.keys())
+        for k,v in filtred_non_vert_lines.items():
+            x0,y0,x1,y1=v
+            if x0<m/2 and x1<m/2:
+                #the diagonal is situated on the left of the picture
+                diagL[k]=v
+            else:
+                #the diagonal is situated on the right of the picture
+                diagR[k]=v
+    if len(diagL) !=0:
+        depthL=max(diagL.keys())
+    if len(diagR) !=0:
+        depthR=max(diagR.keys())
 
-    return height,width,depth
+    return height,width,depthL,depthR
 
 def PictureLSDDetection(img):
     filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(img)
