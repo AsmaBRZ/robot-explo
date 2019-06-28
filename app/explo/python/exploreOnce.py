@@ -15,16 +15,12 @@ if __name__=='__main__':
 	res1=600
 	res2=400
 	picturePath=takePicture(res1,res2)
-	height,width,depthL,depthR=LSDDetection(picturePath)
-	with open('data/dimWall', 'w') as outfile:
-		outfile.write(str(height))
-		outfile.write("\n")
-		outfile.write(str(width))
-		outfile.write("\n")
-		outfile.write(str(depthL))
-		outfile.write("\n")
-		outfile.write(str(depthR))
+	LSDDetection(picturePath)
+	disSensor=getDisSensor()
+	with open('data/disSensor"', 'w') as outfile:
+		outfile.write(str(disSensor))
 		outfile.close()
+
 	objects=recognition(picturePath)
 	with open('data/distanceCaptured', 'w') as outfile:
 	    #add resolution

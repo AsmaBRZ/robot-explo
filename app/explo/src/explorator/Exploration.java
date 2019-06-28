@@ -27,7 +27,9 @@ public class Exploration {
 	private InternalRepresentation env ;
 	private Scene jmeApp;
 	private ArrayList<HashMap<String, String>> dbObjects=new ArrayList<HashMap<String, String>>();
-    private int currentWall=0;
+    private int cpWall=0;
+    private newWall=true;
+
 	public Exploration() throws InterruptedException{
 		
 		File configFile = new File("config.properties");
@@ -106,7 +108,9 @@ public class Exploration {
 	@SuppressWarnings("unused")
 	//target is the name of the object we re searching for, currently it may be in[0.png, 1.png or 2.png]
 	private int explore(int target){
-		int cpWall=0;
+		float thresholWallMax=2000.0: //2m
+		float thresholWallMin=50: //50 cm
+		
 		boolean targetFound=false;
 		//We set the distance with which the robot rolls to 1m. 
 		int distanceRob=1;
@@ -124,6 +128,7 @@ public class Exploration {
 			float startY =dimensionsObj.get(2);
 			float endX=dimensionsObj.get(3);
 			float endY=dimensionsObj.get(4);
+			boolean nextWall=false;
 			
 			if(startX!=-1) {
 				//the target object has been detected
@@ -138,29 +143,116 @@ public class Exploration {
 			float width=dimensionsWalls.get(1);
 			float depthL=dimensionsWalls.get(2);
 			float depthR=dimensionsWalls.get(3);
+
+			//retreive information about any distance detected by the sensor
+			ArrayList<Float> disSensorList=data.get(3);
+			System.out.println("disSensor"+disSensorList);
+			float disSensor=disSensorList.get(0);
+
 			
 			//update the walls with the new height captured if necessary
 			this.env.updateWallsHeight(height);
-			
-			if(depthL==-1 && depthR==-1) {
-				//update the width of the wall in front
-				System.out.println("In front of a wall");
-				Point cornerLeft, cornerRight;
-				float widthWall=(float) Math.tan(45.0)*distanceToWall;
-				if(this.env.getWalls().isEmpty()) {
-					cornerLeft=new Point(-widthWall,distanceToWall);
-					cornerRight=new Point(widthWall,distanceToWall);
+			if(width==-1 && depthL==-1 && depthR==-1){
+				System.out.println("Nothing has been detected");
+				//the autonomous robot does not detect any useful visual information
+				if(disSensor>=thresholWallMax){
+					//the autonomous robot is so far from the wall
+					System.out.println("the autonomous robot is so far from an eventual wall");
+					this.robot.move(distanceRob);
+					break;
 				}
-				else {
-					int indexPreviousWall=getIndexOfPreviousWall(cpWall);
-					cornerLeft=this.env.getWalls().get(indexPreviousWall).getCornerRight();
-					cornerRight=new Point(this.robot.getPosition().mul(distanceToWall));
+				else{
+					if(disSensor<thresholWallMin){
+						//the autonomous robot is too close from the wall
+						System.out.println("the autonomous robot is too close from an eventual wall");
+						this.robot.move(-distanceRob);
+						break;
+					}
+					else{
+						//there is nothing to detect, default move: moveforward
+						System.out.println("there is nothing to detect, default move: moveforward");
+						this.robot.rotate(45);
+						break;
+					}
+
 				}
-				
-				Wall w=new Wall(cpWall, cornerLeft, cornerRight,height,widthWall*2);
-				System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
-				cpWall++;
 			}
+			if(width!=-1 depthL==-1 && depthR==-1) {
+				
+				if(disSensor>=thresholWallMax){
+					//the autonomous robot is so far from the wall
+					System.out.println("the autonomous robot is so far from the wall, maybe the robot is missing something!");
+					this.robot.move(distanceRob);
+					break;
+				}
+				else{
+					if(disSensor<thresholWallMin){
+						//the autonomous robot is too close from the wall
+						System.out.println("the autonomous robot is too close from the wall, let's moves back");
+						this.robot.move(-distanceRob);
+						break;
+					}
+					else{
+						//add a new wall to the environment
+						System.out.println("A wall has been detected");
+						Wall w;
+						Point cornerLeft, cornerRight;
+						float widthWall=(float) Math.tan(45.0)*disSensor;
+						if(newWall){
+							newWall=false;
+							if(this.env.getWalls().isEmpty()) {
+								cornerLeft=new Point(-widthWall,disSensor);
+								cornerRight=new Point(widthWall,disSensor);
+							}
+							else {
+								int indexPreviousWall=getIndexOfPreviousWall(cpWall);
+								cornerLeft=this.env.getWalls().get(indexPreviousWall).getCornerRight();
+								cornerRight=new Point(this.robot.getPosition().mul(disSensor));
+							}	
+						}
+						else{
+								cornerLeft=this.env.getWalls().get(cpWall).getCornerRight();
+								cornerRight=new Point(this.robot.getPosition().mul(disSensor));
+								
+						}
+						this.env.addWall(cpWall+cornerLeft,cornerRight,height,widthWall*2);
+						System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
+						System.out.println("");
+						this.robot.rotate(90);
+						this.robot.move(distanceRob);
+						this.robot.rotate(-90);
+						break;
+					}
+
+				}
+				if(width!=-1 depthL==-1 && depthR!=-1) {
+					if(disSensor>=thresholWallMax){
+					//the autonomous robot is so far from the wall
+					System.out.println("Rigth depth, the autonomous robot is so far from an eventual wall");
+					this.robot.move(distanceRob);
+					break;
+				    }
+					else{
+						//end with the current wall
+						cpWall++;
+						newWall=true;
+
+						if(disSensor<thresholWallMin){
+							//the autonomous robot is too close from the wall
+							System.out.println("Rigth depth, the autonomous robot is too close from an eventual wall");
+							this.robot.move(-distanceRob);
+							break;
+						}
+						else{
+							//there is nothing to detect, default move: moveforward
+							System.out.println("Rigth depth, there is nothing to detect, rotateRight");
+							this.robot.rotate(45);
+							break;
+						}
+					}
+					System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
+					cpWall++;
+				}
 		
 		}
 		
