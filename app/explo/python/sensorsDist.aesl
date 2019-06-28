@@ -11,5 +11,5 @@
 print(prox.horizontal[1])
 print(prox.horizontal[2])
 print(prox.horizontal[3])
-
+</node>
 </network>

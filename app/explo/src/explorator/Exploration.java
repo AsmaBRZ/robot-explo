@@ -7,8 +7,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.*;
-import java.util.Scanner; 
-
 
 import Actionners.*;
 import Representation.Scene;
@@ -108,254 +106,65 @@ public class Exploration {
 	@SuppressWarnings("unused")
 	//target is the name of the object we re searching for, currently it may be in[0.png, 1.png or 2.png]
 	private int explore(int target){
-		//store the index of the previous wall, so as to get the coordinates of its right corner 
-		int previousWall =getIndexOfPreviousWall(currentWall);
+		int cpWall=0;
 		boolean targetFound=false;
 		//We set the distance with which the robot rolls to 1m. 
 		int distanceRob=1;
-		boolean cornerLeftDetection=true;
-		float  widthObj, heightObj;
-		float heightWall = 0.f;
-		List<ArrayList<Float>> data;
-		System.out.println("Exploration of the wall "+ currentWall+" begins");
-		//the index of the object detected is according to its order 
-		int indexObjDetected;
-		float distanceToCorner= 0.f,partOfWidth= 0.f,distWall = 0.f;
-		//Step1 the robot must be in front of the corner on the left 
-		
-		
-		//get the height of a wall		
-		//distance is captured to know if an object has been detected
-		//data is defined as: the distance to the wall ,[startX, startY, endX, endY] of the object detected on the picture takers, resolution(2d)
-		//the first argument is set to 1 <--> the picture of Pepper
-		
-		
-			data=robot.captureData(1,cornerLeftDetection,"u");
-			cornerLeftDetection=false;
-			indexObjDetected=-1;
-			//we begin from i=1 because at i=0 we get the resolution of the picture taken by the robot for recognition
-			System.out.println("Data captured: "+data.toString());
-			for(int i=1;i<data.size()-1;i++) {
-				if(data.get(i).get(0)!=-1 ){
-					indexObjDetected=i;
+		while(!targetFound) {
+			this.jmeApp.map.setcurrentWall(cpWall);
+			List<ArrayList<Float>> data;
+			// capture visual information
+			data=robot.captureData();
+			
+			//retreive information about the object to find
+			ArrayList<Float> dimensionsObj=data.get(1);
+			System.out.println("dimensionsObj"+dimensionsObj);
+			float distanceToWall=dimensionsObj.get(0);
+			float startX=dimensionsObj.get(1);
+			float startY =dimensionsObj.get(2);
+			float endX=dimensionsObj.get(3);
+			float endY=dimensionsObj.get(4);
+			
+			if(startX!=-1) {
+				//the target object has been detected
+				targetFound=true;
+				//return 1;
+			}
+			
+			//retreive information about the dimensions of the walls
+			ArrayList<Float> dimensionsWalls=data.get(2);
+			System.out.println("dimensionsWalls"+dimensionsWalls);
+			float height=dimensionsWalls.get(0);
+			float width=dimensionsWalls.get(1);
+			float depthL=dimensionsWalls.get(2);
+			float depthR=dimensionsWalls.get(3);
+			
+			//update the walls with the new height captured if necessary
+			this.env.updateWallsHeight(height);
+			
+			if(depthL==-1 && depthR==-1) {
+				//update the width of the wall in front
+				System.out.println("In front of a wall");
+				Point cornerLeft, cornerRight;
+				float widthWall=(float) Math.tan(45.0)*distanceToWall;
+				if(this.env.getWalls().isEmpty()) {
+					cornerLeft=new Point(-widthWall,distanceToWall);
+					cornerRight=new Point(widthWall,distanceToWall);
 				}
-			}
-			if(indexObjDetected==-1) {
-				System.out.println("Any object has been detected on the corner L");
-				//as an hypothesis (for the moment) the robot should detect the corner on the left from which 
-				//the robot may be sure to continue exploring the wall quietly  
-				System.out.println("Exploration interrupted");
-				return -1;
-			}
-			//the corner on the left has been detected, lets update the environment
-			
-			distanceToCorner=data.get(indexObjDetected).get(0)/100.f;
-			System.out.println("Corner Left detected at "+distanceToCorner);
-			//update the height of the current wall
-			heightWall=data.get(data.size()-1).get(0)/100.f;
-			this.env.getWall(currentWall).setHeight(heightWall);
-			System.out.println("Height estimated "+heightWall);
-			
-		    //update the part of the width that the robot have seen
-		    partOfWidth=(float) Math.sin(45.0)*distanceToCorner;
-		    System.out.println("Part of width estimated "+partOfWidth);
-		   
-		    distWall=(float) Math.cos(45.0)*distanceToCorner;
-		    System.out.println("The distance to the wall "+distWall);
-		    
-		    this.env.getWall(currentWall).cumulateWidth(partOfWidth);
-		    System.out.println("The new width after update"+this.env.getWall(currentWall).getWidth());
-		if(currentWall==0) {
-		    //update the corner on the left
-	    	this.env.getWall(currentWall).setCornerLeft(new Point(-partOfWidth,distWall));
-	    	System.out.println("first facing wall, we set the left corner"+this.env.getWall(currentWall).getCornerLeft().toString());
-	    }
-	    else {
-	    	//get the index of the previous wall, the right corner  of the previous wall is the left one of the current wall
-	    	
-	    	Point corner=this.env.getWall(previousWall).getCornerRight();
-	    	this.env.getWall(currentWall).setCornerLeft(corner);
-	    	System.out.println("wall "+currentWall+"corner left, is prvious corner right"+this.env.getWall(currentWall).getCornerLeft());
-	    }
-	    
-	    //update the corner on the right 
-	    switch( currentWall) {
-	    	case 0: this.env.getWall(currentWall).setCornerRight(new Point(0,distWall)); break;
-	    	case 1: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerLeft().getPosition().getX(),this.env.getWall( currentWall).getCornerLeft().getPosition().getY()-partOfWidth)); break;
-	    	case 2: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall( currentWall).getCornerLeft().getPosition().getX()-partOfWidth,this.env.getWall(currentWall).getCornerLeft().getPosition().getY())); break;
-	    	case 3: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerLeft().getPosition().getX(),this.env.getWall( currentWall).getCornerLeft().getPosition().getY()+partOfWidth)); break;
-	    }
-	    System.out.println("after update corner right of facing wall"+this.env.getWall(currentWall).getCornerRight().toString());
-		//rotation of 45 right, to be in front of the wall
-		try {
-			//45 right, -45 left
-			this.robot.rotate(45);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-
+				else {
+					int indexPreviousWall=getIndexOfPreviousWall(cpWall);
+					cornerLeft=this.env.getWalls().get(indexPreviousWall).getCornerRight();
+					cornerRight=new Point(this.robot.getPosition().mul(distanceToWall));
+				}
 				
-		//Step2 the robot is in front of the wall
-		//reset the indexObjDetected for a new capture
-				indexObjDetected=-1;
-				boolean isCornerRight=false;
-		///////////////////////////////////////////////////////////////////////////////////
-		/*
-		 * 
-		 * Correction of the angle (previous strategy)
-		 * 
-		 */
-		//////////////////////////////////////////////////////////////////////////////////
-			
-		/*float newAngleCorrected=this.robot.captureNewAngle();
-		System.out.println("New angle corrected: "+ newAngleCorrected);
-		try {
-			if(Math.abs(newAngleCorrected)>=0){
-			    if(newAngleCorrected>0){
-			        this.robot.rotate((int)newAngleCorrected);
-                }
-			    else{
-			    	this.robot.rotate((int)newAngleCorrected);
-                }
+				Wall w=new Wall(cpWall, cornerLeft, cornerRight,height,widthWall*2);
+				System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
+				cpWall++;
 			}
-
-			this.robot.rotate(newAngleCorrected);
-		} catch (IOException | InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
 		}
-*/
-
-		//while the robot didn't reach the corner on its right, it continues exploring the wall
-		while(!isCornerRight) {
-			//in front of  the current wall
-			data=robot.captureData(2,cornerLeftDetection,"m");
-			indexObjDetected=-1;
-			//we begin from i=1 because at i=0 we get the resolution of the picture taken by the robot for recognition
-			for(int i=1;i<data.size();i++) {
-				if(data.get(i).get(0)!=-1 ){
-					indexObjDetected=i;
-				}
-			}
-			if(indexObjDetected==-1) {
-				System.out.println("Any object has been detected on the current wall");
-			}else {
-				// an object on the wall has been detected, lets check if it is our target or not
-				if(indexObjDetected==target+1) {
-					//update the environment 
-					Vec2 cLeft,cRight;
-					cLeft=new Vec2((float) (data.get(indexObjDetected).get(1)/100.0),(float) (data.get(indexObjDetected).get(3)/100.0));
-					cRight=new Vec2(data.get(indexObjDetected).get(2)/100.f,data.get(indexObjDetected).get(3)/100.f);
-					widthObj=Float.parseFloat(this.dbObjects.get(indexObjDetected).get(("width")));
-					heightObj = Float.parseFloat(this.dbObjects.get(indexObjDetected).get(("height")));
-					//System.out.println("in front of a wall update "+);
-					//attach the obj to the wall 
-					//this.env.attachObj(currentWall,indexObjDetected, cLeft, cRight, widthObj, heightObj);
-					System.out.println("L'objet cible a été trouvé sur le mur "+currentWall);
-					System.out.println("Position du robot"+ this.robot.getPosition().toString());
-					return 1;
-				}
-			}		
-			//detection of the corner on the right
-			try {
-				//45 right, -45 left
-				this.robot.rotate(45);
-			} catch (IOException | InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//in front of the corner on the right, did the robot reach it?
-			indexObjDetected=-1;
-			//we begin from i=1 because at i=0 we get the resolution of the picture taken by the robot for recognition
-			data=robot.captureData(1,cornerLeftDetection,"u" );
-			for(int i=1;i<data.size();i++) {
-				if(data.get(i).get(0)!=-1 ){
-					indexObjDetected=i;
-				}
-			}
-			if(indexObjDetected==-1) {
-				System.out.println("The corner on the right hasnt been reached yet, the robot continues to exploring the wall");
-				try {
-					//45 right, -45 left
-					this.robot.rotate(45);
-					this.robot.move(distanceRob);
-										
-					float cumul=0.f;
-					//update the width of the current wall & the corner on the right
-					this.env.getWall(currentWall).cumulateWidth(distanceRob);
-					System.out.println("the robot walked 1 m"+this.env.getWall(currentWall).getWidth());
-					//update the corner on the right and the position of the robot
-					switch( currentWall) {
-						case 0: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerRight().getPosition().getX()+distanceRob,this.env.getWall(currentWall).getCornerRight().getPosition().getY()));
-								cumul=this.robot.getPosition().getX()+distanceRob;
-								this.robot.getPosition().setX(cumul);
-								break;
-						case 1: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerRight().getPosition().getX(),this.env.getWall(currentWall).getCornerRight().getPosition().getY()-distanceRob));
-								cumul=this.robot.getPosition().getY()-distanceRob;
-								this.robot.getPosition().setY(cumul);
-						        break;
-						case 2: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerRight().getPosition().getX()-distanceRob,this.env.getWall(currentWall).getCornerRight().getPosition().getY()));
-								cumul=this.robot.getPosition().getX()-distanceRob;
-								this.robot.getPosition().setX(cumul);
-								break;
-						case 3: this.env.getWall(currentWall).setCornerRight(new Point(this.env.getWall(currentWall).getCornerRight().getPosition().getX(),this.env.getWall(currentWall).getCornerRight().getPosition().getY()+distanceRob));
-								cumul=this.robot.getPosition().getY()+distanceRob;
-								this.robot.getPosition().setY(cumul);
-								break;
-			        }
-					System.out.println("cumulate right corner after moved for 1 m"+this.env.getWall(currentWall).getCornerRight().toString());
-					System.out.println("New RobX "+ this.robot.getPosition().getX());
-					System.out.println("New RobY "+ this.robot.getPosition().getY());
-					//in front of the current wall
-					this.robot.rotate(-90);
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			else {
-				System.out.println("The corner on the right has been reached");
-				//45 right, -45 left
-				distanceToCorner=data.get(indexObjDetected).get(0)/100.f;
-				partOfWidth=(float) Math.sin(45.0)*distanceToCorner;
-				distWall=(float) Math.cos(45.0)*distanceToCorner;
-				
-				this.env.getWall(currentWall).cumulateWidth(partOfWidth);
-				System.out.println("new width"+this.env.getWall(currentWall).getWidth());
-				Point p=this.env.getWall(currentWall).getCornerRight();
-				switch( currentWall) {
-					case 0: this.env.getWall(currentWall).setCornerRight(new Point(p.getPosition().getX()+ partOfWidth , p.getPosition().getY()));break;
-					case 1: this.env.getWall(currentWall).setCornerRight(new Point(p.getPosition().getX(),p.getPosition().getY() -partOfWidth));break;
-					case 2: this.env.getWall(currentWall).setCornerRight(new Point(p.getPosition().getX()-partOfWidth , p.getPosition().getY()));break;
-					case 3: this.env.getWall(currentWall).setCornerRight(new Point(p.getPosition().getX(), p.getPosition().getY() +partOfWidth));break;
-
-				}
-				System.out.println("final corner on the right"+this.env.getWall(currentWall).getCornerRight().toString());
-  //update the two walls on the right & on the left of the robot
-				System.out.println("Exploration of the wall"+ currentWall +" is done");
-				//avg of the coordinates of the two corners
-				/*Point newCornerLeft,newCornerRight,oldCornerLeft,oldCornerRight;
-				oldCornerLeft=this.env.getWall(currentWall).getCornerLeft();
-				oldCornerRight=this.env.getWall(currentWall).getCornerRight();
-				switch( currentWall) {
-				case 0: newCornerLeft=new Point(oldCornerLeft.getPosition().getX(),(oldCornerLeft.getPosition().getY()+oldCornerRight.getPosition().getY())/2.f);
-						newCornerRight=new Point(oldCornerRight.getPosition().getX(),(oldCornerLeft.getPosition().getY()+oldCornerRight.getPosition().getY())/2.f);
-						break;
-				case 1: newCornerLeft=new Point((oldCornerLeft.getPosition().getX()+oldCornerRight.getPosition().getX())/2.f,oldCornerLeft.getPosition().getY());
-						newCornerRight=new Point((oldCornerLeft.getPosition().getX()+oldCornerRight.getPosition().getX())/2.f,oldCornerRight.getPosition().getY());
-						break;
-				case 2: newCornerLeft=new Point(oldCornerLeft.getPosition().getX(),(oldCornerLeft.getPosition().getY()+oldCornerRight.getPosition().getY())/2.f);
-						newCornerRight=new Point(oldCornerRight.getPosition().getX(),(oldCornerLeft.getPosition().getY()+oldCornerRight.getPosition().getY())/2.f);
-						break;
-				case 3: newCornerLeft=new Point((oldCornerLeft.getPosition().getX()+oldCornerRight.getPosition().getX())/2.f,oldCornerLeft.getPosition().getY());
-						newCornerRight=new Point((oldCornerLeft.getPosition().getX()+oldCornerRight.getPosition().getX())/2.f,oldCornerRight.getPosition().getY());
-						break;
-				}*/
-				//we return 0 because we have reached the corner on the right and we did not find the target
-				//so we move to the next wall
-
-				return 0;
-			}	
-		}	
+		
+		
 		return 0;
 	}
 		
@@ -381,14 +190,13 @@ public class Exploration {
 	}
 	//calculate the index of the previous wall according to the current position i
 	public int getIndexOfPreviousWall(int i) {
-		int index = 0;
-		switch(i) {
-		case 0: index=3; break;
-		case 1: index=0; break;
-		case 2: index=1; break;
-		case 3: index=2; break;
-		
+		if (this.env.getWalls().isEmpty()) {
+			return -1;
 		}
-		return index;
+		int lastIndex=this.env.getWalls().size()-1;
+		if(i==0) {
+			return lastIndex;
+		}
+		return i--;
 	}
 }

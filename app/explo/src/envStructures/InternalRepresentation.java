@@ -22,21 +22,16 @@ public class InternalRepresentation {
 		this.walls = new ArrayList<Wall>();
 		this.markers = new ArrayList<Point>();
 		this.wallObjects= new ArrayList<RoomObject>();
-		this.visitedWalls= new ArrayList<Integer>();
-		
-		// We suppose there is some initial knowledge about the environment : 4 walls room and one door at least
-		switch(RoomType){
-			case 1:
-				this.create4WallsRoom();
-				break;
-			default : 
-				this.create4WallsRoom();
-				break;
-		}
+		this.visitedWalls= new ArrayList<Integer>();		
 		this.robot = robot;
-		//this.target = getFacingWall().id;
 	}
-	
+	public void updateWallsHeight(float h) {
+		for(int i=0;i<this.walls.size();i++) {
+			if(this.walls.get(i).getHeight()<h) {
+				this.walls.get(i).setHeight(h);
+			}
+		}
+	}
 	public int getVisitedNb() {
 		return this.visitedWalls.size();
 	}
@@ -44,6 +39,13 @@ public class InternalRepresentation {
 	public void addVisitedWall(int i) {
 		if(!this.visitedWalls.contains(i))
 			this.visitedWalls.add(i);
+	}
+	private void addWall(int id,Point p1,Point p2,float height,float width,int idPreviousWall,boolean isolated){
+		if(!isolated) {
+			p2=this.walls.get(idPreviousWall).getCornerRight();
+		}
+		this.markers.add(p1);
+		this.walls.add(new Wall(id,p1,p2,height,width));
 	}
 	
 	//we assume having 4 points all having the same coordinates initialy (0.0), this points are forming 4 fours; each wall's height/width is equal to 0 

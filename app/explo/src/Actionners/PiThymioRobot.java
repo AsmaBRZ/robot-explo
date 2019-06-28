@@ -63,6 +63,7 @@ public class PiThymioRobot extends Robot {
 			
 		    pfile_returned = executeCommandRPi("python3 exploreOnce.py ",true);
 			pfile_returned=pfile_returned.trim();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,7 +248,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= { "6.png","imageVanishingLines.py", "0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
+		String[] files= {"rplidar-0.9.2.tar.gz","sensorsDist.aesl","getData.aesl","setup.py","_div.py","thymio.py","distFromSensors.py", "6.png","imageVanishingLines.py", "0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
 
 		String urlToScript;
 

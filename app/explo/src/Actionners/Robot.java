@@ -10,6 +10,7 @@ import envStructures.Vec2;
  * 
  * @author Clara Rigaud 
  * @author Jehyankaa Jeyarajaratnam
+ * @author Asma BRAZI
  */
 public class Robot {
 	protected Vec2 position;
@@ -23,7 +24,7 @@ public class Robot {
 
 	public Robot(Properties props) {
 		this.position = new Vec2(0.0f, 0.0f);
-		this.rotation = 3*Math.PI / 4;
+		this.rotation = Math.PI / 2;
 		this.windows = System.getProperty("os.name").contains("Windows");
 		this.mac = System.getProperty("os.name").contains("Mac");
 		this.localURL = System.getProperty("user.dir");
