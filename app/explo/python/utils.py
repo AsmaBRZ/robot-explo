@@ -469,14 +469,37 @@ def LSDDetection(im):
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
     width=-1
+    width_x0=-1
+    width_y0=-1
+    width_x1=-1
+    width_y1=-1
+
     height=-1
+    height_x0=-1
+    height_y0=-1
+    height_x1=-1
+    height_y1=-1
+
     depthL=-1
+    depthL_x0=-1
+    depthL_y0=-1
+    depthL_x1=-1
+    depthL_y1=-1
+
     depthR=-1
+    depthR_x0=-1
+    depthR_y0=-1
+    depthR_x1=-1
+    depthR_y1=-1
+
     if len(filtred_horz_lines) !=0:
         width=max(filtred_horz_lines.keys())
+        width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[width]
+
 
     if len(filtred_vert_lines) !=0:
         height=max(filtred_vert_lines.keys())
+
     #classify the diagonals situated on the left and on the right of the picture
     diagL={}
     diagR={}
@@ -491,13 +514,24 @@ def LSDDetection(im):
                 diagR[k]=v
     if len(diagL) !=0:
         depthL=max(diagL.keys())
+        diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[width]
+
     if len(diagR) !=0:
         depthR=max(diagR.keys())
-
-    return height,width,depthL,depthR
+        depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[width]
+        
+    with open('data/dimWall', 'w') as outfile:
+        outfile.write(str(height))
+        outfile.write("\n")
+        outfile.write(str(width)+str("/")+str(width_x0)+str("/")+str(width_y0)+sstr("/")+tr(width_x1)+str("/")+str(width_y1))
+        outfile.write("\n")
+        outfile.write(str(depthL))+str("/")+str(diagL_x0)+str("/")+str(diagL_y0)+sstr("/")+tr(diagL_x1)+str("/")+str(diagL_y1)
+        outfile.write("\n")
+        outfile.write(str(depthR))+str("/")+str(depthR__x0)+str("/")+str(depthR__y0)+sstr("/")+tr(depthR__x1)+str("/")+str(depthR__y1)
+        outfile.close()
 
 def PictureLSDDetection(img):
-    filtred_non_vert_lines,filtred_horz_lines,filtred_vert_lines=LSDDetection(img)
+    LSDDetection(img)
 #######################################
 #PictureGFCornerDetection()
 #PictureLSDDetection(takePicture())

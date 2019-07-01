@@ -40,10 +40,8 @@ public class InternalRepresentation {
 		if(!this.visitedWalls.contains(i))
 			this.visitedWalls.add(i);
 	}
-	private void addWall(int id,Point p1,Point p2,float height,float width,int idPreviousWall,boolean isolated){
-		if(!isolated) {
-			p2=this.walls.get(idPreviousWall).getCornerRight();
-		}
+	private void addWall(int id,Point p1,Point p2,float height,float width){
+
 		this.markers.add(p1);
 		this.walls.add(new Wall(id,p1,p2,height,width));
 	}

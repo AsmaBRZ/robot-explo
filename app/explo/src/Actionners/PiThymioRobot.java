@@ -121,6 +121,22 @@ public class PiThymioRobot extends Robot {
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
+
+				float distanceSensor;
+				tmp=new ArrayList<Float>();
+				sendToPC("data/disSensor",localURL+"/ressources/data/");
+				 try (FileReader reader = new FileReader(localURL+"/ressources/data/disSensor");
+				            BufferedReader br = new BufferedReader(reader)) {
+				            String line;
+				           while((line = br.readLine()) != null) {
+				               distanceSensor=Float.parseFloat(line);     
+				               tmp.add(distanceSensor);
+				               list.add(tmp);
+				           }
+				        } catch (IOException e) {
+			            System.err.format("IOException: %s%n", e);
+			        }
+	return list;
 	return list;
 }
 	/**
