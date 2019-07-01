@@ -1,58 +1,32 @@
 import dbus
 import dbus.mainloop.glib
-import gobject
-import sys
-import time
+from gi.repository import GObject as gobject 
 from optparse import OptionParser
-
-def control():
+ 
+proxSensorsVal=[0,0,0,0,0]
+ 
+def captureSensor():
     #get the values of the sensors
-    network.GetVariable("thymio-II", "prox.horizontal", reply_handler = get_variables_reply , error_handler = get_variables_error)
+    network.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_variables_reply,error_handler=get_variables_error)
+    return False
  
-    #print the proximity sensors value in the terminal
-    print (proxSensorsVal[0], proxSensorsVal[1], proxSensorsVal[2], proxSensorsVal[3], proxSensorsVal[4])
- 
-    #read in a key press
-    char = sys.stdin.read(1)
-    #if a key is pressed
-    if char == 'w':
-       network.SetVariable("thymio-II", "motor.left.target", [300])
-       network.SetVariable("thymio-II", "motor.right.target", [300])
-       time.sleep(1)
-       network.SetVariable("thymio-II", "motor.left.target", [0])
-       network.SetVariable("thymio-II", "motor.right.target", [0])
-    if char == 's':
-       network.SetVariable("thymio-II", "motor.left.target", [-300])
-       network.SetVariable("thymio-II", "motor.right.target", [-300])
-       time.sleep(1)
-       network.SetVariable("thymio-II", "motor.left.target", [0])
-       network.SetVariable("thymio-II", "motor.right.target", [0])
-    if char == 'a':
-       network.SetVariable("thymio-II", "motor.left.target", [-300])
-       network.SetVariable("thymio-II", "motor.right.target", [300])
-       time.sleep(0.2)
-       network.SetVariable("thymio-II", "motor.left.target", [0])
-       network.SetVariable("thymio-II", "motor.right.target", [0])
-    if char == 'd':
-       network.SetVariable("thymio-II", "motor.left.target", [300])
-       network.SetVariable("thymio-II", "motor.right.target", [-300])
-       time.sleep(0.2)
-       network.SetVariable("thymio-II", "motor.left.target", [0])
-       network.SetVariable("thymio-II", "motor.right.target", [0])
-    return True
 def get_variables_reply(r):
     global proxSensorsVal
     proxSensorsVal=r
+    result='/'.join([str(v) for v in r])
+    with open('data/horzDist', 'w') as outfile:
+        outfile.write(str(result))
+        outfile.close()
+    loop.quit()
  
 def get_variables_error(e):
     print ('error:')
     print (str(e))
     loop.quit()
-
+ 
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-s", "--system", action="store_true", dest="system", default=False,help="use the system bus instead of the session bus")
- 
     (options, args) = parser.parse_args()
  
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
@@ -62,14 +36,9 @@ if __name__ == '__main__':
     else:
         bus = dbus.SessionBus()
  
-    #Create Aseba network
+    #Create Aseba network 
     network = dbus.Interface(bus.get_object('ch.epfl.mobots.Aseba', '/'), dbus_interface='ch.epfl.mobots.AsebaNetwork')
- 
-    #print in the terminal the name of each Aseba NOde
-    print (network.GetNodesList()  )
-    #GObject loop
-    #print 'starting loop'
     loop = gobject.MainLoop()
     #call the callback of Braitenberg algorithm
-    handle = gobject.timeout_add (100, Control) #every 0.1 sec
+    handle = gobject.timeout_add (100, captureSensor) #every 0.1 sec
     loop.run()
