@@ -14,6 +14,7 @@ if __name__=='__main__':
 	#fix the resolution
 	res1=600
 	res2=400
+	getDistanceFromSensors()
 	picturePath=takePicture(res1,res2)
 	LSDDetection(picturePath)
 	disSensor=getDisSensor()

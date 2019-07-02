@@ -28,7 +28,7 @@ public class Exploration {
 	private Scene jmeApp;
 	private ArrayList<HashMap<String, String>> dbObjects=new ArrayList<HashMap<String, String>>();
     private int cpWall=0;
-    private newWall=true;
+    private boolean newWall=true;
 
 	public Exploration() throws InterruptedException{
 		
@@ -108,8 +108,8 @@ public class Exploration {
 	@SuppressWarnings("unused")
 	//target is the name of the object we re searching for, currently it may be in[0.png, 1.png or 2.png]
 	private int explore(int target){
-		float thresholWallMax=2000.0: //2m
-		float thresholWallMin=50: //50 cm
+		float thresholWallMax=2000; //2m
+		float thresholWallMin=50; //50 cm
 		
 		boolean targetFound=false;
 		//We set the distance with which the robot rolls to 1m. 
@@ -177,7 +177,7 @@ public class Exploration {
 
 				}
 			}
-			if(width!=-1 depthL==-1 && depthR==-1) {
+			if(width!=-1 && depthL==-1 && depthR==-1) {
 				
 				if(disSensor>=thresholWallMax){
 					//the autonomous robot is so far from the wall
@@ -215,7 +215,7 @@ public class Exploration {
 								cornerRight=new Point(this.robot.getPosition().mul(disSensor));
 								
 						}
-						this.env.addWall(cpWall+cornerLeft,cornerRight,height,widthWall*2);
+						this.env.addWall(cpWall,cornerLeft,cornerRight,height,widthWall*2);
 						System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
 						System.out.println("");
 						this.robot.rotate(90);
@@ -225,7 +225,7 @@ public class Exploration {
 					}
 
 				}
-				if(width!=-1 depthL==-1 && depthR!=-1) {
+				if(width!=-1 &&  depthL==-1 && depthR!=-1) {
 					if(disSensor>=thresholWallMax){
 					//the autonomous robot is so far from the wall
 					System.out.println("Rigth depth, the autonomous robot is so far from an eventual wall");

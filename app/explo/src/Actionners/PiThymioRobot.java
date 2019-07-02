@@ -136,8 +136,9 @@ public class PiThymioRobot extends Robot {
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
+				
 	return list;
-	return list;
+
 }
 	/**
 	 * Sends order to thymio to move from dist (meter)
@@ -264,7 +265,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= {"rplidar-0.9.2.tar.gz","sensorsDist.aesl","getData.aesl","setup.py","_div.py","thymio.py","distFromSensors.py", "6.png","imageVanishingLines.py", "0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
+		String[] files= {"6.png","0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
 
 		String urlToScript;
 
