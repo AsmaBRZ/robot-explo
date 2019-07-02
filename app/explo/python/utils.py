@@ -41,7 +41,7 @@ import itertools
 import random
 from itertools import starmap
 
-proxSensorsVal=[0,0,0,0,0]
+proxSensorsVal=[-1,-1,-1,-1,-1,-1,-1]
 def takePicture(r1=600,r2=400):
     urlDirectory="/home/pi/VisualNav"
     imgName=datetime.datetime.now().strftime('%H%M%S%d%m')
@@ -518,11 +518,11 @@ def LSDDetection(im):
                 diagR[k]=v
     if len(diagL) !=0:
         depthL=max(diagL.keys())
-        diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[width]
+        diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[depthL=]
 
     if len(diagR) !=0:
         depthR=max(diagR.keys())
-        depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[width]
+        depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[depthR]
         
     with open('data/dimWall', 'w') as outfile:
         outfile.write(str(height))
@@ -536,11 +536,7 @@ def LSDDetection(im):
 
 def PictureLSDDetection(img):
     LSDDetection(img)
-def captureSensor():
-    #get the values of the sensors
-    network.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_variables_reply,error_handler=get_variables_error)
-    return False
- 
+
 def get_variables_reply(r):
     global proxSensorsVal
     proxSensorsVal=r
@@ -554,7 +550,12 @@ def get_variables_error(e):
     print ('error:')
     print (str(e))
     loop.quit()
- 
+
+def captureSensor():
+    #get the values of the sensors
+    network.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_variables_reply,error_handler=get_variables_error)
+return False
+
 def getDistanceFromSensors():
     parser = OptionParser()
     parser.add_option("-s", "--system", action="store_true", dest="system", default=False,help="use the system bus instead of the session bus")
