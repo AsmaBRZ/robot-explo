@@ -72,7 +72,7 @@ public class Robot {
 	/**
 	 * @return actual rotation of robot between 0.0 and 2.0*PI
 	 */
-	public double rotation() {
+	public double getRotation() {
 		return this.rotation;
 	}
 

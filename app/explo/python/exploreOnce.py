@@ -17,10 +17,6 @@ if __name__=='__main__':
 	getDistanceFromSensors()
 	picturePath=takePicture(res1,res2)
 	LSDDetection(picturePath)
-	disSensor=getDisSensor()
-	with open('data/disSensor"', 'w') as outfile:
-		outfile.write(str(disSensor))
-		outfile.close()
 
 	objects=recognition(picturePath)
 	with open('data/distanceCaptured', 'w') as outfile:
