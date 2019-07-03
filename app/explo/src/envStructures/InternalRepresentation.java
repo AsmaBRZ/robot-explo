@@ -40,7 +40,7 @@ public class InternalRepresentation {
 		if(!this.visitedWalls.contains(i))
 			this.visitedWalls.add(i);
 	}
-	private void addWall(int id,Point p1,Point p2,float height,float width){
+	public void addWall(int id,Point p1,Point p2,float height,float width){
 
 		this.markers.add(p1);
 		this.walls.add(new Wall(id,p1,p2,height,width));
@@ -171,7 +171,7 @@ public class InternalRepresentation {
 		
 		Wall w = null;
 		for (int i = 0; i<this.walls.size(); i++){
-			double robotRot = robot.rotation();
+			double robotRot = robot.getRotation();
 			w = this.walls.get(i);
 			float clAngle = Vec2.angle(w.cornerRight.position().sub(robotPos), new Vec2(1,0));
 			float crAngle = Vec2.angle(w.cornerLeft.position().sub(robotPos), new Vec2(1,0));

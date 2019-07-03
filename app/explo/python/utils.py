@@ -48,10 +48,13 @@ def takePicture(r1=600,r2=400):
     urlImg=urlDirectory+'/'+imgName+'.jpg'
     camera = PiCamera()
     camera.resolution = (r1,r2)
-    camera.start_preview()
-    sleep(2)
-    camera.capture(urlImg)
-    camera.stop_preview()
+    try:
+        camera.start_preview()
+        sleep(2)
+        camera.capture(urlImg)
+        camera.stop_preview()
+    finally:
+        camera.close()
     return urlImg
 # the function HoughLinesP return the maximum vertical line detected (let it be our height of the wall)
 #maxLG:  the height of the wall that we allow to have
@@ -143,9 +146,8 @@ def recognition(img,nbRefs=1):
             (minVal, maxVal, _, maxLoc) = cv2.minMaxLoc(result)
             # draw a bounding box around the detected region
             clone = np.dstack([edged, edged, edged])
-            cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),
-                (maxLoc[0] + tW, maxLoc[1] + tH), (0, 0, 255), 2)
-            #cv2.imshow("Visualize", clone)
+            cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),(maxLoc[0] + tW, maxLoc[1] + tH), (0, 0, 255), 2)
+            cv2.imshow("Visualize", clone)
             #cv2.waitKey(0)
 
             # if we have found a new maximum correlation value, then update the variable
@@ -161,9 +163,9 @@ def recognition(img,nbRefs=1):
 
         # draw a bounding box around the detected result and display the image
         cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-        #cv2.imshow("Image", image)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
+        cv2.imshow("Image", image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
         imgWidth=(np.shape(image)[1]/int(tW * r) *11.5)
         # camera wide angle by default
         angle = 54
@@ -518,7 +520,7 @@ def LSDDetection(im):
                 diagR[k]=v
     if len(diagL) !=0:
         depthL=max(diagL.keys())
-        diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[depthL=]
+        diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[depthL]
 
     if len(diagR) !=0:
         depthR=max(diagR.keys())
@@ -554,7 +556,7 @@ def get_variables_error(e):
 def captureSensor():
     #get the values of the sensors
     network.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_variables_reply,error_handler=get_variables_error)
-return False
+    return False
 
 def getDistanceFromSensors():
     parser = OptionParser()
@@ -578,3 +580,4 @@ def getDistanceFromSensors():
 #PictureGFCornerDetection()
 #PictureLSDDetection(takePicture())
 #recognition(takePicture(),nbRefs=1)
+takePicture(r1=600,r2=400)
