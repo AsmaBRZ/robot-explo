@@ -27,6 +27,7 @@ public class InternalRepresentation {
 	}
 	public void updateWallsHeight(float h) {
 		for(int i=0;i<this.walls.size();i++) {
+			System.out.print("wall to update with the new height");
 			if(this.walls.get(i).getHeight()<h) {
 				this.walls.get(i).setHeight(h);
 			}

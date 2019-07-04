@@ -9,7 +9,7 @@
 <node nodeId="1" name="thymio-II">
 var distance=0
 var realSpeed=0
-var speed=10
+var speed=72
 var reverse=1
 motor.left.target=0
 timer.period[1]=1000
@@ -19,7 +19,7 @@ onevent timer1
 if 0&lt;distance then
 	realSpeed=motor.left.speed
 	distance=distance-realSpeed*reverse*47/48
-	motor.left.target=speed
+	motor.left.target=speed 
 	motor.right.target=speed*-1
 else
 	motor.left.target=0

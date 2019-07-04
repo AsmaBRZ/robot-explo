@@ -42,6 +42,10 @@ import random
 from itertools import starmap
 
 proxSensorsVal=[-1,-1,-1,-1,-1,-1,-1]
+
+def initAsebamedulla():
+    os.system('asebamedulla   "ser:name=Thymio-II" &')
+
 def takePicture(r1=600,r2=400):
     urlDirectory="/home/pi/VisualNav"
     imgName=datetime.datetime.now().strftime('%H%M%S%d%m')
@@ -91,7 +95,7 @@ class AsebaThread(Thread):
 #type is the name of the picture 0:QRCODE 1:PEPPER 2:PLATON
 def getThreshold(type):
     if(type==0):
-        return 12000000.0
+        return 14000000.0
     if(type==1):
         return 30000000.0
     if(type==2):
@@ -109,7 +113,7 @@ def recognition(img,nbRefs=1):
     references=np.arange(0,nbRefs,1).tolist()
     for t in references:
         threshold=getThreshold(t)
-        print(t)
+        #print(t)
         reference="DB/"+str(t)+".png"
         urlDirectory="/home/pi/VisualNav"
         match=False
@@ -145,9 +149,9 @@ def recognition(img,nbRefs=1):
             result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF)
             (minVal, maxVal, _, maxLoc) = cv2.minMaxLoc(result)
             # draw a bounding box around the detected region
-            clone = np.dstack([edged, edged, edged])
-            cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),(maxLoc[0] + tW, maxLoc[1] + tH), (0, 0, 255), 2)
-            cv2.imshow("Visualize", clone)
+            #clone = np.dstack([edged, edged, edged])
+            #cv2.rectangle(clone, (maxLoc[0], maxLoc[1]),(maxLoc[0] + tW, maxLoc[1] + tH), (0, 0, 255), 2)
+            #cv2.imshow("Visualize", clone)
             #cv2.waitKey(0)
 
             # if we have found a new maximum correlation value, then update the variable
@@ -162,10 +166,10 @@ def recognition(img,nbRefs=1):
         (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
 
         # draw a bounding box around the detected result and display the image
-        cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-        cv2.imshow("Image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        #cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
         imgWidth=(np.shape(image)[1]/int(tW * r) *11.5)
         # camera wide angle by default
         angle = 54
@@ -487,10 +491,10 @@ def LSDDetection(im):
     height_y1=-1
 
     depthL=-1
-    depthL_x0=-1
-    depthL_y0=-1
-    depthL_x1=-1
-    depthL_y1=-1
+    diagL_x0=-1
+    diagL_y0=-1
+    diagL_x1=-1
+    diagL_y1=-1
 
     depthR=-1
     depthR_x0=-1
@@ -501,7 +505,8 @@ def LSDDetection(im):
     if len(filtred_horz_lines) !=0:
         width=max(filtred_horz_lines.keys())
         width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[width]
-
+    else:
+        width=-1
 
     if len(filtred_vert_lines) !=0:
         height=max(filtred_vert_lines.keys())
@@ -521,19 +526,23 @@ def LSDDetection(im):
     if len(diagL) !=0:
         depthL=max(diagL.keys())
         diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[depthL]
+    else:
+        diagL=-1
 
     if len(diagR) !=0:
         depthR=max(diagR.keys())
         depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[depthR]
+    else:
+        depthR=-1
         
     with open('data/dimWall', 'w') as outfile:
         outfile.write(str(height))
         outfile.write("\n")
-        outfile.write(str(width)+str("/")+str(width_x0)+str("/")+str(width_y0)+sstr("/")+tr(width_x1)+str("/")+str(width_y1))
+        outfile.write(str(width)+str("/")+str(width_x0)+str("/")+str(width_y0)+str("/")+str(width_x1)+str("/")+str(width_y1))
         outfile.write("\n")
-        outfile.write(str(depthL))+str("/")+str(diagL_x0)+str("/")+str(diagL_y0)+sstr("/")+tr(diagL_x1)+str("/")+str(diagL_y1)
+        outfile.write(str(depthL)+str("/")+str(diagL_x0)+str("/")+str(diagL_y0)+str("/")+str(diagL_x1)+str("/")+str(diagL_y1))
         outfile.write("\n")
-        outfile.write(str(depthR))+str("/")+str(depthR__x0)+str("/")+str(depthR__y0)+sstr("/")+tr(depthR__x1)+str("/")+str(depthR__y1)
+        outfile.write(str(depthR)+str("/")+str(depthR_x0)+str("/")+str(depthR_y0)+str("/")+str(depthR_x1)+str("/")+str(depthR_y1))
         outfile.close()
 
 def PictureLSDDetection(img):
@@ -546,6 +555,11 @@ def get_variables_reply(r):
     with open('data/disSensor', 'w') as outfile:
         outfile.write(str(result))
         outfile.close()
+    os.system("pidof asebamedulla > pidtmp")
+    reader=open("pidtmp")
+    os.system("kill "+reader.read())
+    reader.close()
+    os.system("rm pidtmp")
     loop.quit()
  
 def get_variables_error(e):
@@ -559,6 +573,10 @@ def captureSensor():
     return False
 
 def getDistanceFromSensors():
+    global network
+    global loop
+    initAsebamedulla()
+    sleep(3)
     parser = OptionParser()
     parser.add_option("-s", "--system", action="store_true", dest="system", default=False,help="use the system bus instead of the session bus")
     (options, args) = parser.parse_args()
@@ -577,7 +595,8 @@ def getDistanceFromSensors():
     handle = gobject.timeout_add (100, captureSensor) #every 0.1 sec
     loop.run()
 #######################################
+#testing
+
 #PictureGFCornerDetection()
 #PictureLSDDetection(takePicture())
 #recognition(takePicture(),nbRefs=1)
-takePicture(r1=600,r2=400)

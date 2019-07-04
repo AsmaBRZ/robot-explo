@@ -37,7 +37,8 @@ public class Exploration {
 	private	Point cornerLeft, cornerRight;
 	private	float widthWall;
 	private int threshClose =10;
-	private int threshTargetRec=1500;
+	private int threshTargetRec=2500;
+	private int distMar=41;
 	float lenSeg,x0,y0,x1,y1;
 	double robRotation;
 	Vec2 robPosition;
@@ -119,6 +120,7 @@ public class Exploration {
 	@SuppressWarnings("unused")
 	//target is the name of the object we re searching for, currently it may be in[0.png, 1.png or 2.png]
 	private int explore(int target){
+		    System.out.println("My walls are: "+this.env.getWalls().toString()+"\n0");
 			robRotation=this.robot.getRotation();
 			robPosition=this.robot.getPosition();
 			//Step 0: Capture the visual information
@@ -127,11 +129,11 @@ public class Exploration {
 			List<ArrayList<Float>> data;
 			// capture visual information
 			data=robot.captureData();
-			System.out.println("Visual information: "+data.toString());
+			//System.out.println("Visual information: "+data.toString());
 
 			//retreive information about the object to find
 			ArrayList<Float> dimensionsObj=data.get(1);
-			System.out.println("dimensionsObj"+dimensionsObj);
+			//System.out.println("dimensionsObj"+dimensionsObj);
 			float distanceToWall=dimensionsObj.get(0);
 			float startX=dimensionsObj.get(1);
 			float startY =dimensionsObj.get(2);
@@ -150,53 +152,57 @@ public class Exploration {
 			if(startX!=-1) {
 				//the target object has been detected
 				this.targetFound=true;
+				System.out.println("Target  detected");
+				return 1;
 			}
 
 			//Step 1: construct the environment with the visual information
 			//update the walls with the new height captured if necessary
-			this.env.updateWallsHeight(height);
+			//this.env.updateWallsHeight(height);
 			
-			//the autonomous robot did not detect any useful visual information
-			if(width.get(0)==-1 && depthL.get(0)==-1 && depthR.get(0)==-1){ //000
-				System.out.println("Any segment has been detected");
-				//It refers to its sensors to know if it is too close from a wall
-
-				if(disSensors.get(0)!=-1){
-					//the autonomous robot is too close from the wall in front
-					System.out.println("the autonomous robot is so too close from a wall in front, -> move back");
-					try {
-						this.robot.move(-distanceRob);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					return 0;
+			
+			if(disSensors.get(0)!=0){
+				//the autonomous robot is too close from the wall in front
+				System.out.println("the autonomous robot is so too close from an eventual  wall in front, -> move back");
+				try {
+					this.robot.move(-distanceRob);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if(disSensors.get(1)!=-1 || disSensors.get(2)!=-1 ){
+				return 0;
+			}
+			
+			if(disSensors.get(1)!=0 || disSensors.get(2)!=0 ){
 					//the autonomous robot is too close from the wall in front
 					System.out.println("the autonomous robot is so too close from a wall behind it, -> exploration of this wall");
 					try {
 						this.robot.move(distanceRob);
-						this.robot.rotate(180);
+						this.robot.rotate(90);
+						this.robot.rotate(90);
 					} catch (IOException | InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 					return 0;
-				}
-				if(disSensors.get(0)==-1 && disSensors.get(1)==-1 && disSensors.get(2)==-1 ){
-					//As any information was detected, the robot moves forward
-					System.out.println("the autonomous robot sees nothing: move forward");
+			}
+				
+			//the autonomous robot did not detect any useful visual information
+			if(width.get(0)==-1 && depthL.get(0)==-1 && depthR.get(0)==-1){ //000
+				System.out.println("Any segment has been detected");
 					try {
 						this.robot.move(distanceRob);
-					} catch (IOException | InterruptedException e) {
+					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					
 					return 0;
 				}
 			}
@@ -205,24 +211,29 @@ public class Exploration {
 				//add a new wall to the environment
 				System.out.println("100: A wall in front has been detected.");
 				if(width.get(2)<threshTargetRec){
-					x0=width.get(1)*106/600;
+					x0=pixToCmVert(width.get(1))+distMar;
+					y0=pixToCmHorz(width.get(2))+distMar;
+					x1=pixToCmVert(width.get(3))+distMar;
+					y1=pixToCmHorz(width.get(4))+distMar;
+					
 					x0=(float) (x0*((float)Math.cos(robRotation))-width.get(2)*Math.sin(robRotation)+robPosition.x);
-					y0=width.get(2)*60/73;
 					y0=(float) (y0*((float)Math.cos(robRotation))+width.get(1)*Math.sin(robRotation)+robPosition.y);
-					x1=width.get(3)*106/600;
 					x1=(float) (x1*((float)Math.cos(robRotation))-width.get(4)*Math.sin(robRotation)+robPosition.x);
-					y1=width.get(4)*60/73;
 					y1=(float) (y1*((float)Math.cos(robRotation))+width.get(3)*Math.sin(robRotation)+robPosition.y);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 					cornerLeft=new Point(x0,y0);
 					cornerRight=new Point(x1,y1);
 					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
-					System.out.println("Wall"+cornerLeft.toString()+" "+cornerRight.toString());
+					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					try {
+						System.out.println("rotate 90");
 						this.robot.rotate(90);
+						System.out.println("move");
 						this.robot.move(distanceRob);
+						System.out.println("rotate -90");
 						this.robot.rotate(-90);
+						System.out.println("end rotate -90");
 					} catch (IOException | InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -241,7 +252,6 @@ public class Exploration {
 			    }
 				return 0;
 			}
-
 			if(width.get(0)==-1 && (depthL.get(0)!=-1 || depthR.get(0)!=-1)){ //001,010,011
 				//the autonomous robot is so far from the wall
 				System.out.println("001-010-011:The autonomous robot is so far from an eventual wall");
@@ -257,10 +267,11 @@ public class Exploration {
 			if(width.get(0)!=-1  && depthL.get(0)==-1 &&  depthR.get(0)!=-1) { //101
 				//add a new wall to the environment
 				//wall on the right
-					x0=depthR.get(1)*106/600;
-					y0=depthR.get(2)*60/73;
-					x1=depthR.get(3)*106/600;
-					y1=depthR.get(4)*60/73;
+					x0=pixToCmVert(depthR.get(1))+distMar;
+					y0=pixToCmHorz(depthR.get(2))+distMar;
+					x1=pixToCmVert(depthR.get(3))+distMar;
+					y1=pixToCmHorz(depthR.get(4))+distMar;
+					
 					x0=(float) (x0*(float)Math.cos(robRotation)-depthR.get(2)*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*(float)Math.cos(robRotation)+depthR.get(1)*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (x1*(float)Math.cos(robRotation)-depthR.get(4)*Math.sin(robRotation)+robPosition.x);
@@ -269,28 +280,28 @@ public class Exploration {
 					cornerLeft=new Point(x0,y0);
 					cornerRight=new Point(x1,y1);
 					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
-				this.cpWall++;
+					this.cpWall++;
 				if (tooClose(width,depthR)){
 					System.out.println("101: Some walls have been detected - Too close walls");
 					//wall in front
 					if(width.get(2)<threshTargetRec){
-						x0=width.get(1)*106/600;
+						x0=pixToCmVert(width.get(1))+distMar;
+						y0=pixToCmHorz(width.get(2))+distMar;
+						x1=pixToCmVert(width.get(3))+distMar;
+						y1=pixToCmHorz(width.get(4))+distMar;
+						
 						x0=(float) (x0*((float)Math.cos(robRotation))-width.get(2)*Math.sin(robRotation)+robPosition.x);
-						y0=width.get(2)*60/73;
 						y0=(float) (y0*((float)Math.cos(robRotation))+width.get(1)*Math.sin(robRotation)+robPosition.y);
-						x1=width.get(3)*106/600;
 						x1=(float) (x1*((float)Math.cos(robRotation))-width.get(4)*Math.sin(robRotation)+robPosition.x);
-						y1=width.get(4)*60/73;
 						y1=(float) (y1*((float)Math.cos(robRotation))+width.get(3)*Math.sin(robRotation)+robPosition.y);
 						lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 						cornerLeft=new Point(x0,y0);
 						cornerRight=new Point(x1,y1);
 						this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
-						
 						this.cpWall++;
 						try {
 							this.robot.rotate(180);
-							this.robot.move(400-Math.max(depthR.get(2),depthR.get(4))+this.distanceRob);
+							this.robot.move(this.distanceRob);
 							this.robot.rotate(-90);
 						} catch (IOException | InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -299,7 +310,7 @@ public class Exploration {
 						
 					}
 					else{
-						//if the wall in front is soo far, the robot moves forward
+						//if the wall in front is so far, the robot moves forward
 						System.out.println("The target may be missed");
 			    		try {
 							this.robot.move(distanceRob);
@@ -327,10 +338,10 @@ public class Exploration {
 				//add a new wall to the environment
 
 				//wall on the left
-				x0=depthL.get(1)*106/600;
-				y0=depthL.get(2)*60/73;
-				x1=depthL.get(3)*106/600;
-				y1=depthL.get(4)*60/73;
+				x0=pixToCmVert(depthL.get(1))+distMar;
+				y0=pixToCmHorz(depthL.get(2))+distMar;
+				x1=pixToCmVert(depthL.get(3))+distMar;
+				y1=pixToCmHorz(depthL.get(4))+distMar;
 				
 				x0=(float) (x0*(float)Math.cos(robRotation)-depthL.get(2)*Math.sin(robRotation)+robPosition.x);
 				y0=(float) (y0*(float)Math.cos(robRotation)+depthL.get(1)*Math.sin(robRotation)+robPosition.y);
@@ -346,14 +357,15 @@ public class Exploration {
 					System.out.println("110: Some walls have been detected - Too close walls");
 					if(width.get(2)<threshTargetRec){
 						//wall in front
-						    
-						x0=width.get(1)*106/600;
+						   
+						x0=pixToCmVert(width.get(1))+distMar;
+						y0=pixToCmHorz(width.get(2))+distMar;
+						x1=pixToCmVert(width.get(3))+distMar;
+						y1=pixToCmHorz(width.get(4))+distMar;
+						
 						x0=(float) (x0*((float)Math.cos(robRotation))-width.get(2)*Math.sin(robRotation)+robPosition.x);
-						y0=width.get(2)*60/73;
 						y0=(float) (y0*((float)Math.cos(robRotation))+width.get(1)*Math.sin(robRotation)+robPosition.y);
-						x1=width.get(3)*106/600;
 						x1=(float) (x1*((float)Math.cos(robRotation))-width.get(4)*Math.sin(robRotation)+robPosition.x);
-						y1=width.get(4)*60/73;
 						y1=(float) (y1*((float)Math.cos(robRotation))+width.get(3)*Math.sin(robRotation)+robPosition.y);
 						lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 						cornerLeft=new Point(x0,y0);
@@ -362,14 +374,14 @@ public class Exploration {
 						this.cpWall++;
 						try {
 							this.robot.rotate(90);
-							this.robot.move(400-Math.max(width.get(1),width.get(3))+this.distanceRob);
+							this.robot.move(this.distanceRob);
 							this.robot.rotate(-90);
-						} catch (IOException | InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+							} catch (IOException | InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						
-						}
+					}
 					else{
 						//if the wall in front is soo far, the robot moves forward
 						System.out.println("The target may be missed");
@@ -396,12 +408,12 @@ public class Exploration {
 
 			if(width.get(0)!=-1  && depthL.get(0)!=-1 &&  depthR.get(0)!=-1) { //111
 				//add new walls to the environment
-
+				 System.out.print("t3ayi ");
 				//wall on the left
-				x0=depthL.get(1)*106/600;
-				y0=depthL.get(2)*60/73;
-				x1=depthL.get(3)*106/600;
-				y1=depthL.get(4)*60/73;
+				 x0=pixToCmVert(depthL.get(1))+distMar;
+				 y0=pixToCmHorz(depthL.get(2))+distMar;
+				 x1=pixToCmVert(depthL.get(3))+distMar;
+				 y1=pixToCmHorz(depthL.get(4))+distMar;
 				
 				x0=(float) (x0*(float)Math.cos(robRotation)-depthL.get(2)*Math.sin(robRotation)+robPosition.x);
 				y0=(float) (y0*(float)Math.cos(robRotation)+depthL.get(1)*Math.sin(robRotation)+robPosition.y);
@@ -412,11 +424,12 @@ public class Exploration {
 				cornerRight=new Point(x1,y1);
 				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 				this.cpWall++;
-
-				x0=depthR.get(1)*106/600;
-				y0=depthR.get(2)*60/73;
-				x1=depthR.get(3)*106/600;
-				y1=depthR.get(4)*60/73;
+				
+				x0=pixToCmVert(depthR.get(1))+distMar;
+				y0=pixToCmHorz(depthR.get(2))+distMar;
+				x1=pixToCmVert(depthR.get(3))+distMar;
+				y1=pixToCmHorz(depthR.get(4))+distMar;
+				
 				x0=(float) (x0*(float)Math.cos(robRotation)-depthR.get(2)*Math.sin(robRotation)+robPosition.x);
 				y0=(float) (y0*(float)Math.cos(robRotation)+depthR.get(1)*Math.sin(robRotation)+robPosition.y);
 				x1=(float) (x1*(float)Math.cos(robRotation)-depthR.get(4)*Math.sin(robRotation)+robPosition.x);
@@ -427,20 +440,22 @@ public class Exploration {
 				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 				this.cpWall++;
 
-
+				System.out.println("hadi li mazal mafhamtehach ");
+				System.out.println(width+"\n"+depthL+"\n"+depthR+"rrrrrrr");
 				if (tooClose(width,depthR) ||  tooClose(width,depthL)){
 					System.out.println("111: Some walls have been detected - Too close walls");
 					if(width.get(2)<threshTargetRec){
 						//wall in front
-					    
-						
-						x0=width.get(1)*106/600;
+			           
+						System.out.print("t3ayi ktar m droj");
+						x0=pixToCmVert(width.get(1))+distMar;
+						y0=pixToCmHorz(width.get(2))+distMar;
+						x1=pixToCmVert(width.get(3))+distMar;
+						y1=pixToCmHorz(width.get(4))+distMar;
+
 						x0=(float) (x0*((float)Math.cos(robRotation))-width.get(2)*Math.sin(robRotation)+robPosition.x);
-						y0=width.get(2)*60/73;
 						y0=(float) (y0*((float)Math.cos(robRotation))+width.get(1)*Math.sin(robRotation)+robPosition.y);
-						x1=width.get(3)*106/600;
 						x1=(float) (x1*((float)Math.cos(robRotation))-width.get(4)*Math.sin(robRotation)+robPosition.x);
-						y1=width.get(4)*60/73;
 						y1=(float) (y1*((float)Math.cos(robRotation))+width.get(3)*Math.sin(robRotation)+robPosition.y);
 						lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 						cornerLeft=new Point(x0,y0);
@@ -449,7 +464,7 @@ public class Exploration {
 						this.cpWall++;
 						try {
 							this.robot.rotate(90);
-							this.robot.move(400-Math.max(width.get(1),width.get(3))+this.distanceRob);
+							this.robot.move(this.distanceRob);
 						} catch (IOException | InterruptedException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -463,6 +478,7 @@ public class Exploration {
 						}
 					}
 					else{
+						
 						//if the wall in front is soo far, the robot moves forward
 						System.out.println("The target may be missed");
 						try {
@@ -490,6 +506,7 @@ public class Exploration {
 		
 	//test if too lines have closest extremities
 	public boolean tooClose(ArrayList<Float> l1, ArrayList<Float> l2){
+		System.out.println("close arguments "+l1.toString()+ " "+l2.toString());
 		if(Math.abs(l1.get(1)-l2.get(1))<this.threshClose && Math.abs(l1.get(2)-l2.get(2))<this.threshClose){
 			return true;
 		}
@@ -523,5 +540,11 @@ public class Exploration {
             System.err.format("IOException: %s%n", e);
         }
 		
+	}
+	public float pixToCmVert(float x) {
+		return (float) Math.pow(1.043873628, x);
+	}
+	public float pixToCmHorz(float x) {
+		return (float) (3.960447628*Math.log(x));
 	}
 }

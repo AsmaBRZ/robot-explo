@@ -77,101 +77,33 @@ public class Scene extends SimpleApplication {
 		robot.setMaterial(blue);
 		robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
 		//Adding the walls on the scene
-		this.map.getWalls().forEach((w)->this.addWallOnScene(w));
+		for(int i=0;i<this.map.getWalls().size();i++) {
+			int idWall=this.map.getWalls().get(i).getId();
+			this.addWallOnScene(idWall);
+		}
 		//adding the robot to the scene
 		rootNode.attachChild(guizmoX);
 		rootNode.attachChild(guizmoY);
 		rootNode.attachChild(robot);
 
-		//Init key binding
-		initKeys();
 	}
 	//update automatically the scene by updatin its elements
 	@Override
 	 public void simpleUpdate(float tpf) {
-	    	this.map.getWalls().forEach((w)->this.updateWall(w));
+		    //System.out.println("Simple update: "+this.map.getWalls().toString());
+				for(int i=0;i<this.map.getWalls().size();i++) {
+					int idWall=this.map.getWalls().get(i).getId();
+					if(rootNode.getChild(idWall)!=null) {
+						addWallOnScene(idWall);
+					}
+				}
 	    	Geometry robot = (Geometry) rootNode.getChild("robot");
 	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
 	    	robot.setMesh(robDirection);
 	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
 	    	//this.map.getWallObjects().forEach((d)-> this.updateWall(d));
 	    }
-	 
-
-	private void initKeys() {
-		// You can map one or several inputs to one named action
-		inputManager.addMapping("Photo",  new KeyTrigger(KeyInput.KEY_P));
-		inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_I));
-		inputManager.addMapping("Left",   new KeyTrigger(KeyInput.KEY_J));
-		inputManager.addMapping("Down",  new KeyTrigger(KeyInput.KEY_K));
-		inputManager.addMapping("Right",  new KeyTrigger(KeyInput.KEY_L));
-		inputManager.addMapping("Recognition", new KeyTrigger(KeyInput.KEY_U));
-		inputManager.addMapping("Angle", new KeyTrigger(KeyInput.KEY_Y));
-		inputManager.addMapping("CompleteTour", new KeyTrigger(KeyInput.KEY_T));
-		// Add the names to the action listener.
-		inputManager.addListener(actionListener, "Photo", "Up", "Down","Left","Right","Recognition", "Angle","CompleteTour");
-
-	}
-
-	private final ActionListener actionListener = new ActionListener() {
-		@Override
-		public void onAction(String name, boolean keyPressed, float tpf) {
-			if (name.equals("Photo") && keyPressed) {
-			    try {
-                    robot.takePic();
-                } catch(IOException|InterruptedException e){
-			        System.err.print("onAction ");
-			        e.printStackTrace();
-                }
-			}
-			if(name.equals("Up") && keyPressed){
-				try{
-					robot.move(0.2f);
-				} catch(IOException|InterruptedException e){
-					System.err.print("ActionListener() ");
-					e.printStackTrace();
-				}
-
-			}
-			if(name.equals("Down") && keyPressed){
-				try{
-					robot.move(-0.2f);
-				} catch(IOException|InterruptedException e){
-					System.err.print("ActionListener() ");
-					e.printStackTrace();
-				}
-			}
-			if(name.equals("Left") && keyPressed){
-				try{
-					robot.rotate(-45);
-				} catch(IOException|InterruptedException e){
-					System.err.print("ActionListener() ");
-					e.printStackTrace();
-				}
-			}
-			if(name.equals("Right") && keyPressed){
-				try{
-					robot.rotate(45);
-				} catch(IOException|InterruptedException e){
-					System.err.print("ActionListener() ");
-					e.printStackTrace();
-				}
-			}
-			if(name.equals("Recognition") && keyPressed){
-				robot.analysePic();
-			}
-			if(name.equals("Angle") && keyPressed){
-				robot.calculateAngle();
-			}
-			if(name.equals("CompleteTour") && keyPressed){
-				//System.out.println("Complete Tour key detected");
-
-			}
-		}
-	};
-
-/*
-
+	 /*
     @Override
     public void simpleUpdate(float tpf) {
     	this.map.getWalls().forEach((w)->this.updateWall(w));
@@ -184,7 +116,9 @@ public class Scene extends SimpleApplication {
     }
 */
     //covert a wall from its class that we implemented to a JME object
-	public void addWallOnScene(Wall w){
+	public void addWallOnScene(int idWall){
+		Wall w=this.map.getWalls().get(idWall);
+		//System.out.println("Wall to add to the scene"+w.getId());
 		float height,width;
 		height = w.getHeight();
 		width = w.getWidth();
@@ -209,7 +143,8 @@ public class Scene extends SimpleApplication {
 	}
 
 	//update the visual information on JME of a certain wall w
-	public void updateWall(Wall w){
+	public void updateWall(int idWall){
+		Wall w=this.map.getWalls().get(idWall);
 		float height = w.getHeight();
 		float width = w.getWidth();
 		
