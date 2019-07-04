@@ -74,14 +74,12 @@ public class PiThymioRobot extends Robot {
 		}
 		
 		//get the distance from the object if the distance is equal to -1: any object has been detected, else rotate 
-		sendToPC("data/distanceCaptured",localURL+"/ressources/data/");
-		 try (FileReader reader = new FileReader(localURL+"/ressources/data/distanceCaptured");
+		sendToPC("data/VisualInfo",localURL+"/ressources/data/");
+		 try (FileReader reader = new FileReader(localURL+"/ressources/data/VisualInfo");
 		            BufferedReader br = new BufferedReader(reader)) {
 		            String line;
-		            System.out.println("File to read: DistanceCaptured");
 		            //the first line contains the resolution of the image
-		           if ((line = br.readLine()) != null) {
-		        	   System.out.println(line);
+		           while ((line = br.readLine()) != null) {
 		        	  tmp =new ArrayList<Float>();
 		        	   String[] parts = line.split("/");
 		               for(int i=0;i<parts.length;i++) {
@@ -89,76 +87,11 @@ public class PiThymioRobot extends Robot {
 		               }
 		               list.add(tmp);
 		           }
-		           //the rest of the file tells if an object has been detected by having its distance to the wall !=-1
-		           //if all the distances measured by matching each element of the DB are -1 , this means that any onject 
-		           //has been detected
-		           //a line is as= the distance to the wall ,[distanceToObj,startX, startY, endX, endY] of the object detected, resolution(2d)
-		           while ((line = br.readLine()) != null) {
-		        	   System.out.println(line);
-		        	   tmp=new ArrayList<Float>();
-		        	   String[] parts = line.split("/");
-		                //float distance=Float.parseFloat(parts[0]);     
-		               	//object detected
-		            	   //System.out.println("The distance measured to the wall is: "+distance);
-		            	   //add coordinates of objDetected
-		            	   for(int i=0;i<parts.length;i++) {
-		            		   tmp.add(Float.parseFloat(parts[i]));
-		            	   }
-		            	   list.add(tmp);	               
-		           }
+		            
 		        } catch (IOException e) {
 	            System.err.format("IOException: %s%n", e);
 	        }
-
-     			tmp=new ArrayList<Float>();
-				ArrayList<Float> tmp2;
-				sendToPC("data/dimWall",localURL+"/ressources/data/");
-				 try (FileReader reader = new FileReader(localURL+"/ressources/data/dimWall");
-				            BufferedReader br = new BufferedReader(reader)) {
-					        System.out.println("File to read: dimWall");
-				            String line;
-				             //the first line contains the max height of a wall
-				            if ((line = br.readLine()) != null) {
-				            	System.out.println(line);
-				            	tmp.add(Float.parseFloat(line));
-				            	list.add(tmp);
-					         }
-				            //each line contains [length,startX, startY, endX, endY] of a segment, in the following order: W - DL - DR
-				            
-				            while((line = br.readLine()) != null) {
-				               tmp=new ArrayList<Float>();
-				        	   System.out.println(line);
-				           	   String[] parts = line.split("/");
-				               for(int i=0;i<parts.length;i++) {
-				               	   tmp.add(Float.parseFloat(parts[i]));
-				               }
-				               list.add(tmp);
-				           }
-				           
-				        } catch (IOException e) {
-			            System.err.format("IOException: %s%n", e);
-			        }
-
-			    // disSensor contains 7 values captured by the Thymio's sensors. In our cas, we only need to know if there are a wall in front or behind the robot
-			    //So, we use only the 2nd, 5th and 6th distances
-				tmp=new ArrayList<Float>();
-				sendToPC("data/disSensor",localURL+"/ressources/data/");
-				 try (FileReader reader = new FileReader(localURL+"/ressources/data/disSensor");
-				            BufferedReader br = new BufferedReader(reader)) {
-					        System.out.println("File to read: disSensor");
-				            String line;
-				           if((line = br.readLine()) != null) {
-				        	   System.out.println(line);
-				               String[] parts = line.split("/");
-				               tmp.add(Float.parseFloat(parts[2]));
-				               tmp.add(Float.parseFloat(parts[5]));
-				               tmp.add(Float.parseFloat(parts[6]));
-				               list.add(tmp);
-				           }
-
-				        } catch (IOException e) {
-			            System.err.format("IOException: %s%n", e);
-			        }			
+	
 	return list;
 }
 	/**

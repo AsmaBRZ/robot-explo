@@ -534,27 +534,15 @@ def LSDDetection(im):
         depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[depthR]
     else:
         depthR=-1
-        
-    with open('data/dimWall', 'w') as outfile:
-        outfile.write(str(height))
-        outfile.write("\n")
-        outfile.write(str(width)+str("/")+str(width_x0)+str("/")+str(width_y0)+str("/")+str(width_x1)+str("/")+str(width_y1))
-        outfile.write("\n")
-        outfile.write(str(depthL)+str("/")+str(diagL_x0)+str("/")+str(diagL_y0)+str("/")+str(diagL_x1)+str("/")+str(diagL_y1))
-        outfile.write("\n")
-        outfile.write(str(depthR)+str("/")+str(depthR_x0)+str("/")+str(depthR_y0)+str("/")+str(depthR_x1)+str("/")+str(depthR_y1))
-        outfile.close()
-
+    return [height,[width,width_x0,width_y0,width_x1,width_y1],[depthL,diagL_x0,diagL_y0,diagL_x1,diagL_y1],[depthR,depthR_x0,depthR_y0,depthR_x1,depthR_y1]]
 def PictureLSDDetection(img):
     LSDDetection(img)
 
 def get_variables_reply(r):
     global proxSensorsVal
+    global resultSensors
     proxSensorsVal=r
-    result='/'.join([str(v) for v in r])
-    with open('data/disSensor', 'w') as outfile:
-        outfile.write(str(result))
-        outfile.close()
+    resultSensors='/'.join([str(v) for v in r])
     os.system("pidof asebamedulla > pidtmp")
     reader=open("pidtmp")
     os.system("kill "+reader.read())
@@ -594,9 +582,11 @@ def getDistanceFromSensors():
     #call the callback of Braitenberg algorithm
     handle = gobject.timeout_add (100, captureSensor) #every 0.1 sec
     loop.run()
+    return resultSensors
 #######################################
 #testing
 
 #PictureGFCornerDetection()
 #PictureLSDDetection(takePicture())
 #recognition(takePicture(),nbRefs=1)
+#getDistanceFromSensors()
