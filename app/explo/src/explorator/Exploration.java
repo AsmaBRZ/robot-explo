@@ -566,7 +566,6 @@ public class Exploration {
 					this.cpWall++;
 					try {
 						this.robot.rotate(90);
-						this.robot.move(this.distanceRob);
 					} catch (IOException | InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
