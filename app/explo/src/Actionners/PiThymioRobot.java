@@ -80,6 +80,7 @@ public class PiThymioRobot extends Robot {
 		            String line;
 		            //the first line contains the resolution of the image
 		           while ((line = br.readLine()) != null) {
+		        	   System.out.println(line);
 		        	  tmp =new ArrayList<Float>();
 		        	   String[] parts = line.split("/");
 		               for(int i=0;i<parts.length;i++) {
@@ -219,7 +220,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= {"6.png","0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","move.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
+		String[] files= {"6.png","0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
 
 		String urlToScript;
 

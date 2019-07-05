@@ -443,23 +443,24 @@ def LSDDetection(im):
     lines_vert=[]
     lines_horz=[]
     lines_non_vert=[]
-    for line in lines:
-        x0 = int(round(line[0][0]))
-        y0 = int(round(line[0][1]))
-        x1 = int(round(line[0][2]))
-        y1 = int(round(line[0][3]))
-        line_len=np.sqrt((x0-x1)**2+(y0-y1)**2)
-        if line_len>20:
-            angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
-            if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
-                #cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
-                lines_horz.append(line[0])
-            elif  (angle >=80 and angle <=100) :
-                #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
-                lines_vert.append(line[0])
-            elif (angle >=25 and angle <=70) or (angle >=110 and angle <=165):
-                #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
-                lines_non_vert.append(line[0])
+    if lines is not None:
+        for line in lines:
+            x0 = int(round(line[0][0]))
+            y0 = int(round(line[0][1]))
+            x1 = int(round(line[0][2]))
+            y1 = int(round(line[0][3]))
+            line_len=np.sqrt((x0-x1)**2+(y0-y1)**2)
+            if line_len>20:
+                angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
+                if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
+                    #cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
+                    lines_horz.append(line[0])
+                elif  (angle >=80 and angle <=100) :
+                    #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
+                    lines_vert.append(line[0])
+                elif (angle >=25 and angle <=70) or (angle >=110 and angle <=165):
+                    #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
+                    lines_non_vert.append(line[0])
 
     #cv2.imshow("Image", img)
 

@@ -8,7 +8,7 @@
 <!--node thymio-II-->
 <node nodeId="1" name="thymio-II">
 var time = 0
-var speed=-300
+var speed=-100
 motor.left.target=0
 timer.period[0]=1000
 

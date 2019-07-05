@@ -45,4 +45,4 @@ if __name__=='__main__':
 	    	outfile.write(str(depthR)+str("/")+str(depthR_x0)+str("/")+str(depthR_y0)+str("/")+str(depthR_x1)+str("/")+str(depthR_y1))
 	    	outfile.write("\n")
 	    	outfile.write(resultSensors)
-	    	outfile.close()
+	    outfile.close()
