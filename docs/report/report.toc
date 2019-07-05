@@ -26,26 +26,34 @@
 \contentsline {paragraph}{}{6}{section*.21}
 \contentsline {paragraph}{}{6}{section*.22}
 \contentsline {paragraph}{}{7}{section*.23}
-\contentsline {subsection}{\numberline {4.1.2}Indoor navigation}{7}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.2}3D map building}{7}{subsection.4.1.2}
 \contentsline {paragraph}{}{7}{section*.24}
 \contentsline {paragraph}{}{7}{section*.25}
 \contentsline {paragraph}{}{7}{section*.26}
-\contentsline {paragraph}{}{7}{section*.27}
+\contentsline {paragraph}{}{8}{section*.27}
+\contentsline {subsection}{\numberline {4.1.3}Navigation}{8}{subsection.4.1.3}
 \contentsline {paragraph}{}{8}{section*.28}
-\contentsline {section}{\numberline {4.2}3D Object recognition}{8}{section.4.2}
-\contentsline {chapter}{\numberline {5}Testing}{9}{chapter.5}
-\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{10}{chapter.6}
-\contentsline {chapter}{\numberline {7}References}{11}{chapter.7}
-\contentsline {chapter}{\numberline {A}List of components}{12}{appendix.A}
-\contentsline {section}{\numberline {A.1}Thymio II}{12}{section.A.1}
-\contentsline {paragraph}{}{12}{section*.29}
-\contentsline {paragraph}{}{12}{section*.30}
-\contentsline {section}{\numberline {A.2}Raspberry-Pi}{12}{section.A.2}
-\contentsline {paragraph}{}{12}{section*.31}
-\contentsline {paragraph}{}{13}{section*.32}
-\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{13}{section.A.3}
-\contentsline {paragraph}{}{13}{section*.33}
-\contentsline {paragraph}{}{13}{section*.34}
-\contentsline {section}{\numberline {A.4}Power-bank}{13}{section.A.4}
-\contentsline {paragraph}{}{13}{section*.35}
+\contentsline {paragraph}{}{8}{section*.29}
+\contentsline {paragraph}{}{8}{section*.30}
+\contentsline {paragraph}{}{8}{section*.31}
+\contentsline {paragraph}{}{8}{section*.32}
+\contentsline {section}{\numberline {4.2}3D Object recognition}{10}{section.4.2}
+\contentsline {chapter}{\numberline {5}Testing}{11}{chapter.5}
+\contentsline {paragraph}{}{11}{section*.33}
+\contentsline {section}{\numberline {5.1}Image processing}{11}{section.5.1}
+\contentsline {section}{\numberline {5.2}3D map building}{11}{section.5.2}
+\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{12}{chapter.6}
+\contentsline {chapter}{\numberline {7}References}{13}{chapter.7}
+\contentsline {chapter}{\numberline {A}List of components}{14}{appendix.A}
+\contentsline {section}{\numberline {A.1}Thymio II}{14}{section.A.1}
+\contentsline {paragraph}{}{14}{section*.34}
+\contentsline {paragraph}{}{14}{section*.35}
+\contentsline {section}{\numberline {A.2}Raspberry-Pi}{14}{section.A.2}
 \contentsline {paragraph}{}{14}{section*.36}
+\contentsline {paragraph}{}{15}{section*.37}
+\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{15}{section.A.3}
+\contentsline {paragraph}{}{15}{section*.38}
+\contentsline {paragraph}{}{15}{section*.39}
+\contentsline {section}{\numberline {A.4}Power-bank}{15}{section.A.4}
+\contentsline {paragraph}{}{15}{section*.40}
+\contentsline {paragraph}{}{16}{section*.41}

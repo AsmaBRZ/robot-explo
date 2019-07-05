@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  26 JUN 2019 09:01
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  5 JUL 2019 17:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1065,57 +1065,73 @@ File: res/start1_c1.png Graphic file (type bmp)
 [5
 
 ]
+
+LaTeX Warning: Citation `grompone_von_gioi_lsd:_2012' on page 6 undefined on in
+put line 141.
+
 File: res/lsr.png Graphic file (type bmp)
 <res/lsr.png>
- [6]
+[6]
 File: res/cases_seg.png Graphic file (type bmp)
 <res/cases_seg.png>
- [7] [8]
+ [7]
+
+LaTeX Warning: Citation `bonin-font_visual_2008' on page 8 undefined on input l
+ine 181.
+
+[8]
+File: res/order_processing.png Graphic file (type bmp)
+<res/order_processing.png>
+
+Overfull \vbox (19.06981pt too high) has occurred while \output is active []
+
+
+[9] [10]
 Chapter 5.
-[9
+[11
 
 ]
 Chapter 6.
-[10
+[12
 
 ]
 Chapter 7.
-[11
+[13
 
 ]
 Appendix A.
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--194
+Underfull \hbox (badness 10000) in paragraph at lines 227--230
 
  []
 
 File: res/thymio.jpg Graphic file (type bmp)
 <res/thymio.jpg>
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--206
+Underfull \hbox (badness 10000) in paragraph at lines 240--242
 
  []
 
 File: res/raspberry.jpg Graphic file (type bmp)
 <res/raspberry.jpg>
-[12
+[14
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 216--218
+Underfull \hbox (badness 10000) in paragraph at lines 252--254
 
  []
 
 File: res/camera.jpg Graphic file (type bmp)
 <res/camera.jpg>
 
-Overfull \hbox (9.91542pt too wide) in paragraph at lines 219--224
+Overfull \hbox (9.91542pt too wide) in paragraph at lines 255--260
  [][] []$[][][][][] [] [] [] [][] [] [][][][][][][][][][] [] [][][] [] [][][][]
 [][][][] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--230
+Underfull \hbox (badness 10000) in paragraph at lines 264--266
 
  []
 
@@ -1126,25 +1142,28 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[13] [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 237.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 237.
+[15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 273.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 273.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 237.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 237.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 273.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 273.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 273.
  ) 
 Here is how much of TeX's memory you used:
- 26042 strings out of 493007
- 467517 string characters out of 6136719
- 601661 words of memory out of 5000000
- 29562 multiletter control sequences out of 15000+600000
+ 26048 strings out of 493007
+ 467675 string characters out of 6136719
+ 601717 words of memory out of 5000000
+ 29567 multiletter control sequences out of 15000+600000
  12276 words of font info for 39 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  62i,5n,65p,1992b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.pdf (15 pages).
+Output written on report.pdf (17 pages).

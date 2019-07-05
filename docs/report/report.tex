@@ -97,14 +97,14 @@
 	 \paragraph{}
 	 The first task of the autonomous robot is to represent roughly the environment, using visual information. For walls detection, we distinguish three types of segments on the picture taken by the autonomous robot:
 	 \begin{itemize}
-	 	\item Vertical segment which makes 90 degrees with the X-axis.
-	 	\item Horizontal segment which makes 0 degrees with the  X-axis.
+	 	\item Vertical segment which makes almost 90 degrees with the X-axis.
+	 	\item Horizontal segment which makes almost 0 degree with the  X-axis.
 	 	\item The rest of segments with the other angles.
 	 \end{itemize} 
 	 
 	 
 	 \paragraph{}
-	 In the sections to come, we present the differnt strategies that we have developed and the one we have particularly kept.
+	 In the sections to come, we present the different strategies that we have developed and the one we have particularly kept.
 	 
 	 \subsubsection{Corners-based detection}
 	 \paragraph{}
@@ -132,13 +132,13 @@
 	 
 	 \subsubsection{Non corners-based detection}
 	 \paragraph{}
-	 After encounting some difficulties to detect the right corners, we decided to ditch this strategy because it was impractical. 
+	 After encountering some difficulties to detect the right corners, we decided to ditch this strategy because it was impractical. 
 	 
 	 \paragraph{}
 	 The next idea is to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) segments are used to estimate the walls height (resp. width). However the diagonal segments detected indicate that there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is still space between them and the wall in front. So, it can always move forward.
 	  
 	  \paragraph{}
-	  We have used the algorithm: \textit{Line Segment Detector} (LSD) to detect straight contours on the image. At each pixel of the image, LSD estimates the angle of the gradient. After that, the pixels sharing nearly the same angle of gradient are merged into regions. The connected regions are called \textit{line support regions}. Then, the algorithm keeps some of these \textit{line support regions} to be a \textit{line segment}.
+	  We have used the algorithm: \textit{Line Segment Detector} (LSD) to detect straight contours on the image \cite{grompone_von_gioi_lsd:_2012}. At each pixel of the image, LSD estimates the angle of the gradient. After that, the pixels sharing nearly the same angle of gradient are merged into regions. The connected regions are called \textit{line support regions}. Then, the algorithm keeps some of these \textit{line support regions} to be a \textit{line segment}.
 	  
 	  the picture below shows an image on which the LSD was applied and as a result, the \textit{line support regions} that were detected.
 	  	\begin{figure}[H]
@@ -148,13 +148,13 @@
 	  	\end{center}
 	  \end{figure}
   \paragraph{}
-  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation.
+  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to get longer segments, and we keep only the longest one from each group. 
 
-    \subsection{Indoor navigation}
+The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier between the floor and far wall. We built a strategy where the autonomous robot gets closer to the far wall to construct it.
+    \subsection{3D map building}
+    
     \paragraph{}
-    Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting spot to a target one. 
-    \paragraph{}
-    We remind that our goal is to build a rough 3D representation of the environment and look for the target object. We represent the environement by defining the walls composing it. The detection of walls is based on LSD's segments. 
+    We remind that our goal is to build a rough 3D representation of the environment and look for the target object. We represent the environment by defining the walls composing it. The detection of walls is based on LSD's segments.
     
     \paragraph{}
     Depending on the autonomous robot's position, the picture obtained may in one of the general cases showed in the picture below. 
@@ -175,10 +175,46 @@
  	
  \end{itemize}
  \paragraph{}
- We mention that the vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only on the X and Z axis.
+ We mention that the vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only along the X and Z axis.
+ \subsection{Navigation}
+     \paragraph{}
+ Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting spot to a target one \cite{bonin-font_visual_2008}.
+ \paragraph{}
+ On the basis of visual information, the autonomous robot is able to define its next decision. The decision may be to:
+ \begin{itemize}
+ 	\item Stop if the target has been found or if the robot has explored the entire environment, without spotting the target.
+ 	\item Avoid obstacles.
+ 	\item Move back, move forward and rotate to continue exploring.
+ \end{itemize}
+\paragraph{}
+As there are a lot of cases of movements according to the visual information, we try to summarize theses cases using an activity diagram shown in the figure below. In this diagram, the green boxes represent a physical movement of the autonomous robot, and the blue cases represent treatments. 
+
+\paragraph{}
+We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a close environment.
+
+If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information from the taken picture and sends them to the computer, where the orders of movements are given. 
+
+From the collected information, if the target has been found, the autonomous robot stops. Otherwise, If there are any segments detected, each of these segments is represented by a wall and added to the 3D map.
+\paragraph{}
+At the end of the treatment, a movement is ordered to the autonomous robot (rotate, move back...etc). Then, it regains from the beginning until it stops.
+\newpage
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.55]{res/order_processing.png}
+		\caption{Activity diagram of the exploration strategy}
+	\end{center}
+\end{figure}
+\newpage
 	\section{3D Object recognition}
 
 	\chapter{Testing}
+	\paragraph{}
+	We have realized different tests by varying the environment, beginning by a simple rectangular environment to a complex environment containing corridors, and where there a some obstacles. 
+	
+	\section{Image processing}
+	
+	\section{3D map building}
+	
 	\chapter{Conclusion, Limitation and Future work}
 	\chapter{References}
 
