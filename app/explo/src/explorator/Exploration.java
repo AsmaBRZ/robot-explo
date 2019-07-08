@@ -156,14 +156,47 @@ public class Exploration {
 				return 1;
 			}
 
-			//Step 1: construct the environment with the visual information
-			//update the walls with the new height captured if necessary
-			//this.env.updateWallsHeight(height);
-			
-			
-			if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(4)!=0 || disSensors.get(0)!=0 || disSensors.get(1)!=0){
+
+			if(disSensors.get(4)!=0 ){
 				//the autonomous robot is too close from the wall in front
-				System.out.println("prox[2] the autonomous robot is so too close from an eventual  wall in front, -> move back");
+				System.out.println("prox right: the autonomous robot is so too close from an eventual  wall in front, -> move back");
+				try {
+
+					x0=pixToCmVert(lastWidth.get(1))+distMar;
+					y0=pixToCmHorz(lastWidth.get(2))+distMar;
+					x1=pixToCmVert(lastWidth.get(3))+distMar;
+					y1=pixToCmHorz(lastWidth.get(4))+distMar;
+					System.out.println(" 100 "+x0+" "+ y0+" "+ x1+ " " +y1);
+					x0=(float) (x0*((float)Math.cos(robRotation))-lastWidth.get(2)*Math.sin(robRotation)+robPosition.x);
+					y0=(float) (y0*((float)Math.cos(robRotation))+lastWidth.get(1)*Math.sin(robRotation)+robPosition.y);
+					x1=(float) (x1*((float)Math.cos(robRotation))-lastWidth.get(4)*Math.sin(robRotation)+robPosition.x);
+					y1=(float) (y1*((float)Math.cos(robRotation))+lastWidth.get(3)*Math.sin(robRotation)+robPosition.y);
+					System.out.println("prox[2] x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
+					cornerLeft=new Point(x0,y0);
+					cornerRight=new Point(x1,y1);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+					this.cpWall++;
+					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
+					
+					this.robot.move(-distanceRob);
+					this.robot.rotate(90);
+					this.robot.move(distanceRob);
+					
+					this.robot.rotate(-90);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				lastWidth=data.get(3);
+				return 0;
+			}
+			if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
+				//the autonomous robot is too close from the wall in front
+				System.out.println("prox in front: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 
 					x0=pixToCmVert(lastWidth.get(1))+distMar;
@@ -200,7 +233,7 @@ public class Exploration {
 			}
 			if(disSensors.get(5)!=0 || disSensors.get(6)!=0 ){
 					//the autonomous robot is too close from the wall in front
-					System.out.println("the autonomous robot is so too close from a wall behind it, -> exploration of this wall");
+					System.out.println("rear prox: the autonomous robot is so too close from a wall behind it, -> exploration of this wall");
 					try {
 						this.robot.move(distanceRob);
 						this.robot.move(-distanceRob);

@@ -203,6 +203,9 @@ def getAsebaFileD(fName,angle):
                 else:
                     f.write("var reverse="+str(int(speed))+"\n")
         f.truncate()
+
+#Given two lines l1 and l2, the function below determines if the two lines intersect
+#in that case, the intersection point is returned, else: False is returned
 def intersection(l1,l2):
     line1 = LineString([(l1[0],l1[1]), (l1[2],l1[3])])
     line2 = LineString([(l2[0],l2[1]), (l2[2],l2[3])])
@@ -216,15 +219,16 @@ def intersection(l1,l2):
 
 
 
-#Calculate the equation of the segment with two points p1 and p2
+#Calculate the equation of a segment defined by its two extremities p1 and p2
 #return the coef a and  of the equation
 def coefLine(p1,p2):
     points = [p1,p2]
-    x_coords, y_coords = zip(*points)
-    A = vstack([x_coords,ones(len(x_coords))]).T
-    m, c = lstsq(A, y_coords)[0]
+    x, y = zip(*points)
+    M = vstack([x,ones(len(x))]).T
+    a, c = lstsq(M, y)[0]
     #print("Line Solution is y = {m}x + {c}".format(m=m,c=c))
-    return m,1,c
+    return a,1,c
+
 #Calculate the shortest distance between a point and a line
 def distPointLine(p1,p2,p):
     return min(np.sqrt((p1[0]-p[0])**2+(p1[1]-p[1])**2),np.sqrt((p2[0]-p[0])**2+(p2[1]-p[1])**2))
@@ -243,13 +247,15 @@ def distLineLine(l1,l2):
     d4=distPointLine(e21,e22,e12)
     return max(d1,d2,d3,d4)
 
-#Calculate the longest distance between two lines, by checking each extremity with the other line. 
+#Calculate the longest distance separating two lines, by checking the distance separating each extremity with the other line. 
 def vertTherExcept(l1,l2,thresholdX=20,thresholdY=20):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
     if x1-x3<thresholdX and x2-x4<thresholdX :
         return True
     return False
+
+#up to a fixed threshold defined by differents tests, this function determines if two lines are close
 def minDistLineLine(l1,l2,thresholdA=3,thresholdC=30,thresholdX=20,thresholdY=20):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
@@ -264,6 +270,8 @@ def minDistLineLine(l1,l2,thresholdA=3,thresholdC=30,thresholdX=20,thresholdY=20
             #print("*****Merged:",a1,a2,c1,c2)
             return True
     return False
+
+#useful function determining the other extremities, knowing two extremities of a line
 def getTwoExtremities(index_min_dist):
     if index_min_dist==0: #ac -> bd
         return 3
@@ -273,10 +281,11 @@ def getTwoExtremities(index_min_dist):
         return 1
     if index_min_dist==3: #bd -> ac
         return 0
+
 #Treat by a couple of lines from the entry 'lines', if they are too close depending on a threshold, they are merged
 #The set of kept lines is returned
-
 def newLine4Points(l1,l2):
+    #retreive extremities of each line
     a_x=l1[0]
     a_y=l1[1]
     b_x=l1[2]
@@ -285,12 +294,13 @@ def newLine4Points(l1,l2):
     c_y=l2[1]
     d_x=l2[2]
     d_y=l2[3]
-
+    #calculate the length between points
     a_c=np.sqrt((a_x-c_x)**2+(a_y-c_y)**2)
     a_d=np.sqrt((a_x-d_x)**2+(a_y-d_y)**2)
     b_c=np.sqrt((b_x-c_x)**2+(b_y-c_y)**2)
     b_d=np.sqrt((b_x-d_x)**2+(b_y-d_y)**2)
     dist_points=np.array([a_c,a_d,b_c,b_d])
+    #all possible combinations between points
     newLines=[[a_x,a_y,c_x,c_y],[a_x,a_y,d_x,d_y],[b_x,b_y,c_x,c_y],[b_x,b_y,d_x,d_y]]
     index_min_dist= np.argmin(dist_points)
     #the two closet points are
@@ -307,16 +317,14 @@ def newLine4Points(l1,l2):
     n /= np.linalg.norm(n, 2)
     projected_point= u + n*np.dot(x-u, n)
     a_x,a_y=projected_point
+    #calculation of lengths
     dis_new_l1=np.sqrt((a_x-l2[0])**2+(a_y-l2[1])**2)
     dis_new_l2=np.sqrt((a_x-l2[2])**2+(a_y-l2[3])**2)
     if dis_new_l1>dis_new_l2:
         return [a_x,a_y,l2[0],l2[1]]
     else:
         return [a_x,a_y,l2[2],l2[3]]
-
-
-#Treat by a couple of lines from the entry 'lines', if they are too close depending on a threshold, they are merged
-#The set of kept lines is returned
+#projection of a point on a line defined by its etremities
 def projectPointLine(a, b, p):
     a=np.array(a)
     b=np.array(b)
