@@ -519,9 +519,10 @@ public class Exploration {
 		
 	}
 	public float pixToCmVert(float x) {
-		return (float) (1.607225746*Math.pow(x,0.326043141)*Math.exp(2.558176954*Math.pow(10,-2)*x));
+		return (float) (1.710317173*Math.pow(10,-4)*Math.pow(x,3)-1.499946521*Math.pow(10,-2)*Math.pow(x,2)+6.987860838*Math.pow(10,-1)*x+ 1.507260906 );
 	}
 	public float pixToCmHorz(float x) {
+		//:  y = 5.037695062·10-6 x12 + 1.297822371·10-3 x1 x2 - 4.471868406·10-4 x22 + 6.672979764·10-2 x1 + 8.811965407·10-2 x2 + 6.158770991·10-3
 		return (float) (8.163781696*Math.pow(10,-6) *Math.pow(x,3)-3.456492302*Math.pow(10,-3)*Math.pow(x,2)+4.371800643*Math.pow(10,-1)*x + 2.221220181);
 	}
 }
