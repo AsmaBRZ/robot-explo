@@ -95,7 +95,7 @@ class AsebaThread(Thread):
 #type is the name of the picture 0:QRCODE 1:PEPPER 2:PLATON
 def getThreshold(type):
     if(type==0):
-        return 14000000.0
+        return 20000000.0
     if(type==1):
         return 30000000.0
     if(type==2):

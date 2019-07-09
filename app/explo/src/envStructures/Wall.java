@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Wall extends RoomObject{
 	private List<RoomObject> objectsOnWall; // liste des objets places contre le mur de gauche a� droite
-	public boolean updated = false;
+	public boolean obstacle = false;
 	
 	/**
 	 * 
@@ -21,6 +21,12 @@ public class Wall extends RoomObject{
 	public Wall(int id, Point left, Point right, float height,float width){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
+		
+	}
+	public Wall(int id, Point left, Point right, float height,float width,boolean obstacle){
+		super(id, left, right, height, width);
+		objectsOnWall=new ArrayList<RoomObject>();
+		this.obstacle=obstacle;
 		
 	}
 	public void cumulateWidth(float w) {
@@ -52,7 +58,7 @@ public class Wall extends RoomObject{
 
 	@Override
 	public String toString() {
-		return "Wall [objectsOnWall=" + objectsOnWall + ", updated=" + updated + "]";
+		return "Wall [objectsOnWall=" + objectsOnWall + ", obstacle=" + this.obstacle + "]";
 	}
 	
 }
