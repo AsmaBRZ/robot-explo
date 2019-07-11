@@ -52,8 +52,14 @@ public class RoomObject{
 	public float getHeight(){
 		return this.height;
 	}
-	public void setHeight(float h){
-		this.height=h;
+	public void updateHeight(float h){
+		if(h>this.height) {
+			this.height=h;
+		}
+		
+	}
+	public void seteHeight(float h){
+		this.height=h;		
 	}
 	/**
 	 * Gives the rotation of the wall according to the x vector
