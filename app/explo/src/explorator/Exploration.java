@@ -155,16 +155,16 @@ public class Exploration {
 				System.out.println("prox in front: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 					System.out.println(" prox in front robot s position"+robPosition.toString());
-
-					x0=pixToCmVert(robPosition.x-100)+distMar;
-					y0=pixToCmHorz(robPosition.y)+distMar;
-					x1=pixToCmVert(robPosition.x+100)+distMar;
-					y1=pixToCmHorz(robPosition.y)+distMar;
+					y0=pixToCmY(robPosition.y);
+					y1=pixToCmY(robPosition.y);
+					x0=pixToCmX(robPosition.x-100,x0);
+					x1=pixToCmX(robPosition.x+100,y1);
+					
 					System.out.println("prox in front x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-					cornerLeft=new Point(x0,y0);
-					cornerRight=new Point(x1,y1);
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+					cornerLeft=new Point(x0/10,y0/10);
+					cornerRight=new Point(x1/10,y1/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					this.robot.rotate(90);
@@ -186,10 +186,10 @@ public class Exploration {
 				System.out.println("prox left: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 
-					x0=pixToCmVert(width.get(1))+distMar;
-					y0=pixToCmHorz(width.get(2))+distMar;
-					x1=pixToCmVert(width.get(3))+distMar;
-					y1=pixToCmHorz(width.get(4))+distMar;
+					y0=pixToCmY(width.get(2));
+					y1=pixToCmY(width.get(4));
+					x0=pixToCmX(width.get(1),y0);
+					x1=pixToCmX(width.get(3),y1);
 					System.out.println(" prox right "+x0+" "+ y0+" "+ x1+ " " +y1);
 					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
@@ -197,9 +197,9 @@ public class Exploration {
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
 					System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-					cornerLeft=new Point(x0,y0);
-					cornerRight=new Point(x1,y1);
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+					cornerLeft=new Point(x0/10,y0/10);
+					cornerRight=new Point(x1/10,y1/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					
@@ -219,10 +219,10 @@ public class Exploration {
 				System.out.println("prox right: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 
-					x0=pixToCmVert(width.get(1))+distMar;
-					y0=pixToCmHorz(width.get(2))+distMar;
-					x1=pixToCmVert(width.get(3))+distMar;
-					y1=pixToCmHorz(width.get(4))+distMar;
+					y0=pixToCmY(width.get(2));
+					y1=pixToCmY(width.get(4));
+					x0=pixToCmX(width.get(1),y0);
+					x1=pixToCmX(width.get(3),y1);
 					System.out.println(" prox right "+x0+" "+ y0+" "+ x1+ " " +y1);
 					x0=(float) (x0*((float)Math.cos(robRotation))-x0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+y0*Math.sin(robRotation)+robPosition.y);
@@ -230,9 +230,9 @@ public class Exploration {
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
 					System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-					cornerLeft=new Point(x0,y0);
-					cornerRight=new Point(x1,y1);
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+					cornerLeft=new Point(x0/10,y0/10);
+					cornerRight=new Point(x1/10,y1/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					
@@ -266,55 +266,66 @@ public class Exploration {
 			
 			//building detected walls
 			if(width.get(0)!=-1 && width.get(2)>threshClose){
-					x0=pixToCmVert(width.get(1));
-					y0=pixToCmHorz(width.get(2));
-					x1=pixToCmVert(width.get(3));
-					y1=pixToCmHorz(width.get(4));
-					System.out.println("100 "+x0+" "+ y0+" "+ x1+ " " +y1);
-					x0=(float) (x0*((float)Math.cos(robRotation))-width.get(2)*Math.sin(robRotation)+robPosition.x);
-					y0=(float) (y0*((float)Math.cos(robRotation))+width.get(1)*Math.sin(robRotation)+robPosition.y);
-					x1=(float) (x1*((float)Math.cos(robRotation))-width.get(4)*Math.sin(robRotation)+robPosition.x);
-					y1=(float) (y1*((float)Math.cos(robRotation))+width.get(3)*Math.sin(robRotation)+robPosition.y);
-					System.out.println("100 x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+					y0=width.get(2);
+					y1=width.get(4);
+					x0=width.get(1);
+					x1=width.get(3);
+					System.out.println("before width"+x0+" "+ y0+" "+ x1+ " " +y1);
+
+					y0=pixToCmY(width.get(2));
+					y1=pixToCmY(width.get(4));
+					x0=pixToCmX(width.get(1),y0);
+					x1=pixToCmX(width.get(3),y1);
+					
+					System.out.println("WWWWWWidth "+x0+" "+ y0+" "+ x1+ " " +y1);
+					System.out.println("ROB rotation"+robRotation);
+					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
+					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
+					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
+					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
+					System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-					cornerLeft=new Point(x0,y0);
-					cornerRight=new Point(x1,y1);
+					cornerLeft=new Point(x0/10,(y0+y1)/10);
+					cornerRight=new Point(x1/10,(y0+y1)/10);
 					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
 					
 			    }
 			if(depthR.get(0)!=-1) {
-				x0=pixToCmVert(depthR.get(1))+distMar;
-				y0=pixToCmHorz(depthR.get(2))+distMar;
-				x1=pixToCmVert(depthR.get(3))+distMar;
-				y1=pixToCmHorz(depthR.get(4))+distMar;
-				System.out.println(" 001 x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-				x0=(float) (x0*(float)Math.cos(robRotation)-depthR.get(2)*Math.sin(robRotation)+robPosition.x);
-				y0=(float) (y0*(float)Math.cos(robRotation)+depthR.get(1)*Math.sin(robRotation)+robPosition.y);
-				x1=(float) (x1*(float)Math.cos(robRotation)-depthR.get(4)*Math.sin(robRotation)+robPosition.x);
-				y1=(float) (y1*(float)Math.cos(robRotation)+depthR.get(3)*Math.sin(robRotation)+robPosition.y);
-				System.out.println("001 x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+				y0=pixToCmY(depthR.get(2));
+				y1=pixToCmY(depthR.get(4));
+				x0=pixToCmX(depthR.get(1),y0);
+				x1=pixToCmX(depthR.get(3),y1);
+				System.out.println("DepthR x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+				x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
+				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
+				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
+				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
+				
+				System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-				cornerLeft=new Point(x0,y0);
-				cornerRight=new Point(x1,y1);
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+				cornerLeft=new Point(x0/10,y0/10);
+				cornerRight=new Point(x1/10,y1/10);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
 				this.cpWall++;
 			}
 			if(depthL.get(0)!=-1) {
-				x0=pixToCmVert(depthL.get(1))+distMar;
-				y0=pixToCmHorz(depthL.get(2))+distMar;
-				x1=pixToCmVert(depthL.get(3))+distMar;
-				y1=pixToCmHorz(depthL.get(4))+distMar;
-				System.out.println("010 x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-				x0=(float) (x0*(float)Math.cos(robRotation)-depthL.get(2)*Math.sin(robRotation)+robPosition.x);
-				y0=(float) (y0*(float)Math.cos(robRotation)+depthL.get(1)*Math.sin(robRotation)+robPosition.y);
-				x1=(float) (x1*(float)Math.cos(robRotation)-depthL.get(4)*Math.sin(robRotation)+robPosition.x);
-				y1=(float) (y1*(float)Math.cos(robRotation)+depthL.get(3)*Math.sin(robRotation)+robPosition.y);
-				System.out.println("010 x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+				y0=pixToCmY(depthL.get(2));
+				y1=pixToCmY(depthL.get(4));
+				x0=pixToCmX(depthL.get(1),y0);
+				x1=pixToCmX(depthL.get(3),y1);
+				System.out.println("DepthL x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+				
+				x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
+				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
+				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
+				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
+				
+				System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-				cornerLeft=new Point(x0,y0);
-				cornerRight=new Point(x1,y1);
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+				cornerLeft=new Point(x0/10,y0/10);
+				cornerRight=new Point(x1/10,y1/10);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
 				this.cpWall++;
 			}
 			
@@ -518,11 +529,10 @@ public class Exploration {
         }
 		
 	}
-	public float pixToCmVert(float x) {
-		return (float) (1.710317173*Math.pow(10,-4)*Math.pow(x,3)-1.499946521*Math.pow(10,-2)*Math.pow(x,2)+6.987860838*Math.pow(10,-1)*x+ 1.507260906 );
+	public float pixToCmY(float x) {
+		return (float)((x)/((9.829874266*0.1*x-29.90298351*Math.pow(x,0.5)+  227.7674479)));
 	}
-	public float pixToCmHorz(float x) {
-		//:  y = 5.037695062·10-6 x12 + 1.297822371·10-3 x1 x2 - 4.471868406·10-4 x22 + 6.672979764·10-2 x1 + 8.811965407·10-2 x2 + 6.158770991·10-3
-		return (float) (8.163781696*Math.pow(10,-6) *Math.pow(x,3)-3.456492302*Math.pow(10,-3)*Math.pow(x,2)+4.371800643*Math.pow(10,-1)*x + 2.221220181);
+	public float pixToCmX(float x1,float x2) {
+		return (float) (-2.472523567*Math.pow(10,-6) *Math.pow(x1,3)-2.356197273*Math.pow(10,-5) *Math.pow(x1,2)*x2-2.456736539*Math.pow(10,-5) *Math.pow(x2,2)*x1-2.448177102*Math.pow(10,-6) *Math.pow(x2,3)+2.85262976*Math.pow(10,-3) *Math.pow(x1,2)+1.282380515*Math.pow(10,-2) *x1*x2+2.864496127*Math.pow(10,-3) *Math.pow(x2,2)-7.842542877*Math.pow(10,-1) *x1-8.549721731*Math.pow(10,-1) *x2+62.57726979);
 	}
 }
