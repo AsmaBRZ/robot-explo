@@ -115,7 +115,8 @@ public class Exploration {
 	//target is the name of the object we re searching for, currently it may be in[0.png, 1.png or 2.png]
 	private int explore(int target){
 		    System.out.println("My walls are: "+this.env.getWalls().toString()+"\n0");
-		    robRotation=Math.toDegrees(this.robot.getRotation())-90;
+		    robRotation=this.robot.getRotation()-Math.PI/2;
+		    
 			robPosition=this.robot.getPosition();
 			System.out.println();
 			//Step 0: Capture the visual information
@@ -155,30 +156,31 @@ public class Exploration {
 			}
 			if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
 				//the autonomous robot is too close from the wall in front
+				height=1;
 				System.out.println("prox in front: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 					System.out.println(" prox in front robot s position"+robPosition.toString());
 					y0=pixToCmY(robPosition.y);
 					y1=pixToCmY(robPosition.y);
-					x0=pixToCmX(robPosition.x-200,y0);
-					x1=pixToCmX(robPosition.x+200,y1);
+					x0=pixToCmX(robPosition.x-100,y0);
+					x1=pixToCmX(robPosition.x+100,y1);
 					
 					System.out.println("prox in front x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);			
-					
+					System.out.println("ROb rotation is"+this.robRotation);
 					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-					
-					x0/=10;
-					y0/=10;
-					x1/=10;
-					y1/=10;
+					System.out.println("*******"+Math.cos(robRotation));
+					x0/=100;
+					y0/=100;
+					x1/=100;
+					y1/=100;
 					cornerLeft=new Point(x0,(y1+y0)/2);
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,10,lenSeg/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,10,lenSeg);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					this.robot.rotate(90);
@@ -201,7 +203,7 @@ public class Exploration {
 				//the autonomous robot is too close from the wall in front
 				System.out.println("prox left: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
-
+					height=1;
 					y0=pixToCmY(width.get(2));
 					y1=pixToCmY(width.get(4));
 					x0=pixToCmX(width.get(1),y0);
@@ -212,17 +214,16 @@ public class Exploration {
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
 					
-					
-					x0/=10;
-					y0/=10;
-					x1/=10;
-					y1/=10;
+					x0/=100;
+					y0/=100;
+					x1/=100;
+					y1/=100;
 					cornerLeft=new Point(x0,(y1+y0)/2);
 					cornerRight=new Point(x1,(y0+y1)/2);
 					System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					
@@ -241,7 +242,7 @@ public class Exploration {
 				//the autonomous robot is too close from the wall in front
 				System.out.println("prox right: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
-
+					height=1;
 					y0=pixToCmY(width.get(2));
 					y1=pixToCmY(width.get(4));
 					x0=pixToCmX(width.get(1),y0);
@@ -254,15 +255,15 @@ public class Exploration {
 					
 					System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					
-					x0/=10;
-					y0/=10;
-					x1/=10;
-					y1/=10;
+					x0/=100;
+					y0/=100;
+					x1/=100;
+					y1/=100;
 					cornerLeft=new Point(x0,(y1+y0)/2);
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					
@@ -315,10 +316,10 @@ public class Exploration {
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
 					System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					
-					x0/=10;
-					y0/=10;
-					x1/=10;
-					y1/=10;
+					x0/=100;
+					y0/=100;
+					x1/=100;
+					y1/=100;
 					cornerLeft=new Point(x0,(y1+y0)/2);
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
@@ -337,15 +338,15 @@ public class Exploration {
 				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-				x0/=10;
-				y0/=10;
-				x1/=10;
-				y1/=10;
+				x0/=100;
+				y0/=100;
+				x1/=100;
+				y1/=100;
 				cornerLeft=new Point(x0,(y1+y0));
 				cornerRight=new Point(x1,(y0+y1)/2);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 				this.cpWall++;
 			}
 			if(depthL.get(0)!=-1) {
@@ -359,16 +360,16 @@ public class Exploration {
 				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-				x0/=10;
-				y0/=10;
-				x1/=10;
-				y1/=10;
+				x0/=100;
+				y0/=100;
+				x1/=100;
+				y1/=100;
 				cornerLeft=new Point(x0,(y1+y0));
 				cornerRight=new Point(x1,(y0+y1)/2);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
 				System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg/10);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 				this.cpWall++;
 			}
 			
@@ -388,7 +389,7 @@ public class Exploration {
 									data=robot.captureData();
 									disSensors=data.get(6);
 									if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
-										System.out.println("next wall aprox");
+										System.out.println("After 100 next wall aprox");
 										return 0;
 									}
 									this.robot.rotate(-90);
@@ -455,7 +456,7 @@ public class Exploration {
 								data=robot.captureData();
 								disSensors=data.get(6);
 								if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
-									System.out.println("next wall aprox");
+									System.out.println("After 110 next wall aprox");
 									return 0;
 								}
 								this.robot.rotate(-90);

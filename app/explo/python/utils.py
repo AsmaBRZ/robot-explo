@@ -40,9 +40,13 @@ from optparse import OptionParser
 import itertools
 import random
 from itertools import starmap
-
+cpTour=0
+distRob=29
 proxSensorsVal=[-1,-1,-1,-1,-1,-1,-1]
-
+micI=0
+temperature=0
+#pathToSensorDataFile='../../SensorDataThymio/'
+pathToSensorDataFile=''
 def initAsebamedulla():
     os.system('asebamedulla   "ser:name=Thymio-II" &')
 
@@ -552,16 +556,19 @@ def get_variables_reply(r):
     global resultSensors
     proxSensorsVal=r
     resultSensors='/'.join([str(v) for v in r])
+    closeAsebamedulla()
+
+def get_variables_error(e):
+    print ('error:')
+    print (str(e))
+    loop.quit()
+
+def closeAsebamedulla():
     os.system("pidof asebamedulla > pidtmp")
     reader=open("pidtmp")
     os.system("kill "+reader.read())
     reader.close()
     os.system("rm pidtmp")
-    loop.quit()
- 
-def get_variables_error(e):
-    print ('error:')
-    print (str(e))
     loop.quit()
 
 def captureSensor():
@@ -592,6 +599,77 @@ def getDistanceFromSensors():
     handle = gobject.timeout_add (100, captureSensor) #every 0.1 sec
     loop.run()
     return resultSensors
+
+def dbusReply():
+    pass
+
+def dbusError(e):
+    print ('error %s')
+    print (str(e))
+
+def mvF():
+    global cpTour
+    print('GO',cpTour)
+    t=500
+    speed=50
+    network2.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_prox_reply,error_handler=get_variables_error)
+    print("loop2.is_running()",loop2.is_running())
+    if loop2.is_running():
+        while(t>0):
+            network2.SetVariable("thymio-II", "motor.left.target", [speed])
+            network2.SetVariable("thymio-II", "motor.right.target", [speed])
+            t-=1
+
+        network2.SetVariable("thymio-II", "motor.left.target", [0])
+        network2.SetVariable("thymio-II", "motor.right.target", [0])
+    cpTour+=1
+    return True
+
+def get_prox_reply(r):
+    global proxSensorsVal
+    global cpTour
+    global distRob
+    proxSensorsVal=r
+    p=[]
+    for v in r:
+        p.append(str(v))
+    if int(p[1])!=0 or int(p[2])!=0 or int(p[3])!=0 or cpTour>=distRob:
+        #print('obstacle')
+        loop2.quit()
+        return 0
+    #print('tout va bien')
+    return 1
+def moveForward(distCM):
+    global network2
+    global loop2
+    global distRob
+    global cpTour
+
+    initAsebamedulla()    
+    distanceTravelled=0
+    distRob=29/50*distCM
+    #initAsebamedulla()
+    #sleep(3)
+    parser = OptionParser()
+    parser.add_option("-s", "--system", action="store_true", dest="system", default=False,help="use the system bus instead of the session bus")
+    (options, args) = parser.parse_args()
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    if options.system:
+        bus = dbus.SystemBus()
+    else:
+        bus = dbus.SessionBus()
+    #Create Aseba network 
+    network2 = dbus.Interface(bus.get_object('ch.epfl.mobots.Aseba', '/'), dbus_interface='ch.epfl.mobots.AsebaNetwork')
+    loop2 = gobject.MainLoop()
+    #call the callback of Braitenberg algorithm
+    handle = gobject.timeout_add (500, mvF) #every 0.1 sec
+    loop2.run()
+    distanceTravelled=(cpTour+1)*50/29
+    #print("The distance travelled by the autonomous robot is: ",distanceTravelled)
+    with open('data/distMove', 'w') as outfile:
+        outfile.write(str(distanceTravelled))
+        outfile.close()
+    closeAsebamedulla()
 #######################################
 #testing
 
@@ -599,3 +677,4 @@ def getDistanceFromSensors():
 #PictureLSDDetection(takePicture())
 #recognition(takePicture(),nbRefs=1)
 #getDistanceFromSensors()
+ #moveForward(50)

@@ -100,14 +100,30 @@ public class PiThymioRobot extends Robot {
 	 * @param dist
 	 * @throws InterruptedException 
 	 */
+	public void updatePosition() {
+				//get the distance from the object if the distance is equal to -1: any object has been detected, else rotate 
+				sendToPC("data/VisualInfo",localURL+"/ressources/data/");
+				 try (FileReader reader = new FileReader(localURL+"/ressources/data/distMove");
+				            BufferedReader br = new BufferedReader(reader)) {
+				            String line;
+				            //the first line contains the resolution of the image
+				           if((line = br.readLine()) != null) {
+				        	   System.out.println("Distance travvelled "+line);
+				        	   float dist=Float.parseFloat(line);
+				        	   this.position = this.position.add(this.getPointer().mul(dist));
+				           }
+				            
+				        } catch (IOException e) {
+			            System.err.format("IOException: %s%n", e);
+			        }
+				 
+				}
 	public boolean move(float dist) throws IOException, InterruptedException {
-
 		 /* A partir de la distance en cm -> On envoie une commande (du rasp au thymio) avec pour arguments la distance devant être parcouru par le robot
 		 * Si distance est négative on rajoute l'option r (=reverse) pour préciser la direction 
 		 * */
-		this.position = this.position.add(this.getPointer().mul(dist));
-		dist*=100;
-		String cmd="python3 getAsebaFileD.py move True False "+Math.abs(dist);
+		updatePosition();
+		String cmd="python3 move.py  "+Math.abs(dist);
 		
 		if(dist<0)
 			cmd+=" r ";
@@ -116,39 +132,12 @@ public class PiThymioRobot extends Robot {
 	}
 	
 	/**
-	 * Sends order to thymio to move at a given speed for a given time
-	 * @param speed
-	 * @param limit
-	 * @return true if the move is complete
-	 * @throws InterruptedException 
-	 */
-	public boolean move(int speed, int limit) throws IOException, InterruptedException {
-
-		 /* A partir de la distance en cm -> On envoie une commande (du rasp au thymio) avec pour arguments la vitesse et le temps durant lequel le robot devra bouger
-		 * Le script prend en paramètres ces deux valeurs et modifie le fichier .aesl en conséquent
-		 * Une deuxième commande est ensuite lancée à partir du pi pour charger le script aseba dans le thymio
-		 * Enfin on déconnecte le thymio en tuant le processus lancé.
-		 * option r means reverse 
-		 * */
-		//Dist en m ?
-		float dist=speed*limit;
-		this.position = this.position.add(this.getPointer().mul(dist));
-		
-		String cmd="python3 getAsebaFile.py move False False "+Math.abs(speed)+" "+limit;
-		if(speed<0)
-			cmd+=" r ";
-		executeCommandRPi(cmd,true);
-		
-        return true;
-	}
-	/**
 	 * Rotate until we get to the wanted angle
 	 */
 	@Override
 	public boolean rotate(double angle) throws IOException, InterruptedException{
 		//this.rotation = (this.rotation + angle + 2 * Math.PI) % (2 * Math.PI);
 		double angleRad=(angle*Math.PI)/180;
-		System.out.println("Je veux tourner de : " + (angle) / Math.PI * 180);
 		// if ok 
 		this.rotation = (this.rotation -angleRad) % (2 * Math.PI);
 		String cmd="python3 getAsebaFileD.py rotate True True "+Math.abs(angle);
@@ -220,7 +209,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= {"6.png","0.png","1.png","2.png","initWorkspace.py","exploreOnce.py", "utils.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl","move.aesl"};
+		String[] files= {"move.py","0.png","initWorkspace.py","exploreOnce.py", "utils.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl"};
 
 		String urlToScript;
 
@@ -265,8 +254,6 @@ public class PiThymioRobot extends Robot {
 		System.out.println("Raspberry Pi initialisé avec succès !");
 		
 	}
-
-
 	/**
 	 * Execute a command on the pi's virtual terminal - we suppose that we are already connected and authenticated.
 	 * @param command
@@ -292,8 +279,6 @@ public class PiThymioRobot extends Robot {
 		return returnResult;
 
 	}
-
-
 	/**
 	 * Disconnect the SSHClient
 	 * @throws IOException

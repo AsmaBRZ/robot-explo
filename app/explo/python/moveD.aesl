@@ -12,7 +12,7 @@ var realSpeed=0
 var speed=50
 var reverse=1
 motor.left.target=0
-timer.period[0]=350
+timer.period[0]=70
 
 speed*=reverse
 onevent timer0

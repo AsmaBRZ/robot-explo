@@ -58,7 +58,7 @@ public class RoomObject{
 		}
 		
 	}
-	public void seteHeight(float h){
+	public void setHeight(float h){
 		this.height=h;		
 	}
 	/**
