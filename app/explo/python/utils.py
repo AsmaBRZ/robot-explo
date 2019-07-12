@@ -677,4 +677,4 @@ def moveForward(distCM):
 #PictureLSDDetection(takePicture())
 #recognition(takePicture(),nbRefs=1)
 #getDistanceFromSensors()
- #moveForward(50)
+#moveForward(50)
