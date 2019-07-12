@@ -54,10 +54,10 @@ public class Robot {
 	 * @throws InterruptedException
 	 */
 
-	public boolean move(float dist) throws IOException, InterruptedException {
+	public float move(float dist) throws IOException, InterruptedException {
 		this.position = this.position.add(this.getPointer().mul(dist));
 		System.out.println("Je veux bouger de " + dist + " m");
-		return true;
+		return 0;
 	}
 
 

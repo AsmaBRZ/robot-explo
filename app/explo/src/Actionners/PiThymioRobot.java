@@ -100,35 +100,35 @@ public class PiThymioRobot extends Robot {
 	 * @param dist
 	 * @throws InterruptedException 
 	 */
-	public void updatePosition() {
+	public float updatePosition() {
+		float dist=0;
 				//get the distance from the object if the distance is equal to -1: any object has been detected, else rotate 
-				sendToPC("data/VisualInfo",localURL+"/ressources/data/");
+				sendToPC("data/distMove",localURL+"/ressources/data/");
 				 try (FileReader reader = new FileReader(localURL+"/ressources/data/distMove");
 				            BufferedReader br = new BufferedReader(reader)) {
 				            String line;
-				            //the first line contains the resolution of the image
 				           if((line = br.readLine()) != null) {
-				        	   System.out.println("Distance travvelled "+line);
-				        	   float dist=Float.parseFloat(line);
+				        	   System.out.println("Distance travelled "+line);
+				        	   dist=Float.parseFloat(line);
 				        	   this.position = this.position.add(this.getPointer().mul(dist));
-				           }
-				            
+				           }				            
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
-				 
+				 return dist;
 				}
-	public boolean move(float dist) throws IOException, InterruptedException {
+	public float move(float dist) throws IOException, InterruptedException {
 		 /* A partir de la distance en cm -> On envoie une commande (du rasp au thymio) avec pour arguments la distance devant être parcouru par le robot
 		 * Si distance est négative on rajoute l'option r (=reverse) pour préciser la direction 
 		 * */
-		updatePosition();
-		String cmd="python3 move.py  "+Math.abs(dist);
+		
+		String cmd="python3 move.py "+Math.abs(dist);
 		
 		if(dist<0)
 			cmd+=" r ";
 		executeCommandRPi(cmd,true);
-        return true;
+		float distTravelled=updatePosition();
+        return distTravelled;
 	}
 	
 	/**
@@ -302,8 +302,6 @@ public class PiThymioRobot extends Robot {
 		}
 
 	}
-
-	
 	/**
 	 * Gets the IP of the pi (by a scan on the network) knowing its hostname
 	 * @param hostname
@@ -389,42 +387,4 @@ public class PiThymioRobot extends Robot {
 		}
 		return ip;
 	}
-	@Override
-	//this function is not used anymore, we used it to calculate an angle to correct the robot's rotation
-	public Float captureNewAngle() {
-		Float angle=0.f;
-		String pfile_returned = null;
-		try {
-		    //u: case: corner, we assume that there is PEPEER in each corner, we dont need to check all the elements of the DB
-			//m: multi, on a random place of a wall, we check all the elements of the DB to verify if one of them matches with the picture taken by the robot
-			
-		    pfile_returned = executeCommandRPi("python3 imageVanishingLines.py ",true);
-			pfile_returned=pfile_returned.trim();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(pfile_returned==null) {
-			System.out.println("Erreur capture data");
-			return null;
-		}
-		
-		//get the distance from the object if the distance is equal to -1: any object has been detected, else rotate 
-		sendToPC("data/angleCorrected",localURL+"/ressources/data/");
-		 try (FileReader reader = new FileReader(localURL+"/ressources/data/angleCorrected");
-		            BufferedReader br = new BufferedReader(reader)) {
-		            String line;
-		            //the first line contains the resolution of the image
-		           if ((line = br.readLine()) != null) {
-		              angle=Float.parseFloat(line);
-		           }
-		           
-		        } catch (IOException e) {
-	            System.err.format("IOException: %s%n", e);
-	        } 
-
-
-		 return angle;
-	}
-	
 }

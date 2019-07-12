@@ -557,6 +557,7 @@ def get_variables_reply(r):
     proxSensorsVal=r
     resultSensors='/'.join([str(v) for v in r])
     closeAsebamedulla()
+    loop.quit()
 
 def get_variables_error(e):
     print ('error:')
@@ -569,7 +570,6 @@ def closeAsebamedulla():
     os.system("kill "+reader.read())
     reader.close()
     os.system("rm pidtmp")
-    loop.quit()
 
 def captureSensor():
     #get the values of the sensors
@@ -609,11 +609,11 @@ def dbusError(e):
 
 def mvF():
     global cpTour
-    print('GO',cpTour)
+    #print('GO',cpTour)
     t=500
     speed=50
     network2.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_prox_reply,error_handler=get_variables_error)
-    print("loop2.is_running()",loop2.is_running())
+    #print("loop2.is_running()",loop2.is_running())
     if loop2.is_running():
         while(t>0):
             network2.SetVariable("thymio-II", "motor.left.target", [speed])
@@ -644,8 +644,8 @@ def moveForward(distCM):
     global loop2
     global distRob
     global cpTour
-
-    initAsebamedulla()    
+    initAsebamedulla()
+    sleep(3)
     distanceTravelled=0
     distRob=29/50*distCM
     #initAsebamedulla()

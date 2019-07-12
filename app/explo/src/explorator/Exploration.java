@@ -30,13 +30,16 @@ public class Exploration {
     private int cpWall=0;
     private boolean targetFound=false;
     //We set the distance with which the robot rolls to 1m. 
-	private int distanceRob=1;
+	private int distanceRob=50;
 	private	Point cornerLeft, cornerRight;
 	private int threshClose =150;
-	private int distMar=41;
+	private int timeForMove=15000;
+	private float lastDistanceTravelled=0; 
 	float lenSeg,x0,y0,x1,y1;
 	double robRotation;
 	Vec2 robPosition;
+	List<ArrayList<Float>> data;
+	private boolean obstacle=false;
 	public Exploration() throws InterruptedException{
 		File configFile = new File("config.properties");
 		try {
@@ -122,9 +125,13 @@ public class Exploration {
 			//Step 0: Capture the visual information
 
 			this.jmeApp.map.setcurrentWall(cpWall);
-			List<ArrayList<Float>> data;
+			
 			// capture visual information
-			data=robot.captureData();
+			if(!obstacle) {
+				data=robot.captureData();
+				this.obstacle=false;
+			}
+			
 			//System.out.println("Visual information: "+data.toString());
 
 			//retreive information about the object to find
@@ -160,13 +167,13 @@ public class Exploration {
 				System.out.println("prox in front: the autonomous robot is so too close from an eventual  wall in front, -> move back");
 				try {
 					System.out.println(" prox in front robot s position"+robPosition.toString());
-					y0=pixToCmY(robPosition.y);
-					y1=pixToCmY(robPosition.y);
-					x0=pixToCmX(robPosition.x-100,y0);
-					x1=pixToCmX(robPosition.x+100,y1);
+					y0=pixToCmY(robPosition.y+lastDistanceTravelled);
+					y1=pixToCmY(robPosition.y+lastDistanceTravelled);
+					x0=pixToCmX(robPosition.x,y0);
+					x1=pixToCmX(robPosition.x,y1);
 					
 					System.out.println("prox in front x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);			
-					System.out.println("ROb rotation is"+this.robRotation);
+					//System.out.println("ROb rotation is"+this.robRotation);
 					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
@@ -185,11 +192,12 @@ public class Exploration {
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
 					this.robot.rotate(90);
 					this.robot.rotate(90);
-					this.robot.move(distanceRob);
-					Thread.sleep(27000);
+					this.lastDistanceTravelled=0;
+					this.lastDistanceTravelled=this.robot.move(distanceRob);
+					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(-90);
-					this.robot.move(distanceRob);
-					Thread.sleep(27000);
+					this.lastDistanceTravelled+=this.robot.move(distanceRob);
+					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(-90);
 
 				} catch (IOException e) {
@@ -213,7 +221,7 @@ public class Exploration {
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-					
+					//Thread.sleep(this.timeForMove);
 					x0/=100;
 					y0/=100;
 					x1/=100;
@@ -226,10 +234,12 @@ public class Exploration {
 					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
-					
+					this.lastDistanceTravelled=0;
 					this.robot.rotate(90);
-					this.robot.move(distanceRob);
-					this.robot.rotate(-90);					
+					this.lastDistanceTravelled=this.robot.move(distanceRob);
+				    //Thread.sleep(this.timeForMove);
+					this.robot.rotate(-90);				
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
@@ -253,7 +263,7 @@ public class Exploration {
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
 					
-					System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+					System.out.println("prox right x0 y0 x1 y1 "+x0+" "+ y0+" "+ x1+ " " +y1);
 					
 					x0/=100;
 					y0/=100;
@@ -266,12 +276,15 @@ public class Exploration {
 					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
-					
+					this.lastDistanceTravelled=0;
 					this.robot.rotate(-90);
-					this.robot.move(distanceRob);
+					this.lastDistanceTravelled=this.robot.move(distanceRob);
+					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(90);
-					this.robot.move(distanceRob);
+					this.lastDistanceTravelled+=this.robot.move(distanceRob);
+					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(90);
+					
 					
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -285,12 +298,15 @@ public class Exploration {
 					//the autonomous robot is too close from the wall in front
 					System.out.println("rear prox: the autonomous robot is so too close from a wall behind it, -> exploration of this wall");
 					try {
-						this.robot.move(distanceRob);
+						this.lastDistanceTravelled=0;
+						this.lastDistanceTravelled=this.robot.move(distanceRob);
+						//Thread.sleep(this.timeForMove);
 						this.robot.rotate(90);
 						this.robot.rotate(90);
 					} catch (IOException | InterruptedException e) {
 						e.printStackTrace();
 					}
+					
 					return 0;
 			}
 				
@@ -301,20 +317,20 @@ public class Exploration {
 					y1=width.get(4);
 					x0=width.get(1);
 					x1=width.get(3);
-					System.out.println("before width"+x0+" "+ y0+" "+ x1+ " " +y1);
+					//System.out.println("before width"+x0+" "+ y0+" "+ x1+ " " +y1);
 
 					y0=pixToCmY(width.get(2));
 					y1=pixToCmY(width.get(4));
 					x0=pixToCmX(width.get(1),y0);
 					x1=pixToCmX(width.get(3),y1);
 					
-					System.out.println("WWWWWWidth "+x0+" "+ y0+" "+ x1+ " " +y1);
-					System.out.println("ROB rotation"+robRotation);
+					//System.out.println("WWWWWWidth "+x0+" "+ y0+" "+ x1+ " " +y1);
+					//System.out.println("ROB rotation"+robRotation);
 					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-					System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+					//System.out.println("ROTATION x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					
 					x0/=100;
 					y0/=100;
@@ -381,15 +397,17 @@ public class Exploration {
 							if(width.get(2)>threshClose){
 								System.out.println("Close");
 								try {
+									this.lastDistanceTravelled=0;
 									this.robot.rotate(90);
-									this.robot.move(distanceRob);
+									this.lastDistanceTravelled=this.robot.move(distanceRob);
 									System.out.println("before sleep");
-									Thread.sleep(18000);
+									//Thread.sleep(this.timeForMove);
 									System.out.println("after sleep");
 									data=robot.captureData();
 									disSensors=data.get(6);
 									if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
 										System.out.println("After 100 next wall aprox");
+										this.obstacle=true;
 										return 0;
 									}
 									this.robot.rotate(-90);
@@ -401,7 +419,9 @@ public class Exploration {
 							else {
 								System.out.println("Far");
 								try {
-									this.robot.move(distanceRob);
+									this.lastDistanceTravelled=0;
+									this.lastDistanceTravelled=this.robot.move(distanceRob);
+									//Thread.sleep(this.timeForMove);
            							return 0;
 								} catch (IOException | InterruptedException e) {
 									e.printStackTrace();
@@ -415,14 +435,14 @@ public class Exploration {
 								try {
 									this.robot.rotate(90);
 									this.robot.rotate(90);
-									this.robot.move(this.distanceRob);
-									System.out.println("before sleep");
-									Thread.sleep(27000);
-									System.out.println("after sleep");
+									this.lastDistanceTravelled=0;
+									this.lastDistanceTravelled=this.robot.move(this.distanceRob);
+									//System.out.println("before sleep");
+									//Thread.sleep(this.timeForMove);
+									//System.out.println("after sleep");
 									data=robot.captureData();
 									disSensors=data.get(6);
 									if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
-										System.out.println("next wall aprox");
 										return 0;
 									}
 									this.robot.rotate(-90);}
@@ -434,7 +454,8 @@ public class Exploration {
 							else {
 								System.out.println("Far");
 								try {
-									this.robot.move(distanceRob);
+									this.lastDistanceTravelled=0;
+									this.lastDistanceTravelled=this.robot.move(distanceRob);
 								} catch (IOException | InterruptedException e) {
 									e.printStackTrace();
 								}
@@ -448,15 +469,15 @@ public class Exploration {
 						if(width.get(2)>threshClose){
 							System.out.println("Close");
 							try {
+								this.lastDistanceTravelled=0;
 								this.robot.rotate(90);
-								this.robot.move(distanceRob);
-								System.out.println("before sleep");
-								Thread.sleep(27000);
-								System.out.println("after sleep");
+								this.lastDistanceTravelled=this.robot.move(distanceRob);
+								//System.out.println("before sleep");
+								//Thread.sleep(this.timeForMove);
+								//System.out.println("after sleep");
 								data=robot.captureData();
 								disSensors=data.get(6);
 								if(disSensors.get(2)!=0|| disSensors.get(3)!=0 || disSensors.get(1)!=0){
-									System.out.println("After 110 next wall aprox");
 									return 0;
 								}
 								this.robot.rotate(-90);
@@ -468,7 +489,8 @@ public class Exploration {
 						else {
 							System.out.println("Far");
 							try {
-								this.robot.move(distanceRob);
+								this.lastDistanceTravelled=0;
+								this.lastDistanceTravelled=this.robot.move(distanceRob);
 							} catch (IOException | InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -488,7 +510,8 @@ public class Exploration {
 						else {
 							System.out.println("Far");
 							try {
-								this.robot.move(distanceRob);
+								this.lastDistanceTravelled=0;
+								this.lastDistanceTravelled=this.robot.move(distanceRob);
 							} catch (IOException | InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -504,12 +527,9 @@ public class Exploration {
 					if(depthR.get(0)==-1) {
 						System.out.println("000");
 							try {
-								this.robot.rotate(90);
-								this.robot.rotate(90);
-								this.robot.move(distanceRob);
-								Thread.sleep(27000);
-								this.robot.rotate(-90);
-								this.robot.rotate(-90);
+								this.lastDistanceTravelled=0;
+								this.lastDistanceTravelled=this.robot.move(distanceRob);
+								//Thread.sleep(this.timeForMove);
 							} catch (IOException | InterruptedException e) {
 								e.printStackTrace();
 							}
