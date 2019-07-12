@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  5 JUL 2019 17:58
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  12 JUL 2019 17:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1086,68 +1086,72 @@ File: res/order_processing.png Graphic file (type bmp)
 Overfull \vbox (19.06981pt too high) has occurred while \output is active []
 
 
-[9] [10]
+[9]
 Chapter 5.
-[11
+[10
 
 ]
 Chapter 6.
-[12
+[11
 
 ]
 Chapter 7.
-[13
+[12
 
 ]
 Appendix A.
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--230
+Underfull \hbox (badness 10000) in paragraph at lines 233--236
 
  []
 
 File: res/thymio.jpg Graphic file (type bmp)
 <res/thymio.jpg>
 
-Underfull \hbox (badness 10000) in paragraph at lines 240--242
+Underfull \hbox (badness 10000) in paragraph at lines 246--248
 
  []
 
 File: res/raspberry.jpg Graphic file (type bmp)
 <res/raspberry.jpg>
-[14
+[13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 252--254
+Underfull \hbox (badness 10000) in paragraph at lines 258--260
 
  []
 
 File: res/camera.jpg Graphic file (type bmp)
 <res/camera.jpg>
 
-Overfull \hbox (9.91542pt too wide) in paragraph at lines 255--260
+Overfull \hbox (9.91542pt too wide) in paragraph at lines 261--266
  [][] []$[][][][][] [] [] [] [][] [] [][][][][][][][][][] [] [][][] [] [][][][]
 [][][][] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--266
+Underfull \hbox (badness 10000) in paragraph at lines 270--272
 
  []
 
 File: res/power.jpg Graphic file (type bmp)
 <res/power.jpg>
+[14] [15]
+Appendix B.
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[15] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 273.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 273.
+[16
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 286.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 286.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 273.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 273.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 286.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 286.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1155,13 +1159,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 273.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 286.
  ) 
 Here is how much of TeX's memory you used:
- 26048 strings out of 493007
- 467675 string characters out of 6136719
- 601717 words of memory out of 5000000
- 29567 multiletter control sequences out of 15000+600000
+ 26051 strings out of 493007
+ 467709 string characters out of 6136719
+ 602069 words of memory out of 5000000
+ 29570 multiletter control sequences out of 15000+600000
  12276 words of font info for 39 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  62i,5n,65p,1992b,392s stack positions out of 5000i,500n,10000p,200000b,80000s

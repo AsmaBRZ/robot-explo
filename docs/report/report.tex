@@ -169,9 +169,9 @@ The horizontal segments which are situated on the top of the image are ignored. 
  The useful information that we can retrieve from each case is as follows:
  \begin{itemize}
  	\item Case A: 3 types of segments are detected, an horizontal one and 2 diagonals on 2 opposing walls.
- 	\item Case B: 2 types of segments (horizontal and diagonal) sharing an endpoint are detected.
- 	\item Case C: An horizontal segment is detected.
- 	\item Case D: Any segment is detected.
+ 	\item Case B and C: 2 types of segments (horizontal and diagonal) sharing an endpoint are detected.
+ 	\item Case D: An horizontal segment is detected.
+ 	\item Case E: Any segment is detected.
  	
  \end{itemize}
  \paragraph{}
@@ -186,6 +186,11 @@ The horizontal segments which are situated on the top of the image are ignored. 
  	\item Avoid obstacles.
  	\item Move back, move forward and rotate to continue exploring.
  \end{itemize}
+
+\subsubsection{Obstacle avoidance}
+\paragraph{}
+In our previous work, when the autonomous robot decided to move forward, it did not check progressively while moving whether there is an obstacle or not. But, it verified if there is an obstacle when it stopped moving. The drawback of such a decision is that the autonomous robot is not able to distinguish between its last position and the one after moving.
+\subsubsection{Strategy}
 \paragraph{}
 As there are a lot of cases of movements according to the visual information, we try to summarize theses cases using an activity diagram shown in the figure below. In this diagram, the green boxes represent a physical movement of the autonomous robot, and the blue cases represent treatments. 
 
@@ -205,7 +210,7 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\end{center}
 \end{figure}
 \newpage
-	\section{3D Object recognition}
+	
 
 	\chapter{Testing}
 	\paragraph{}
@@ -216,6 +221,7 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\section{3D map building}
 	
 	\chapter{Conclusion, Limitation and Future work}
+	\section{3D Object recognition}
 	\chapter{References}
 
 
@@ -270,4 +276,11 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 			\includegraphics[scale=0.6]{res/power.jpg}
 		\end{center}
 	\end{figure}
+	\chapter{Beginning of eventual future work}
+	\section{3D Object recognition}
+	\paragraph{}
+	This project may improved for 3D Object Recognition. Currently, the objects to detect are only in 2D. Obviously, it will be more interesting to make the autonomous robot able to detect 3D object, and to integrate them to the 3D virtual map.  
+	
+	\paragraph{}
+	In this case, we have begun to work on 3D object recognition, and we have thought about a solution where Deep Learning is used. For that, 
 \end{document}

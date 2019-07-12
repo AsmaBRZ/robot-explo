@@ -34,26 +34,33 @@
 \contentsline {subsection}{\numberline {4.1.3}Navigation}{8}{subsection.4.1.3}
 \contentsline {paragraph}{}{8}{section*.28}
 \contentsline {paragraph}{}{8}{section*.29}
-\contentsline {paragraph}{}{8}{section*.30}
+\contentsline {subsubsection}{Obstacle avoidance}{8}{section*.30}
 \contentsline {paragraph}{}{8}{section*.31}
-\contentsline {paragraph}{}{8}{section*.32}
-\contentsline {section}{\numberline {4.2}3D Object recognition}{10}{section.4.2}
-\contentsline {chapter}{\numberline {5}Testing}{11}{chapter.5}
-\contentsline {paragraph}{}{11}{section*.33}
-\contentsline {section}{\numberline {5.1}Image processing}{11}{section.5.1}
-\contentsline {section}{\numberline {5.2}3D map building}{11}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{12}{chapter.6}
-\contentsline {chapter}{\numberline {7}References}{13}{chapter.7}
-\contentsline {chapter}{\numberline {A}List of components}{14}{appendix.A}
-\contentsline {section}{\numberline {A.1}Thymio II}{14}{section.A.1}
-\contentsline {paragraph}{}{14}{section*.34}
-\contentsline {paragraph}{}{14}{section*.35}
-\contentsline {section}{\numberline {A.2}Raspberry-Pi}{14}{section.A.2}
-\contentsline {paragraph}{}{14}{section*.36}
-\contentsline {paragraph}{}{15}{section*.37}
-\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{15}{section.A.3}
-\contentsline {paragraph}{}{15}{section*.38}
-\contentsline {paragraph}{}{15}{section*.39}
-\contentsline {section}{\numberline {A.4}Power-bank}{15}{section.A.4}
-\contentsline {paragraph}{}{15}{section*.40}
-\contentsline {paragraph}{}{16}{section*.41}
+\contentsline {subsubsection}{Strategy}{8}{section*.32}
+\contentsline {paragraph}{}{8}{section*.33}
+\contentsline {paragraph}{}{8}{section*.34}
+\contentsline {paragraph}{}{8}{section*.35}
+\contentsline {chapter}{\numberline {5}Testing}{10}{chapter.5}
+\contentsline {paragraph}{}{10}{section*.36}
+\contentsline {section}{\numberline {5.1}Image processing}{10}{section.5.1}
+\contentsline {section}{\numberline {5.2}3D map building}{10}{section.5.2}
+\contentsline {chapter}{\numberline {6}Conclusion, Limitation and Future work}{11}{chapter.6}
+\contentsline {section}{\numberline {6.1}3D Object recognition}{11}{section.6.1}
+\contentsline {chapter}{\numberline {7}References}{12}{chapter.7}
+\contentsline {chapter}{\numberline {A}List of components}{13}{appendix.A}
+\contentsline {section}{\numberline {A.1}Thymio II}{13}{section.A.1}
+\contentsline {paragraph}{}{13}{section*.37}
+\contentsline {paragraph}{}{13}{section*.38}
+\contentsline {section}{\numberline {A.2}Raspberry-Pi}{13}{section.A.2}
+\contentsline {paragraph}{}{13}{section*.39}
+\contentsline {paragraph}{}{14}{section*.40}
+\contentsline {section}{\numberline {A.3}Raspberry-Pi Camera}{14}{section.A.3}
+\contentsline {paragraph}{}{14}{section*.41}
+\contentsline {paragraph}{}{14}{section*.42}
+\contentsline {section}{\numberline {A.4}Power-bank}{14}{section.A.4}
+\contentsline {paragraph}{}{14}{section*.43}
+\contentsline {paragraph}{}{15}{section*.44}
+\contentsline {chapter}{\numberline {B}Beginning of eventual future work}{16}{appendix.B}
+\contentsline {section}{\numberline {B.1}3D Object recognition}{16}{section.B.1}
+\contentsline {paragraph}{}{16}{section*.45}
+\contentsline {paragraph}{}{16}{section*.46}
