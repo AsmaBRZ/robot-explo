@@ -21,6 +21,7 @@ public class Wall extends RoomObject{
 	public Wall(int id, Point left, Point right, float height,float width){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
+		this.obstacle=false;
 		
 	}
 	public Wall(int id, Point left, Point right, float height,float width,boolean obstacle){

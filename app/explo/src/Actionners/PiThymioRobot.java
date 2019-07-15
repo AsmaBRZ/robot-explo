@@ -109,22 +109,24 @@ public class PiThymioRobot extends Robot {
 				            String line;
 				           if((line = br.readLine()) != null) {
 				        	   System.out.println("Distance travelled "+line);
-				        	   dist=Float.parseFloat(line);
-				        	   this.position = this.position.add(this.getPointer().mul(dist));
+				        	   dist=Float.parseFloat(line)/10;
+				        	   System.out.println("MOVEEE  "+dist);
+				        	   this.position = this.position.add(this.getPointer().mul(dist/100));
 				           }				            
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
+				 System.out.println("MOVEEE return "+dist);
 				 return dist;
-				}
-	public float move(float dist) throws IOException, InterruptedException {
+	}
+	public float move(double distanceRob) throws IOException, InterruptedException {
 		 /* A partir de la distance en cm -> On envoie une commande (du rasp au thymio) avec pour arguments la distance devant être parcouru par le robot
 		 * Si distance est négative on rajoute l'option r (=reverse) pour préciser la direction 
 		 * */
 		
-		String cmd="python3 move.py "+Math.abs(dist);
+		String cmd="python3 move.py "+Math.abs(distanceRob);
 		
-		if(dist<0)
+		if(distanceRob<0)
 			cmd+=" r ";
 		executeCommandRPi(cmd,true);
 		float distTravelled=updatePosition();
@@ -209,7 +211,7 @@ public class PiThymioRobot extends Robot {
 	 * Initialize the raspberry Pi by sending all the -python-aseba- scripts which will be needed after
 	 */
 	private void initPi() {
-		String[] files= {"move.py","0.png","initWorkspace.py","exploreOnce.py", "utils.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py","moveD.aesl"};
+		String[] files= {"move.py","0.png","initWorkspace.py","exploreOnce.py", "utils.py","rotate.py","rotateD.aesl","getAsebaFile.py","getAsebaFileD.py"};
 
 		String urlToScript;
 

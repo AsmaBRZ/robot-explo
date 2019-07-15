@@ -46,6 +46,11 @@ public class InternalRepresentation {
 		this.markers.add(p1);
 		this.walls.add(new Wall(id,p1,p2,height,width));
 	}
+	public void addWall(int id,Point p1,Point p2,float height,float width,boolean obstacle){
+
+		this.markers.add(p1);
+		this.walls.add(new Wall(id,p1,p2,height,width,obstacle));
+	}
 	
 	//we assume having 4 points all having the same coordinates initialy (0.0), this points are forming 4 fours; each wall's height/width is equal to 0 
 	private void create4WallsRoom(){
@@ -185,7 +190,7 @@ public class InternalRepresentation {
 		return null;
 	}
 	
-	public void setcurrentWall(int wallId){
+	public void setCurrentWall(int wallId){
 		this.currentWall = wallId;
 	}
 	

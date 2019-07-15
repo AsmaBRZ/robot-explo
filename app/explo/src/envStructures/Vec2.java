@@ -20,9 +20,9 @@ public class Vec2 {
 		this.x = 0.0f;
 		this.y = 0.0f;
 	}
-	public Vec2(float x, float y ){
-		this.x =x;
-		this.y =y;
+	public Vec2(float d, float e ){
+		this.x =d;
+		this.y =e;
 	}
 /**
  * 	
@@ -51,11 +51,11 @@ public class Vec2 {
 	}
 	/**
 	 * 	
-	 * @param c Scalar to multiply
+	 * @param dist Scalar to multiply
 	 * @return Returns the product of the scalar and the vector
 	 */
-	public Vec2 mul(float c){
-		return new Vec2(this.x*c, this.y*c);
+	public Vec2 mul(float dist){
+		return new Vec2(this.x*dist, this.y*dist);
 	}
 	
 	/**
@@ -104,13 +104,13 @@ public class Vec2 {
 	public float length(){
 		return (float) Math.sqrt(Math.pow(this.x,2)+  Math.pow(this.y,2));
 	}
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 	public void setX(float x) {
 		this.x = x;
 	}
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 	public void setY(float y) {
