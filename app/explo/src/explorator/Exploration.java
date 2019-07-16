@@ -226,8 +226,8 @@ public class Exploration {
 				x1/=100;
 				y1/=100;
 				//System.out.println("XY "+x0+ " "+y0+ " "+ x1+ " "+y1);
-				cornerLeft=new Point(x0,(y1+y0)/2);
-				cornerRight=new Point(x1,(y0+y1)/2);
+				cornerLeft=new Point(x0,y0);
+				cornerRight=new Point(x1,y1);
 				//System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
@@ -263,8 +263,8 @@ public class Exploration {
 				x1/=100;
 				y1/=100;
 				//System.out.println("XY "+x0+ " "+y0+ " "+ x1+ " "+y1);
-				cornerLeft=new Point(x0,(y1+y0)/2);
-				cornerRight=new Point(x1,(y0+y1)/2);
+				cornerLeft=new Point(x0,y0);
+				cornerRight=new Point(x1,y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
 				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
@@ -340,8 +340,8 @@ public class Exploration {
 				y0/=100;
 				x1/=100;
 				y1/=100;
-				cornerLeft=new Point(x0,(y1+y0)/2);
-				cornerRight=new Point(x1,(y0+y1)/2);
+				cornerLeft=new Point(x0,y0);
+				cornerRight=new Point(x1,y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
 				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
@@ -363,8 +363,8 @@ public class Exploration {
 				y0/=100;
 				x1/=100;
 				y1/=100;
-				cornerLeft=new Point(x0,(y1+y0)/2);
-				cornerRight=new Point(x1,(y0+y1)/2);
+				cornerLeft=new Point(x0,y0);
+				cornerRight=new Point(x1,y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
 				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
@@ -567,34 +567,34 @@ public class Exploration {
 	public float pixToCmX(float x1,float x2) {
 		return (float) (
 
-				-4.243208485*Math.pow(10,-13)*Math.pow(x1,6)
-				+9.751611397*Math.pow(10,-12)*Math.pow(x1,5)*x2
-				+7.153371801*Math.pow(10,-12)*Math.pow(x1,4)*Math.pow(x2,2)
-				+4.610858605*Math.pow(10,-11)*Math.pow(x1,3)*Math.pow(x2,3)
-				+8.501165823*Math.pow(10,-12)*Math.pow(x1,2)*Math.pow(x2,4)
-				+7.630951711*Math.pow(10,-12)*x1*Math.pow(x2,5)
-				+5.494161185*Math.pow(10,-13)*Math.pow(x2,6)
-				+4.562505507*Math.pow(10,-10)*Math.pow(x1,5)
-				-1.110142342*Math.pow(10,-8)*Math.pow(x1,4)*x2
-				-1.991155426*Math.pow(10,-8)*Math.pow(x1,3)*Math.pow(x2,2)
-				-2.255346893*Math.pow(10,-8)*Math.pow(x1,2)*Math.pow(x2,3)
-				-1.040648996*Math.pow(10,-8)*x1*Math.pow(x2,4)
-				-1.026438224*Math.pow(10,-9)*Math.pow(x2,5)
-				-1.643321008*Math.pow(10,-7)*Math.pow(x1,4)
-				+5.04351419 *Math.pow(10,-6)*Math.pow(x1,3)*x2
-				+8.737153594*Math.pow(10,-6)*Math.pow(x1,2)*Math.pow(x2,2)
-				+5.661690877*Math.pow(10,-6)*x1*Math.pow(x2,3)
-				+7.463180239*Math.pow(10,-7)*Math.pow(x2,4)
-				+1.795907306*Math.pow(10,-5)*Math.pow(x1,3)
-				-1.077599197*Math.pow(10,-3)*Math.pow(x1,2)*x2
-				-1.274059408*Math.pow(10,-3)*x1*Math.pow(x2,2)
-				-2.65121517*Math.pow(10,-4)*Math.pow(x2,3)
-				+1.676370507*Math.pow(10,-3)*Math.pow(x1,2)
-				+1.018229796*Math.pow(10,-1)*x1*x2
-				+4.41743981*Math.pow(10,-2)*Math.pow(x2,2)
-				-3.274248273*Math.pow(10,-1)*x1
-				-2.664423703*x2
-				+11.36744488
+				-2.053128854*Math.pow(10,-13)*Math.pow(x1,6)
+				-1.752368973*Math.pow(10,-12)*Math.pow(x1,5)*x2
+				-6.375390897*Math.pow(10,-12)*Math.pow(x1,4)*Math.pow(x2,2)
+				-6.792800155*Math.pow(10,-12)*Math.pow(x1,3)*Math.pow(x2,3)
+				-7.52539452*Math.pow(10,-12)*Math.pow(x1,2)*Math.pow(x2,4)
+				-2.958182279*Math.pow(10,-12)*x1*Math.pow(x2,5)
+				-3.328668717*Math.pow(10,-13)*Math.pow(x2,6)
+				+4.178651395*Math.pow(10,-10)*Math.pow(x1,5)
+				+3.031167416*Math.pow(10,-9)*Math.pow(x1,4)*x2
+				+7.619578689*Math.pow(10,-9)*Math.pow(x1,3)*Math.pow(x2,2)
+				+7.502650439*Math.pow(10,-9)*Math.pow(x1,2)*Math.pow(x2,3)
+				+3.940304607*Math.pow(10,-9)*x1*Math.pow(x2,4)
+				+6.117046335*Math.pow(10,-10)*Math.pow(x2,5)
+				-3.264627853*Math.pow(10,-7)*Math.pow(x1,4)
+				-1.86428138*Math.pow(10,-6)*Math.pow(x1,3)*x2
+				-3.064907802*Math.pow(10,-6)*Math.pow(x1,2)*Math.pow(x2,2)
+				-2.010726826*Math.pow(10,-6)*x1*Math.pow(x2,3)
+				-4.345091807*Math.pow(10,-7)*Math.pow(x2,4)
+				+1.232293973*Math.pow(10,-4)*Math.pow(x1,3)
+				+4.970106407*Math.pow(10,-4)*Math.pow(x1,2)*x2
+				+5.050777988*Math.pow(10,-4)*x1*Math.pow(x2,2)
+				+1.532324622*Math.pow(10,-4)*Math.pow(x2,3)
+				-2.331915875*Math.pow(10,-2)*Math.pow(x1,2)
+				-5.69684691*Math.pow(10,-2)*x1*x2
+				-2.831304254*Math.pow(10,-2)*Math.pow(x2,2)
+				+2.121914659*x1
+				+2.492107766*x2
+				-65.3504777
 				);
 	}
 }
