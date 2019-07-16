@@ -8,7 +8,8 @@ public class RoomObject{
 	protected int id;
 	protected Point cornerLeft;
 	protected Point cornerRight;
-	protected float height,width; // m
+	float height;
+	protected float width; // m
 	
 	
 	
@@ -52,14 +53,14 @@ public class RoomObject{
 	public float getHeight(){
 		return this.height;
 	}
-	public void updateHeight(float h){
-		if(h>this.height) {
-			this.height=h;
+	public void updateHeight(float height2){
+		if(height2>this.height) {
+			this.height=height2;
 		}
 		
 	}
-	public void setHeight(float h){
-		this.height=h;		
+	public void setHeight(float height2){
+		this.height=height2;		
 	}
 	/**
 	 * Gives the rotation of the wall according to the x vector

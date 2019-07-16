@@ -1,6 +1,7 @@
 package envStructures;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Actionners.Robot;
 /**
@@ -10,10 +11,10 @@ import Actionners.Robot;
  */
 public class InternalRepresentation {
 	private ArrayList<Wall> walls;
+	private ArrayList<Float> heights;
 	private ArrayList<Integer> visitedWalls;
 	private ArrayList<Point> markers; // Toutes les creations d'objets se passent ici, et on enregistre chaque marker 
 	private ArrayList<RoomObject> wallObjects;
-	private float  wallHeight = 2.5f; //m
 	private Robot robot;
 	private int roomType = 1;
 	private int currentWall;
@@ -22,16 +23,36 @@ public class InternalRepresentation {
 		this.walls = new ArrayList<Wall>();
 		this.markers = new ArrayList<Point>();
 		this.wallObjects= new ArrayList<RoomObject>();
-		this.visitedWalls= new ArrayList<Integer>();		
+		this.visitedWalls= new ArrayList<Integer>();	
+		this.heights=new ArrayList<Float>();
 		this.robot = robot;
 	}
-	public void updateWallsHeight(float h) {
-		for(int i=0;i<this.walls.size();i++) {
-			System.out.print("wall to update with the new height");
-			if(this.walls.get(i).getHeight()<h) {
-				this.walls.get(i).setHeight(h);
-			}
-		}
+	
+	
+	
+	public ArrayList<Float> getHeights() {
+		return heights;
+	}
+
+
+
+	public void setHeights(ArrayList<Float> heights) {
+		this.heights = heights;
+	}
+
+	public void addHeight(float f) {
+		this.heights.add(f);
+	}
+
+	public void setWalls(ArrayList<Wall> walls) {
+		this.walls = walls;
+	}
+
+
+
+	public float getMaxHeight() {
+		return Collections.max(this.heights);
+
 	}
 	public int getVisitedNb() {
 		return this.visitedWalls.size();

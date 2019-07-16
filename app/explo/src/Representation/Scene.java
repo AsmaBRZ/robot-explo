@@ -87,39 +87,30 @@ public class Scene extends SimpleApplication {
 		rootNode.attachChild(robot);
 
 	}
-	//update automatically the scene by updatin its elements
+	//update automatically the scene by updating its elements
 	@Override
 	 public void simpleUpdate(float tpf) {
-		    //System.out.println("Simple update: "+this.map.getWalls().toString());
-				for(int i=0;i<this.map.getWalls().size();i++) {
-					int idWall=this.map.getWalls().get(i).getId();
-					if(rootNode.getChild(idWall)!=null) {
-						addWallOnScene(idWall);
-					}
+			for(int i=0;i<this.map.getWalls().size();i++) {
+				int idWall=this.map.getWalls().get(i).getId();
+				if(rootNode.getChild(idWall)!=null) {
+					addWallOnScene(idWall);
 				}
+			}
 	    	Geometry robot = (Geometry) rootNode.getChild("robot");
 	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
 	    	robot.setMesh(robDirection);
 	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
-	    	//this.map.getWallObjects().forEach((d)-> this.updateWall(d));
+	    	
+	    	
 	    }
-	 /*
-    @Override
-    public void simpleUpdate(float tpf) {
-    	this.map.getWalls().forEach((w)->this.updateWall(w));
-    	this.map.getWallObjects().forEach((d)-> this.updateWallObj(d));
-    	
-    	Geometry robot = (Geometry) rootNode.getChild("robot");
-    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
-    	robot.setMesh(robDirection);
-    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
-    }
-*/
     //covert a wall from its class that we implemented to a JME object
 	public void addWallOnScene(int idWall){
 		Wall w=this.map.getWalls().get(idWall);
 		//System.out.println("Wall to add to the scene"+w.getId());
 		float height,width;
+		float maxHeight=this.map.getMaxHeight();
+		this.map.getWalls().get(idWall).updateHeight(maxHeight);
+    	
 		height = w.getHeight();
 		width = w.getWidth();
 		Box mur = new Box(width, this.wallDepth+0.1f, height);
@@ -163,32 +154,4 @@ public class Scene extends SimpleApplication {
 		}
 	}
 
-	/*private void updateWallObj(RoomObject o){
-		float height = 0,width;
-		Geometry geom;
-		Box obj;
-		try{
-			height = o.getHeight();
-			width = o.getWidth();
-			rootNode.getChild(1).setLocalRotation(rot);
-			geom = (Geometry) rootNode.getChild("obj"+Integer.toString(o.getId()));
-			obj =new Box(width, this.wallDepth+0.1f, height);
-			
-		}catch (NullPointerException e) {
-			geom = new Geometry();
-			obj = new Box();
-	        geom.setName("obj"+Integer.toString(o.getId()));
-	        geom.setMaterial(this.diffuseWhite);
-	        rootNode.attachChild(geom);
-		}
-		geom.setMesh(obj);
-
-		geom.setMaterial(this.diffuseWhite);
-		
-		float theta = o.getRotation();
-		Quaternion rot = new Quaternion();
-		rot.fromAngles(0, 0, theta);
-		geom.setLocalRotation(rot);
-		geom.setLocalTranslation(2*o.posX(), 2*o.posY(), height/2);
-	}*/
 }

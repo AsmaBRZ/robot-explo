@@ -108,15 +108,12 @@ public class PiThymioRobot extends Robot {
 				            BufferedReader br = new BufferedReader(reader)) {
 				            String line;
 				           if((line = br.readLine()) != null) {
-				        	   System.out.println("Distance travelled "+line);
-				        	   dist=Float.parseFloat(line)/10;
-				        	   System.out.println("MOVEEE  "+dist);
-				        	   this.position = this.position.add(this.getPointer().mul(dist/100));
+				        	   dist=Float.parseFloat(line)/100;
+				        	   this.position = this.position.add(this.getPointer().mul(dist));
 				           }				            
 				        } catch (IOException e) {
 			            System.err.format("IOException: %s%n", e);
 			        }
-				 System.out.println("MOVEEE return "+dist);
 				 return dist;
 	}
 	public float move(double distanceRob) throws IOException, InterruptedException {

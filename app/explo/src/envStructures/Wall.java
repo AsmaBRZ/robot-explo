@@ -18,18 +18,19 @@ public class Wall extends RoomObject{
 	 * @param left (Point) left corner of the wall
 	 * @param right (Point) right corner of the wall
 	 */
-	public Wall(int id, Point left, Point right, float height,float width){
+	public Wall(int id, Point left, Point right, float  height,float width){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=false;
 		
 	}
-	public Wall(int id, Point left, Point right, float height,float width,boolean obstacle){
+	public Wall(int id, Point left, Point right, float  height,float width,boolean obstacle){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=obstacle;
 		
 	}
+
 	public void cumulateWidth(float w) {
 		 this.setWidth(this.getWidth()+w);
 	}
