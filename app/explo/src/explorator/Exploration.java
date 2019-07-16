@@ -565,6 +565,36 @@ public class Exploration {
 		return (float)((x)/((9.829874266*0.1*x-29.90298351*Math.pow(x,0.5)+  227.7674479)));
 	}
 	public float pixToCmX(float x1,float x2) {
-		return (float) (-2.472523567*Math.pow(10,-6) *Math.pow(x1,3)-2.356197273*Math.pow(10,-5) *Math.pow(x1,2)*x2-2.456736539*Math.pow(10,-5) *Math.pow(x2,2)*x1-2.448177102*Math.pow(10,-6) *Math.pow(x2,3)+2.85262976*Math.pow(10,-3) *Math.pow(x1,2)+1.282380515*Math.pow(10,-2) *x1*x2+2.864496127*Math.pow(10,-3) *Math.pow(x2,2)-7.842542877*Math.pow(10,-1) *x1-8.549721731*Math.pow(10,-1) *x2+62.57726979);
+		return (float) (
+
+				-4.243208485*Math.pow(10,-13)*Math.pow(x1,6)
+				+9.751611397*Math.pow(10,-12)*Math.pow(x1,5)*x2
+				+7.153371801*Math.pow(10,-12)*Math.pow(x1,4)*Math.pow(x2,2)
+				+4.610858605*Math.pow(10,-11)*Math.pow(x1,3)*Math.pow(x2,3)
+				+8.501165823*Math.pow(10,-12)*Math.pow(x1,2)*Math.pow(x2,4)
+				+7.630951711*Math.pow(10,-12)*x1*Math.pow(x2,5)
+				+5.494161185*Math.pow(10,-13)*Math.pow(x2,6)
+				+4.562505507*Math.pow(10,-10)*Math.pow(x1,5)
+				-1.110142342*Math.pow(10,-8)*Math.pow(x1,4)*x2
+				-1.991155426*Math.pow(10,-8)*Math.pow(x1,3)*Math.pow(x2,2)
+				-2.255346893*Math.pow(10,-8)*Math.pow(x1,2)*Math.pow(x2,3)
+				-1.040648996*Math.pow(10,-8)*x1*Math.pow(x2,4)
+				-1.026438224*Math.pow(10,-9)*Math.pow(x2,5)
+				-1.643321008*Math.pow(10,-7)*Math.pow(x1,4)
+				+5.04351419 *Math.pow(10,-6)*Math.pow(x1,3)*x2
+				+8.737153594*Math.pow(10,-6)*Math.pow(x1,2)*Math.pow(x2,2)
+				+5.661690877*Math.pow(10,-6)*x1*Math.pow(x2,3)
+				+7.463180239*Math.pow(10,-7)*Math.pow(x2,4)
+				+1.795907306*Math.pow(10,-5)*Math.pow(x1,3)
+				-1.077599197*Math.pow(10,-3)*Math.pow(x1,2)*x2
+				-1.274059408*Math.pow(10,-3)*x1*Math.pow(x2,2)
+				-2.65121517*Math.pow(10,-4)*Math.pow(x2,3)
+				+1.676370507*Math.pow(10,-3)*Math.pow(x1,2)
+				+1.018229796*Math.pow(10,-1)*x1*x2
+				+4.41743981*Math.pow(10,-2)*Math.pow(x2,2)
+				-3.274248273*Math.pow(10,-1)*x1
+				-2.664423703*x2
+				+11.36744488
+				);
 	}
 }
