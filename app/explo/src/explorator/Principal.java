@@ -4,7 +4,7 @@ import explorator.Exploration;
 public class Principal {
 
 	public static void main(String[] args) {
-		//init with the creation of an instance of the class Exploration which will init JME app
+		//initialization by creating  of an instance of the class Exploration which will init JME app
 				Exploration app;
 				try {
 					app = new Exploration();
@@ -12,10 +12,8 @@ public class Principal {
 				} catch (InterruptedException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					
-				}
-				
 
+				}	
 	}
 
 }

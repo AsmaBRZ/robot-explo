@@ -62,42 +62,15 @@ public class InternalRepresentation {
 		if(!this.visitedWalls.contains(i))
 			this.visitedWalls.add(i);
 	}
-	public void addWall(int id,Point p1,Point p2,float height,float width){
+	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation){
 
 		this.markers.add(p1);
-		this.walls.add(new Wall(id,p1,p2,height,width));
+		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation));
 	}
-	public void addWall(int id,Point p1,Point p2,float height,float width,boolean obstacle){
+	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation,boolean obstacle){
 
 		this.markers.add(p1);
-		this.walls.add(new Wall(id,p1,p2,height,width,obstacle));
-	}
-	
-	//we assume having 4 points all having the same coordinates initialy (0.0), this points are forming 4 fours; each wall's height/width is equal to 0 
-	private void create4WallsRoom(){
-		Point m1 = new Point(0,0);
-		Point m2 = new Point(0,0);
-		Point m3 = new Point(0,0);
-		Point m4 = new Point(0,0);
-		/*Point m1 = new Point(-2,2);
-		Point m2 = new Point(2,2);
-		Point m3 = new Point(2,-2);
-		Point m4 = new Point(-2,-2);*/
-		
-		this.markers.add(m1);
-		this.markers.add(m2);
-		this.markers.add(m3);
-		this.markers.add(m4);
-		
-		this.walls.add(new Wall(0,m1,m2,0,0));
-		this.walls.add(new Wall(1,m2,m3,0,0));
-		this.walls.add(new Wall(2,m3,m4,0,0));
-		this.walls.add(new Wall(3,m4,m1,0,0));
-		
-		//this.walls.add(new Wall(0,m1,m2,1,4));
-		//this.walls.add(new Wall(1,m2,m3,1,4));
-		//this.walls.add(new Wall(2,m3,m4,1,4));
-		//this.walls.add(new Wall(3,m4,m1,1,4));
+		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation,obstacle));
 	}
 	public void attachObj(int wall, int idObj,Vec2 cLeft, Vec2 cRight, float width, float height){
 			//an object is defined by its two points cleft & cright

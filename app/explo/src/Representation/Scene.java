@@ -52,7 +52,7 @@ public class Scene extends SimpleApplication {
 		Material blue = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		blue.setColor("Color", new ColorRGBA(0,0,1,1));
 
-		//Adding and positionning light
+		//Adding and positioning light
 		PointLight  sun = new PointLight ();
 		sun.setPosition(new Vector3f(0,0,10));
         rootNode.addLight(sun);
@@ -107,7 +107,7 @@ public class Scene extends SimpleApplication {
 	    	
 	    	
 	    }
-    //covert a wall from its class that we implemented to a JME object
+    //add a Wall object to the Scene
 	public void addWallOnScene(int idWall){
 		this.walls.add(idWall);
 		Wall w=this.map.getWalls().get(idWall);
@@ -128,12 +128,7 @@ public class Scene extends SimpleApplication {
 		rot.fromAngles(0, 0, theta);
 		geom.setLocalRotation(rot);
 		geom.setLocalTranslation(2*w.posX(), 2*w.posY(),height/2);
-
-		if(w.getId() == this.map.getCurrentWall()){
-			geom.setMaterial(this.diffuseRed);
-		}else{
-			geom.setMaterial(this.diffuseWhite);
-		}
+		geom.setMaterial(this.diffuseRed);
 
         rootNode.attachChild(geom);
 	}

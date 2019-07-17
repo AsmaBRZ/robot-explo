@@ -177,7 +177,7 @@ public class Exploration {
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,1,lenSeg,true);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,1,lenSeg,this.robot.getRotation(),true);
 					this.env.addHeight(height);
 					this.jmeApp.map.setCurrentWall(cpWall);
 
@@ -188,13 +188,13 @@ public class Exploration {
 					
 					this.lastDistanceTravelled=0;
 					this.lastDistanceTravelled=this.robot.move(this.distanceRob);
-					
+					double tmpDistanceTravelled=this.lastDistanceTravelled;
 					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(-90);
 					this.robot.move(distanceRob);
 					//Thread.sleep(this.timeForMove);
 					this.robot.rotate(-90);
-
+					this.lastDistanceTravelled=tmpDistanceTravelled;
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
@@ -231,7 +231,7 @@ public class Exploration {
 				//System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation(),true);
 				this.env.addHeight(height);
 				this.jmeApp.map.setCurrentWall(this.cpWall);
 				this.cpWall++;
@@ -267,7 +267,7 @@ public class Exploration {
 				cornerRight=new Point(x1,y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation(),true);
 				
 				this.env.addHeight(height);
 				this.jmeApp.map.setCurrentWall(cpWall);
@@ -322,7 +322,7 @@ public class Exploration {
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation());
 					this.jmeApp.map.setCurrentWall(cpWall);
 					this.cpWall++;
 					

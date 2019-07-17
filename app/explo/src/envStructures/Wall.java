@@ -11,23 +11,25 @@ import java.util.List;
 public class Wall extends RoomObject{
 	private List<RoomObject> objectsOnWall; // liste des objets places contre le mur de gauche a� droite
 	public boolean obstacle = false;
-	
+	public double robotRotation;
 	/**
 	 * 
 	 * @param id (int) Identifier of the wall
 	 * @param left (Point) left corner of the wall
 	 * @param right (Point) right corner of the wall
 	 */
-	public Wall(int id, Point left, Point right, float  height,float width){
+	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=false;
+		this.robotRotation=robotRotation;
 		
 	}
-	public Wall(int id, Point left, Point right, float  height,float width,boolean obstacle){
+	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation,boolean obstacle){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=obstacle;
+		this.robotRotation=robotRotation;
 		
 	}
 
@@ -57,10 +59,11 @@ public class Wall extends RoomObject{
 		System.out.println("room in addobject"+o.toString());
 		this.objectsOnWall.add(o);
 	}
-
 	@Override
 	public String toString() {
-		return "Wall [objectsOnWall=" + objectsOnWall + ", obstacle=" + this.obstacle + "]";
+		return "Wall [obstacle=" + obstacle + ", id=" + id + ", cornerLeft=" + cornerLeft + ", cornerRight="
+				+ cornerRight + ", height=" + height + ", width=" + width + "]";
 	}
-	
+
+
 }
