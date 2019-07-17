@@ -305,6 +305,7 @@ public class Exploration {
 					y1=pixToCmY(width.get(4));
 					x0=pixToCmX(width.get(1),y0);
 					x1=pixToCmX(width.get(3),y1);
+					if(x0<0)
 					System.out.println("Width ewuivalence x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
 					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
@@ -326,52 +327,7 @@ public class Exploration {
 					this.cpWall++;
 					
 			    }
-			if(depthR.get(0)!=-1) {
-				y0=pixToCmY(depthR.get(2));
-				y1=pixToCmY(depthR.get(4));
-				x0=pixToCmX(depthR.get(1),y0);
-				x1=pixToCmX(depthR.get(3),y1);
-				System.out.println("DepthR x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-				x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
-				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
-				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
-				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-				x0/=100;
-				y0/=100;
-				x1/=100;
-				y1/=100;
-				cornerLeft=new Point(x0,y0);
-				cornerRight=new Point(x1,y1);
-				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
-				this.jmeApp.map.setCurrentWall(cpWall);
-				this.cpWall++;
-			}
-			if(depthL.get(0)!=-1) {
-				y0=pixToCmY(depthL.get(2));
-				y1=pixToCmY(depthL.get(4));
-				x0=pixToCmX(depthL.get(1),y0);
-				x1=pixToCmX(depthL.get(3),y1);
-				System.out.println("DepthL x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-				
-				x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
-				y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
-				x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
-				y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-				x0/=100;
-				y0/=100;
-				x1/=100;
-				y1/=100;
-				cornerLeft=new Point(x0,y0);
-				cornerRight=new Point(x1,y1);
-				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
-
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg);
-				this.jmeApp.map.setCurrentWall(cpWall);
-				this.cpWall++;
-			}
-			
+						
 			//the autonomous robot detect a segment (Horizontal) only
 			if(width.get(0)!=-1) { 
 				if(depthL.get(0)==-1 ) {
@@ -398,7 +354,6 @@ public class Exploration {
 								try {
 									this.lastDistanceTravelled=0;
 									this.lastDistanceTravelled=this.robot.move(distanceRob);
-									//Thread.sleep(this.timeForMove);
            							return 0;
 								} catch (IOException | InterruptedException e) {
 									e.printStackTrace();
@@ -410,19 +365,19 @@ public class Exploration {
 							if (width.get(2)>threshClose){
 								System.out.println("Close");
 								try {
-									this.robot.rotate(90);
-									this.robot.rotate(90);
 									this.lastDistanceTravelled=0;
-									this.lastDistanceTravelled=this.robot.move(this.distanceRob);
-									if(this.lastDistanceTravelled<this.distanceRob/10) {
-										System.out.println("Distance not totally travelled");
+									this.robot.rotate(90);
+									this.lastDistanceTravelled=this.robot.move(distanceRob);
+									if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
+										System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
 										return 0;
 									}
-									this.robot.rotate(-90);}
+									this.robot.rotate(-90);
+									return 0;
+									}
 								 catch (IOException | InterruptedException e) {
 									e.printStackTrace();
 								}
-								return 0;
 							}
 							else {
 								System.out.println("Far");
@@ -470,7 +425,15 @@ public class Exploration {
 						if (width.get(2)>threshClose){
 							System.out.println("Close");
 							try {
+								this.lastDistanceTravelled=0;
 								this.robot.rotate(90);
+								this.lastDistanceTravelled=this.robot.move(distanceRob);
+								if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
+									System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+									return 0;
+								}
+								this.robot.rotate(-90);
+								return 0;
 							} catch (IOException | InterruptedException e1) {
 								e1.printStackTrace();
 							}
@@ -507,7 +470,15 @@ public class Exploration {
 					else {
 						System.out.println("001");
 						try {
+							this.lastDistanceTravelled=0;
 							this.robot.rotate(90);
+							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+								return 0;
+							}
+							this.robot.rotate(-90);
+							return 0;
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -519,7 +490,13 @@ public class Exploration {
 					if(depthR.get(0)==-1) {
 						System.out.println("010");
 						try {
-							this.robot.rotate(-90);
+							this.lastDistanceTravelled=0;
+							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+								return 0;
+							}
+							return 0;
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -528,7 +505,13 @@ public class Exploration {
 					else {
 						System.out.println("011");
 						try {
-							this.robot.rotate(90);
+							this.lastDistanceTravelled=0;
+							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+								return 0;
+							}
+							return 0;
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}

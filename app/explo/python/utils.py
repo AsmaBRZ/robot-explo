@@ -465,7 +465,7 @@ def LSDDetection(im):
             if line_len>20:
                 angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
                 if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
-                    #cv2.line(img, (x0, y0), (x1,y1), (0,0,255), 1, cv2.LINE_AA)
+                    #cv2.line(img, (x0, y0), (x1,y1), (0,255,255), 1, cv2.LINE_AA)
                     lines_horz.append(line[0])
                 elif  (angle >=80 and angle <=100) :
                     #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
@@ -474,7 +474,7 @@ def LSDDetection(im):
                     #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
                     lines_non_vert.append(line[0])
 
-    #cv2.imshow("Image", img)
+    
 
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
@@ -485,12 +485,10 @@ def LSDDetection(im):
     #for key,l1 in filtred_vert_lines.items():
         #cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,0), 1, cv2.LINE_AA)
     #for key,l1 in filtred_horz_lines.items():
-        #cv2.line(img_filtered, (l1[0], l1[1]), (l1[2],l1[3]), (0,0,255), 1, cv2.LINE_AA)
+        #cv2.line(img, (l1[0], l1[1]), (l1[2],l1[3]), (0,255,255), 1, cv2.LINE_AA)
    
     #cv2.imshow("Image_Filtered",img_filtered)
     #cv2.imshow("Edges", gray)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
     width=-1
     width_x0=-1
     width_y0=-1
@@ -514,10 +512,23 @@ def LSDDetection(im):
     depthR_y0=-1
     depthR_x1=-1
     depthR_y1=-1
+    
+    #sort lines according to the biggest Y (near from the robot)
+    tmp_nearstY={}
+    for key,value in filtred_horz_lines.items():
+        tmp_nearstY[key]=(value[1]+value[3])/2
 
+    new_data = list(map(list, sorted(filtred_horz_lines.items(), key=lambda x:tmp_nearstY[x[0]],reverse=True)))
+    nearest_Y=new_data[0]
+    #lets find the other lines which are near from the nearest_Y according to a threshold
+    filtred_horz_lines={}
+    for i in range(len(new_data)):
+        new_data_y=new_data[i][1][1]+new_data[i][1][3]/2
+        if abs((nearest_Y[1][1]+nearest_Y[1][3]/2)-new_data_y)<5:
+            filtred_horz_lines[new_data[i][0]]=new_data[i][1]
     if len(filtred_horz_lines) !=0:
-        width=max(filtred_horz_lines.keys())
-        width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[width]
+        key=max(filtred_horz_lines.keys())
+        width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[key]
     else:
         width=-1
 
@@ -547,6 +558,10 @@ def LSDDetection(im):
         depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[depthR]
     else:
         depthR=-1
+    cv2.line(img, (width_x0, width_y0), (width_x1,width_y1), (0,0,255), 1, cv2.LINE_AA)
+    cv2.imshow("Image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
     return [height,[width,width_x0,width_y0,width_x1,width_y1],[depthL,diagL_x0,diagL_y0,diagL_x1,diagL_y1],[depthR,depthR_x0,depthR_y0,depthR_x1,depthR_y1]]
 def PictureLSDDetection(img):
     LSDDetection(img)
@@ -678,3 +693,4 @@ def moveForward(distCM):
 #recognition(takePicture(),nbRefs=1)
 #getDistanceFromSensors()
 #moveForward(50)
+PictureLSDDetection(takePicture())
