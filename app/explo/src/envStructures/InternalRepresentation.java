@@ -1,5 +1,6 @@
 package envStructures;
-
+import java.awt.geom.Line2D;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,12 +29,128 @@ public class InternalRepresentation {
 		this.robot = robot;
 	}
 	
-	
+	public void  adjustCordNearestWalls() {
+		ArrayList<Wall> newWalls=new ArrayList<Wall>();
+		for(int i=0;i<this.walls.size();i++) {
+			for(int j=0;j<this.walls.size();j++) {
+				Wall w1=this.walls.get(i);
+				Wall w2=this.walls.get(j);
+				if(w1.getId()!=w2.getId()) {
+					//comparing two different walls
+
+						System.out.println("ID different");
+						System.out.println("");
+						//the two walls were captured at the same robot's rotation
+						double w1_y1=w1.getCornerLeft().getPosition().getY();
+						double w1_y2=w1.getCornerRight().getPosition().getY();
+						double w1_x1=w1.getCornerLeft().getPosition().getX();
+						double w1_x2=w1.getCornerRight().getPosition().getX();
+						
+						double w2_y1=w2.getCornerLeft().getPosition().getY();
+						double w2_y2=w2.getCornerRight().getPosition().getY();
+						double w2_x1=w2.getCornerLeft().getPosition().getX();
+						double w2_x2=w2.getCornerRight().getPosition().getX();
+						
+						Vec2 w1_translation=w1.robotPosition;
+						Vec2 w2_translation=w2.robotPosition;
+						double w1_rotation=w1.robotRotation;
+						double w2_rotation=w2.robotRotation;
+						
+						// if the two segments intersect, fixing the first wall according to the second
+
+						if(Math.abs(w1_rotation-w2_rotation)==Math.PI/2) {
+							System.out.println("Rotation 90");
+							System.out.println("");
+							if(w1.id<w2.id) {
+								if(Line2D.linesIntersect(w1_x1, w1_y1,
+										w1_x2, w1_y2,w2_x1, w2_y1,
+										w2_x2, w2_y2)){
+									System.out.println("Intersection");
+									System.out.println("");
+									System.out.println(w1+ " "+ w2);
+									System.out.println("");
+									if(w1_rotation==0 ||w1_rotation==2*Math.PI || w1_rotation==-2*Math.PI) {
+										System.out.println("1");
+										System.out.println("");
+										if(w1_x1<w1_x2) {
+											
+											this.walls.get(i).getCornerRight().getPosition().setX((float) w2_x1);
+										}
+										else {
+											this.walls.get(i).getCornerLeft().getPosition().setX((float) w2_x1);
+										}
+									}
+									if(w1_rotation==Math.PI/2 ||w1_rotation==-3/4*Math.PI) {
+										System.out.println("2");
+										System.out.println("");
+										if(w1_y1<w1_y2) {
+											this.walls.get(i).getCornerRight().getPosition().setY((float) w2_y1);
+										}
+										else {
+											this.walls.get(i).getCornerLeft().getPosition().setX((float) w2_y1);
+										}
+									}
+									if(w1_rotation==-Math.PI ||w1_rotation==-Math.PI) {
+										System.out.println("3");
+										System.out.println("");
+										if(w1_x1<w1_x2) {
+											this.walls.get(i).getCornerLeft().getPosition().setY((float) w2_x1);
+										}
+										else {
+											this.walls.get(i).getCornerRight().getPosition().setX((float) w2_x1);
+										}
+									}
+									if(w1_rotation==-Math.PI/2 ||w1_rotation==3/4*Math.PI) {
+										System.out.println("4");
+										System.out.println("");
+										if(w1_y1<w1_y2) {
+											this.walls.get(i).getCornerLeft().getPosition().setY((float) w2_y1);
+										}
+										else {
+											this.walls.get(i).getCornerRight().getPosition().setX((float) w2_y1);
+										}
+									}
+								}
+							}
+						}
+						//undo translation
+						//w1_y1-=w1_translation.getY();
+						//w1_y2-=w1_translation.getY();
+						//w1_x1-=w1_translation.getX();
+						//w1_x2-=w1_translation.getX();
+						
+						//w2_y1-=w2_translation.getY();
+						//w2_y2-=w2_translation.getY();
+					//	w2_x1-=w2_translation.getX();
+					//	w2_x2-=w2_translation.getX();
+						
+						
+						
+					/*	
+						//undo rotation
+						w1_y1-=(float) (x1*((float)Math.cos(w1.robotRotation))-w1_y1*Math.sin(robRotation)
+						w1_y2-=
+						w1_x1-=
+						w1_x2-=
+						
+						w2_y1-=
+						w2_y2-=
+						w2_x1-=
+						w2_x2-=
+						
+						if(Math.abs(y1-y2)<40) {
+							this.walls.get(i).setCornerLeft(new Point(x0,(y1+y0)/2));
+						}*/
+					
+				}
+			}
+		}
+	}
 	
 	public ArrayList<Float> getHeights() {
 		return heights;
 	}
-
+	
 
 
 	public void setHeights(ArrayList<Float> heights) {
@@ -62,15 +179,15 @@ public class InternalRepresentation {
 		if(!this.visitedWalls.contains(i))
 			this.visitedWalls.add(i);
 	}
-	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation){
+	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation, Vec2 robotPosition){
 
 		this.markers.add(p1);
-		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation));
+		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation,robotPosition));
 	}
-	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation,boolean obstacle){
+	public void addWall(int id,Point p1,Point p2,float height,float width,double robotRotation, Vec2 robotPosition,boolean obstacle){
 
 		this.markers.add(p1);
-		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation,obstacle));
+		this.walls.add(new Wall(id,p1,p2,height,width,robotRotation,robotPosition,obstacle));
 	}
 	public void attachObj(int wall, int idObj,Vec2 cLeft, Vec2 cRight, float width, float height){
 			//an object is defined by its two points cleft & cright

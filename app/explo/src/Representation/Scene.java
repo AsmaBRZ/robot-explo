@@ -107,6 +107,25 @@ public class Scene extends SimpleApplication {
 	    	
 	    	
 	    }
+	/*
+	@Override
+	 public void simpleUpdate(float tpf) {
+			rootNode.detachAllChildren();
+			for(int i=0;i<this.map.getWalls().size();i++) {
+				int idWall=this.map.getWalls().get(i).getId();
+				if(rootNode.getChild(idWall)!=null) {
+					if(!this.walls.contains(idWall)) {
+						addWallOnScene(idWall);
+					}
+				}
+			}
+	    	Geometry robot = (Geometry) rootNode.getChild("robot");
+	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
+	    	robot.setMesh(robDirection);
+	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
+	    	
+	    	
+	    }*/
     //add a Wall object to the Scene
 	public void addWallOnScene(int idWall){
 		this.walls.add(idWall);

@@ -34,7 +34,7 @@ public class Exploration {
 	private	Point cornerLeft, cornerRight;
 	private int threshClose =150;
 	private double lastDistanceTravelled=0; 
-	float lenSeg,x0,y0,x1,y1;
+	float lenSeg,x0,y0,x1,y1,x0_tmp,y0_tmp,x1_tmp,y1_tmp;
 	double robRotation;
 	Vec2 robPosition;
 	List<ArrayList<Float>> data;
@@ -118,9 +118,12 @@ public class Exploration {
 	private int explore(int target){
 			
 		    System.out.println("My walls are: "+this.env.getWalls().toString()+"\n0");
+		 
 		    robRotation=this.robot.getRotation()-Math.PI/2;
-		    
+		    System.out.println("ROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOt"+ robRotation);
 			robPosition=this.robot.getPosition();
+		    System.out.println("POZZZZZZZZZZZZZ"+ robPosition.x+" "+robPosition);
+
 			System.out.println();
 			//Step 0: Capture the visual information			
 			// capture visual information
@@ -173,16 +176,19 @@ public class Exploration {
 					y0=(float) (yA*((float)Math.cos(robRotation))+xA*Math.sin(robRotation)+robPosition.y);
 					x1=(float) (xB*((float)Math.cos(robRotation))-yB*Math.sin(robRotation)+robPosition.x);
 					y1=(float) (yB*((float)Math.cos(robRotation))+xB*Math.sin(robRotation)+robPosition.y);
+					
 					cornerLeft=new Point(x0,(y1+y0)/2);
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,1,lenSeg,this.robot.getRotation(),true);
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,1,lenSeg,robRotation,robPosition,true);
 					this.env.addHeight(height);
 					this.jmeApp.map.setCurrentWall(cpWall);
 
 					this.cpWall++;
 					System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
+					this.env.adjustCordNearestWalls();
+					
 					this.robot.rotate(90);
 					this.robot.rotate(90);
 					
@@ -231,11 +237,12 @@ public class Exploration {
 				//System.out.println("prox right x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation(),true);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,robRotation,robPosition,true);
 				this.env.addHeight(height);
 				this.jmeApp.map.setCurrentWall(this.cpWall);
 				this.cpWall++;
 				System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
+				this.env.adjustCordNearestWalls();
 				return 0;
 			}
 
@@ -267,12 +274,13 @@ public class Exploration {
 				cornerRight=new Point(x1,y1);
 				lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation(),true);
+				this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,robRotation,robPosition,true);
 				
 				this.env.addHeight(height);
 				this.jmeApp.map.setCurrentWall(cpWall);
 				this.cpWall++;
 				System.out.println("New Wall: "+cornerLeft.toString()+" "+cornerRight.toString());
+				this.env.adjustCordNearestWalls();
 				return 0;
 			}
 			
@@ -300,18 +308,41 @@ public class Exploration {
 					y1=width.get(4);
 					x0=width.get(1);
 					x1=width.get(3);
-
-					y0=pixToCmY(width.get(2));
-					y1=pixToCmY(width.get(4));
-					x0=pixToCmX(width.get(1),y0);
-					x1=pixToCmX(width.get(3),y1);
-					if(x0<0)
-					System.out.println("Width ewuivalence x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
-					x0=(float) (x0*((float)Math.cos(robRotation))-y0*Math.sin(robRotation)+robPosition.x);
-					y0=(float) (y0*((float)Math.cos(robRotation))+x0*Math.sin(robRotation)+robPosition.y);
-					x1=(float) (x1*((float)Math.cos(robRotation))-y1*Math.sin(robRotation)+robPosition.x);
-					y1=(float) (y1*((float)Math.cos(robRotation))+x1*Math.sin(robRotation)+robPosition.y);
-					System.out.println("rotation x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
+					
+					y0_tmp=pixToCmY(width.get(2));
+					y1_tmp=pixToCmY(width.get(4));
+					
+					x0_tmp=pixToCmX(width.get(1),y0);
+					x1_tmp=pixToCmX(width.get(3),y1);
+					
+					double landmark=pixToCmX(70,(y0+y1)/2);
+					//System.out.println("Landmark "+landmark+ "Rob position "+this.robot.getPosition());
+					//Landmark 40.394309997558594
+					
+					x0_tmp-=landmark*4;
+					x1_tmp-=landmark*4;
+					if(x0_tmp>100.0) {
+						System.out.println("x0_tmp  "+x0_tmp);
+						x0_tmp=70;
+					}
+					if(x0_tmp<-100.0) {
+						System.out.println("x0_tmp  "+x0_tmp);
+						x0_tmp=-70;
+					}
+				    if(x1_tmp<-100.0) {
+				    	System.out.println("x1_tmp  "+x1_tmp);
+				    	x1_tmp=-70;
+				    }
+				    if(x1_tmp>100.0) {
+				    	System.out.println("x1_tmp  "+x1_tmp);
+				    	x1_tmp=70;
+				    }
+					System.out.println("Width equivalence x0 y0 x1 y1 "+x0_tmp+" "+ y0_tmp+" "+ x1_tmp+ " " +y1_tmp);
+					x0=(float) (x0_tmp*((float)Math.cos(robRotation))-y0_tmp*Math.sin(robRotation)+robPosition.x);
+					y0=(float) (y0_tmp*((float)Math.cos(robRotation))+x0_tmp*Math.sin(robRotation)+robPosition.y);
+					x1=(float) (x1_tmp*((float)Math.cos(robRotation))-y1_tmp*Math.sin(robRotation)+robPosition.x);
+					y1=(float) (y1_tmp*((float)Math.cos(robRotation))+x1_tmp*Math.sin(robRotation)+robPosition.y);
+					System.out.println("Rotation x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 									
 					x0/=100;
 					y0/=100;
@@ -322,10 +353,10 @@ public class Exploration {
 					cornerRight=new Point(x1,(y0+y1)/2);
 					lenSeg=(float) Math.sqrt(Math.pow((x0-x1),2)+Math.pow((y0-y1),2));
 
-					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,this.robot.getRotation());
+					this.env.addWall(this.cpWall,cornerLeft,cornerRight,height,lenSeg,robRotation,robPosition);
 					this.jmeApp.map.setCurrentWall(cpWall);
 					this.cpWall++;
-					
+					this.env.adjustCordNearestWalls();
 			    }
 						
 			//the autonomous robot detect a segment (Horizontal) only
@@ -580,4 +611,5 @@ public class Exploration {
 				-65.3504777
 				);
 	}
+	
 }

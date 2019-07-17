@@ -1,7 +1,8 @@
 package envStructures;
-
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 /**
  * 
  * @author Clara Rigaud
@@ -12,27 +13,35 @@ public class Wall extends RoomObject{
 	private List<RoomObject> objectsOnWall; // liste des objets places contre le mur de gauche a� droite
 	public boolean obstacle = false;
 	public double robotRotation;
+	public Vec2 robotPosition;
 	/**
 	 * 
 	 * @param id (int) Identifier of the wall
 	 * @param left (Point) left corner of the wall
 	 * @param right (Point) right corner of the wall
 	 */
-	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation){
+	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation,Vec2 robotPosition){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=false;
 		this.robotRotation=robotRotation;
+		this.robotPosition=robotPosition;
 		
 	}
-	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation,boolean obstacle){
+	public Wall(int id, Point left, Point right, float  height,float width,double robotRotation, Vec2 robotPosition,boolean obstacle){
 		super(id, left, right, height, width);
 		objectsOnWall=new ArrayList<RoomObject>();
 		this.obstacle=obstacle;
 		this.robotRotation=robotRotation;
+		this.robotPosition=robotPosition;
 		
 	}
-
+	
+	public void setY(double y) {
+		float x=(float) this.cornerRight.getPosition().getX();
+		this.cornerLeft.setPosition(x, (float) (y));
+		this.cornerRight.setPosition(x, (float) (y));
+	}
 	public void cumulateWidth(float w) {
 		 this.setWidth(this.getWidth()+w);
 	}
@@ -61,9 +70,11 @@ public class Wall extends RoomObject{
 	}
 	@Override
 	public String toString() {
-		return "Wall [obstacle=" + obstacle + ", id=" + id + ", cornerLeft=" + cornerLeft + ", cornerRight="
+		return "Wall "+" id=" + id + ", obstacle=" + obstacle + ", robotRotation=" + robotRotation
+				+ ", robotPosition=" + robotPosition + ", cornerLeft=" + cornerLeft + ", cornerRight="
 				+ cornerRight + ", height=" + height + ", width=" + width + "]";
 	}
+
 
 
 }
