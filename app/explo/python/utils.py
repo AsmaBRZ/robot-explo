@@ -515,20 +515,23 @@ def LSDDetection(im):
     
     #sort lines according to the biggest Y (near from the robot)
     tmp_nearstY={}
-    for key,value in filtred_horz_lines.items():
-        tmp_nearstY[key]=(value[1]+value[3])/2
 
-    new_data = list(map(list, sorted(filtred_horz_lines.items(), key=lambda x:tmp_nearstY[x[0]],reverse=True)))
-    nearest_Y=new_data[0]
-    #lets find the other lines which are near from the nearest_Y according to a threshold
-    filtred_horz_lines={}
-    for i in range(len(new_data)):
-        new_data_y=new_data[i][1][1]+new_data[i][1][3]/2
-        if abs((nearest_Y[1][1]+nearest_Y[1][3]/2)-new_data_y)<5:
-            filtred_horz_lines[new_data[i][0]]=new_data[i][1]
     if len(filtred_horz_lines) !=0:
-        key=max(filtred_horz_lines.keys())
-        width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[key]
+        for key,value in filtred_horz_lines.items():
+            tmp_nearstY[key]=(value[1]+value[3])/2
+
+        new_data = list(map(list, sorted(filtred_horz_lines.items(), key=lambda x:tmp_nearstY[x[0]],reverse=True)))
+        nearest_Y=new_data[0]
+        #lets find the other lines which are near from the nearest_Y according to a threshold
+        filtred_horz_lines={}
+        for i in range(len(new_data)):
+            new_data_y=new_data[i][1][1]+new_data[i][1][3]/2
+            if abs((nearest_Y[1][1]+nearest_Y[1][3]/2)-new_data_y)<5:
+                filtred_horz_lines[new_data[i][0]]=new_data[i][1]
+
+    if len(filtred_horz_lines) !=0:
+        width=max(filtred_horz_lines.keys())
+        width_x0,width_y0,width_x1,width_y1=filtred_horz_lines[width]
     else:
         width=-1
 
@@ -558,10 +561,10 @@ def LSDDetection(im):
         depthR_x0,depthR_y0,depthR_x1,depthR_y1=diagR[depthR]
     else:
         depthR=-1
-    cv2.line(img, (width_x0, width_y0), (width_x1,width_y1), (0,0,255), 1, cv2.LINE_AA)
-    cv2.imshow("Image", img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.line(img, (width_x0, width_y0), (width_x1,width_y1), (0,0,255), 1, cv2.LINE_AA)
+    #cv2.imshow("Image", img)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
     return [height,[width,width_x0,width_y0,width_x1,width_y1],[depthL,diagL_x0,diagL_y0,diagL_x1,diagL_y1],[depthR,depthR_x0,depthR_y0,depthR_x1,depthR_y1]]
 def PictureLSDDetection(img):
     LSDDetection(img)
@@ -693,4 +696,3 @@ def moveForward(distCM):
 #recognition(takePicture(),nbRefs=1)
 #getDistanceFromSensors()
 #moveForward(50)
-PictureLSDDetection(takePicture())

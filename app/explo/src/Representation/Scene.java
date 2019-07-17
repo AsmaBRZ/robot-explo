@@ -16,6 +16,7 @@ import com.jme3.scene.shape.Box;
 import envStructures.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * 
@@ -26,10 +27,11 @@ import java.io.IOException;
  */
 public class Scene extends SimpleApplication {
 	public InternalRepresentation map;
-	private float wallDepth = 0.1f;
+	private float wallDepth = 0.2f;
 	private Material diffuseWhite;
 	private Material diffuseRed;
 	private Robot robot;
+	private ArrayList<Integer> walls=new ArrayList();
 	public Scene(InternalRepresentation env, Robot robot){
 		this.map = env;
 		this.robot = robot;
@@ -93,7 +95,9 @@ public class Scene extends SimpleApplication {
 			for(int i=0;i<this.map.getWalls().size();i++) {
 				int idWall=this.map.getWalls().get(i).getId();
 				if(rootNode.getChild(idWall)!=null) {
-					addWallOnScene(idWall);
+					if(!this.walls.contains(idWall)) {
+						addWallOnScene(idWall);
+					}
 				}
 			}
 	    	Geometry robot = (Geometry) rootNode.getChild("robot");
@@ -105,6 +109,7 @@ public class Scene extends SimpleApplication {
 	    }
     //covert a wall from its class that we implemented to a JME object
 	public void addWallOnScene(int idWall){
+		this.walls.add(idWall);
 		Wall w=this.map.getWalls().get(idWall);
 		//System.out.println("Wall to add to the scene"+w.getId());
 		float height,width;
@@ -113,7 +118,7 @@ public class Scene extends SimpleApplication {
     	
 		height = w.getHeight();
 		width = w.getWidth();
-		Box mur = new Box(width, this.wallDepth+0.1f, height);
+		Box mur = new Box(width, this.wallDepth, height);
 		
 		Geometry geom = new Geometry();
 		geom.setMesh(mur);
