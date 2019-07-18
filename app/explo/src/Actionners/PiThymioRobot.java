@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import com.jcraft.jsch.*;
+
+import envStructures.Vec2;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.common.IOUtils;
 import net.schmizz.sshj.connection.channel.direct.Session;
@@ -34,7 +36,6 @@ public class PiThymioRobot extends Robot {
 	private static String Path_To_SSHPASS;
 	private final SSHClient ssh=new SSHClient();
 	private String currentPic="";
-
 	
 	public PiThymioRobot(Properties props) throws UnknownHostException {
 		super(props);

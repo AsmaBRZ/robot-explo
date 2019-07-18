@@ -303,7 +303,6 @@ public class Exploration {
 			
 			//building detected walls
 			if(width.get(0)!=-1 && width.get(2)>threshClose){
-				    System.out.println("Width");
 					y0=width.get(2);
 					y1=width.get(4);
 					x0=width.get(1);
@@ -338,10 +337,10 @@ public class Exploration {
 				    	x1_tmp=70;
 				    }
 					System.out.println("Width equivalence x0 y0 x1 y1 "+x0_tmp+" "+ y0_tmp+" "+ x1_tmp+ " " +y1_tmp);
-					x0=(float) (x0_tmp*((float)Math.cos(robRotation))-y0_tmp*Math.sin(robRotation)+robPosition.x);
-					y0=(float) (y0_tmp*((float)Math.cos(robRotation))+x0_tmp*Math.sin(robRotation)+robPosition.y);
-					x1=(float) (x1_tmp*((float)Math.cos(robRotation))-y1_tmp*Math.sin(robRotation)+robPosition.x);
-					y1=(float) (y1_tmp*((float)Math.cos(robRotation))+x1_tmp*Math.sin(robRotation)+robPosition.y);
+					x0=(float) (x0_tmp*((float)Math.cos(robRotation))-y0_tmp*Math.sin(robRotation)+robPosition.x*100);
+					y0=(float) (y0_tmp*((float)Math.cos(robRotation))+x0_tmp*Math.sin(robRotation)+robPosition.y*100);
+					x1=(float) (x1_tmp*((float)Math.cos(robRotation))-y1_tmp*Math.sin(robRotation)+robPosition.x*100);
+					y1=(float) (y1_tmp*((float)Math.cos(robRotation))+x1_tmp*Math.sin(robRotation)+robPosition.y*100);
 					System.out.println("Rotation x0 y0 x1 y1"+x0+" "+ y0+" "+ x1+ " " +y1);
 									
 					x0/=100;
