@@ -515,13 +515,11 @@ public class Exploration {
 					//System.out.println("001");
 					try {
 						this.lastDistanceTraveled=0;
-						this.robot.rotate(90);
 						this.lastDistanceTraveled=this.robot.move(distanceRob);
 						if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
 							System.out.println("Distance not totally traveled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 							return 0;
 						}
-						this.robot.rotate(-90);
 						return 0;
 					} catch (IOException | InterruptedException e) {
 						e.printStackTrace();
