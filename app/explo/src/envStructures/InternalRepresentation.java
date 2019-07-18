@@ -1,6 +1,5 @@
 package envStructures;
 import java.awt.geom.Line2D;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,12 +34,8 @@ public class InternalRepresentation {
 			for(int j=0;j<this.walls.size();j++) {
 				Wall w1=this.walls.get(i);
 				Wall w2=this.walls.get(j);
-				if(w1.getId()!=w2.getId()) {
-					//comparing two different walls
-
-						System.out.println("ID different");
-						System.out.println("");
-						//the two walls were captured at the same robot's rotation
+				if(w1.id+1==w2.id){
+					//comparing two different walls						//the two walls were captured at the same robot's rotation
 						double w1_y1=w1.getCornerLeft().getPosition().getY();
 						double w1_y2=w1.getCornerRight().getPosition().getY();
 						double w1_x1=w1.getCornerLeft().getPosition().getX();
@@ -59,15 +54,14 @@ public class InternalRepresentation {
 						// if the two segments intersect, fixing the first wall according to the second
 
 						if(Math.abs(w1_rotation-w2_rotation)==Math.PI/2) {
-							System.out.println("Rotation 90");
-							System.out.println("");
-							if(w1.id<w2.id) {
+								System.out.println("2 walls 90");
 								if(Line2D.linesIntersect(w1_x1, w1_y1,
 										w1_x2, w1_y2,w2_x1, w2_y1,
 										w2_x2, w2_y2)){
 									System.out.println("Intersection");
 									System.out.println("");
-									System.out.println(w1+ " "+ w2);
+									System.out.println("Wall 1 is "+w1);
+									System.out.println("Wall 2 is "+w1);
 									System.out.println("");
 									if(w1_rotation==0 ||w1_rotation==2*Math.PI || w1_rotation==-2*Math.PI) {
 										System.out.println("1");
@@ -111,37 +105,8 @@ public class InternalRepresentation {
 										}
 									}
 								}
-							}
+							
 						}
-						//undo translation
-						//w1_y1-=w1_translation.getY();
-						//w1_y2-=w1_translation.getY();
-						//w1_x1-=w1_translation.getX();
-						//w1_x2-=w1_translation.getX();
-						
-						//w2_y1-=w2_translation.getY();
-						//w2_y2-=w2_translation.getY();
-					//	w2_x1-=w2_translation.getX();
-					//	w2_x2-=w2_translation.getX();
-						
-						
-						
-					/*	
-						//undo rotation
-						w1_y1-=(float) (x1*((float)Math.cos(w1.robotRotation))-w1_y1*Math.sin(robRotation)
-						w1_y2-=
-						w1_x1-=
-						w1_x2-=
-						
-						w2_y1-=
-						w2_y2-=
-						w2_x1-=
-						w2_x2-=
-						
-						if(Math.abs(y1-y2)<40) {
-							this.walls.get(i).setCornerLeft(new Point(x0,(y1+y0)/2));
-						}*/
-					
 				}
 			}
 		}

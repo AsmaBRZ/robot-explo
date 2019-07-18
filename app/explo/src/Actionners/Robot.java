@@ -21,9 +21,10 @@ public class Robot {
 	private double cameraFocale;
 	public double sensorWidth, sensorHeight; // mm
 	public double resolutionWidth, resolutionHeight; // pixels
-
+	protected Vec2 initPosition;
 	public Robot(Properties props) {
 		this.position = new Vec2(0.0f, 0.0f);
+		this.initPosition=new Vec2(0.0f, 0.0f);
 		this.rotation = Math.PI / 2;
 		this.windows = System.getProperty("os.name").contains("Windows");
 		this.mac = System.getProperty("os.name").contains("Mac");
@@ -33,6 +34,14 @@ public class Robot {
 		sensorHeight = Double.parseDouble(props.getProperty("sensorHeight"));
 		resolutionWidth = Double.parseDouble(props.getProperty("imageWidth"));
 		resolutionHeight = Double.parseDouble(props.getProperty("imageHeight"));
+	}
+
+	public Vec2 getInitPosition() {
+		return initPosition;
+	}
+
+	public void setInitPosition(Vec2 initPosition) {
+		this.initPosition = initPosition;
 	}
 
 	public boolean rotate(int speed, int limit) throws IOException, InterruptedException {

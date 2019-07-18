@@ -120,5 +120,19 @@ public class Vec2 {
 	public String toString() {
 		return "Vec2 [x=" + x + ", y=" + y + "]";
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(x);
+		result = prime * result + Float.floatToIntBits(y);
+		return result;
+	}
+	public boolean equals(Vec2 v) {
+		if(this.x==v.getX() && this.y==v.getY()) {
+			return true;
+		}
+		return false;
+	}
 	
 }

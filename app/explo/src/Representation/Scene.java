@@ -2,9 +2,6 @@ package Representation;
 
 import Actionners.Robot;
 import com.jme3.app.SimpleApplication;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -14,8 +11,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.debug.Arrow;
 import com.jme3.scene.shape.Box;
 import envStructures.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,11 +25,9 @@ public class Scene extends SimpleApplication {
 	private float wallDepth = 0.2f;
 	private Material diffuseWhite;
 	private Material diffuseRed;
-	private Robot robot;
-	private ArrayList<Integer> walls=new ArrayList();
+	private ArrayList<Integer> walls=new ArrayList<Integer>();
 	public Scene(InternalRepresentation env, Robot robot){
 		this.map = env;
-		this.robot = robot;
 	}
 	
 	@Override
@@ -103,29 +96,8 @@ public class Scene extends SimpleApplication {
 	    	Geometry robot = (Geometry) rootNode.getChild("robot");
 	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
 	    	robot.setMesh(robDirection);
-	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
-	    	
-	    	
+	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);   	
 	    }
-	/*
-	@Override
-	 public void simpleUpdate(float tpf) {
-			rootNode.detachAllChildren();
-			for(int i=0;i<this.map.getWalls().size();i++) {
-				int idWall=this.map.getWalls().get(i).getId();
-				if(rootNode.getChild(idWall)!=null) {
-					if(!this.walls.contains(idWall)) {
-						addWallOnScene(idWall);
-					}
-				}
-			}
-	    	Geometry robot = (Geometry) rootNode.getChild("robot");
-	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
-	    	robot.setMesh(robDirection);
-	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
-	    	
-	    	
-	    }*/
     //add a Wall object to the Scene
 	public void addWallOnScene(int idWall){
 		this.walls.add(idWall);
