@@ -35,29 +35,35 @@ public class Robot {
 		resolutionWidth = Double.parseDouble(props.getProperty("imageWidth"));
 		resolutionHeight = Double.parseDouble(props.getProperty("imageHeight"));
 	}
-
+	
+	/**
+	 * Retrieve the initial position of the robot
+	 * @return the initial position of the robot
+	 */
 	public Vec2 getInitPosition() {
 		return initPosition;
 	}
-
+	/**
+	 * 
+	 * @param initPosition modify the initial position of the robot
+	 */
 	public void setInitPosition(Vec2 initPosition) {
 		this.initPosition = initPosition;
 	}
-
-	public boolean rotate(int speed, int limit) throws IOException, InterruptedException {
-		return true;
-	}
-
-	public boolean rotate(double angle) throws IOException, InterruptedException {
-		System.out.println("Je veux tourner de : " + (angle) / Math.PI * 180);
-		// if ok 
+	/**
+	 * The robot rotates to reach the specified angle
+	 * @param angle of rotation
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public void rotate(double angle) throws IOException, InterruptedException {
+		//update the rotation of the robot according to the angle specified
 		this.rotation = -(this.rotation + angle + 2 * Math.PI) % (2 * Math.PI);
-		return true;
 	}
 	/**
-	 * Gives order to robot to move forward in his current orientation from dist meters
-	 *
-	 * @param dist the distance to be moved
+	 * Gives order to the robot to move forward in its current direction from dist meters
+	 *The autonomous robot moves forward or backward with a specific distance
+	 * @param dist the distance to be traveled 
 	 * @return boolean success
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -69,26 +75,33 @@ public class Robot {
 		return 0;
 	}
 
-
+/**
+ * Retrieve the focal length of the camera
+ * @return the focal length of the camera
+ */
 	public double getFocalLength() {
 		return this.cameraFocale;
 	}
 
-	public Vec2 position() {
-		return this.position;
-	}
 
 	/**
-	 * @return actual rotation of robot between 0.0 and 2.0*PI
+	 * Retrieve the rotation of the robot which is between 0.0 and 2.0*PI
+	 * @return the current rotation of the robot
 	 */
 	public double getRotation() {
 		return this.rotation;
 	}
-
+/**
+ * Retrieve the coordinate on the X-axis of the robot
+ * @return coordinate on the X-axis
+ */
 	public float posX() {
 		return this.position.x;
 	}
-
+	/**
+	 * Retrieve the coordinate on the Y-axis of the robot
+	 * @return coordinate on the Y-axis
+	 */
 	public float posY() {
 		return this.position.y;
 	}
@@ -101,10 +114,10 @@ public class Robot {
 	}
 
 	/**
-	 * Execute a command on the local pc
+	 * Execute a command on the local PC
 	 *
 	 * @param cmd
-	 * @return boolean that informs if the execution was a success
+	 * @return boolean that informs if the execution succeed
 	 */
 	public boolean executeCommand(String cmd) {
 
@@ -147,36 +160,23 @@ public class Robot {
 		System.out.println("Robot disconnected");
 
 	}
-
-	public String takePic() throws IOException, InterruptedException {
-		System.out.println("Taking a pic");
-		return "1546120907.jpg";
-
-	}
-
+	/**
+	 * Retrieve the position of the robot
+	 * @return the position of the robot
+	 */
 	public Vec2 getPosition() {
 		return position;
 	}
-
+	/**
+	 * 
+	 * @param position modify the  position of the robot
+	 */
 	public void setPosition(Vec2 position) {
 		this.position = position;
 	}
-
-	public float analysePic() {
-		return 0;
-	}
-
-	public void calculateAngle(){
-
-    }
-
+	//Retrieve the visual information captured
 	public List<ArrayList<Float>>  captureData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Float captureNewAngle() {
-		// TODO Auto-generated method stub
-		return 0.f;
-	}
-
 }

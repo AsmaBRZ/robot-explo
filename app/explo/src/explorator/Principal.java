@@ -1,6 +1,4 @@
 package explorator;
-import java.io.IOException;
-import explorator.Exploration;
 public class Principal {
 
 	public static void main(String[] args) {
@@ -9,7 +7,7 @@ public class Principal {
 				try {
 					app = new Exploration();
 					app.start();
-				} catch (InterruptedException | IOException e) {
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 

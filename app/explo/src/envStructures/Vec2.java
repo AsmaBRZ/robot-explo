@@ -5,12 +5,7 @@ package envStructures;
  *
  */
 public class Vec2 {
-	
-	public static void main(String args[]) {
-		Vec2 t1 = new Vec2(0,1);
-		Vec2 t2 = new Vec2(1,-1);
-		System.out.println(Vec2.angle(t2, t1)*180/Math.PI);
-	}
+
 	public float x;
 	public float y;
 	/**

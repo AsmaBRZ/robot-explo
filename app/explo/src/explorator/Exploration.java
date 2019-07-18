@@ -28,22 +28,22 @@ import envStructures.Vec2;
 
 
 public class Exploration {
-	private boolean init=true;
-	private int explorationMode;
-	private static boolean windows;
+	private boolean init=true; //indicate if the robot is at the initial state. It is useful to verify whether the robot finished the exploration
+	private int explorationMode; //currently there are only one strategy of exploration
+	private static boolean windows; //indicate whether the OS is windows of not
 	public String localURL = "";
 	private static boolean deviceConnected;
 	private PiThymioRobot robot;
 	private InternalRepresentation env ;
 	private Scene jmeApp;
 	private ArrayList<HashMap<String, String>> dbObjects=new ArrayList<HashMap<String, String>>();
-	private int cpWall=0;
-	private boolean targetFound=false;
+	private int cpWall=0; //counter of the detected walls
+	private boolean targetFound=false; //indicate whether the target has been found or not
 	//We set the distance with which the robot rolls 70 cm
-	private double distanceRob=70;
-	private	Point cornerLeft, cornerRight;
-	private int threshClose =150; 
-	private double lastDistanceTravelled=0; 
+	private double distanceRob=70; //this distance may be changed. It is the current distance which the distance travel at each movement
+	private	Point cornerLeft, cornerRight; //the left anf right corners of the current detected wall
+	private int threshClose =150; //threshold indicating if the horizontal segment detected is too close or too far rom the robot
+	private double lastDistanceTraveled=0;  
 	float lenSeg,x0,y0,x1,y1,x0_tmp,y0_tmp,x1_tmp,y1_tmp;
 	double robRotation;
 	Vec2 robPosition;
@@ -93,11 +93,8 @@ public class Exploration {
 
 	/**
 	 * Starts the exploration
-	 * @throws IOException 
-	 * @throws InterruptedException 
 	 */
-	@SuppressWarnings("resource")
-	public int start() throws IOException, InterruptedException {
+	public int start(){
 		//We ask the user the name of the object that robot have to search
 		Scanner sc = new Scanner(System.in);
 		int goal=-1;
@@ -125,7 +122,12 @@ public class Exploration {
 			}
 		}
 		System.out.println("Exploration ends");
-		robot.disconnect();
+		try {
+			robot.disconnect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 1;
 	}
 
@@ -188,8 +190,8 @@ public class Exploration {
 			height=1;
 			System.out.println("Obstalce in front of the autonomous robot");
 			try {
-				double yA=this.lastDistanceTravelled;
-				double yB=this.lastDistanceTravelled;
+				double yA=this.lastDistanceTraveled;
+				double yB=this.lastDistanceTraveled;
 				float xA=(float) 0.1;
 				float xB=(float) -0.1;
 
@@ -212,13 +214,13 @@ public class Exploration {
 				this.robot.rotate(90);
 				this.robot.rotate(90);
 
-				this.lastDistanceTravelled=0;
-				this.lastDistanceTravelled=this.robot.move(this.distanceRob);
-				double tmpDistanceTravelled=this.lastDistanceTravelled;
+				this.lastDistanceTraveled=0;
+				this.lastDistanceTraveled=this.robot.move(this.distanceRob);
+				double tmpDistanceTravelled=this.lastDistanceTraveled;
 				this.robot.rotate(-90);
 				this.robot.move(distanceRob);
 				this.robot.rotate(-90);
-				this.lastDistanceTravelled=tmpDistanceTravelled;
+				this.lastDistanceTraveled=tmpDistanceTravelled;
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
@@ -291,8 +293,8 @@ public class Exploration {
 		if(disSensors.get(5)!=0 || disSensors.get(6)!=0 ){
 			System.out.println("Obstalce behind the autonomous robot");
 			try {
-				this.lastDistanceTravelled=0;
-				this.lastDistanceTravelled=this.robot.move(distanceRob);
+				this.lastDistanceTraveled=0;
+				this.lastDistanceTraveled=this.robot.move(distanceRob);
 				//Thread.sleep(this.timeForMove);
 				this.robot.rotate(90);
 				this.robot.rotate(90);
@@ -361,11 +363,11 @@ public class Exploration {
 					if(width.get(2)>threshClose){
 						System.out.println("Close");
 						try {
-							this.lastDistanceTravelled=0;
+							this.lastDistanceTraveled=0;
 							this.robot.rotate(90);
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
-							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
+							if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 								return 0;
 							}
 							this.robot.rotate(-90);
@@ -377,8 +379,8 @@ public class Exploration {
 					else {
 						System.out.println("Far");
 						try {
-							this.lastDistanceTravelled=0;
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							this.lastDistanceTraveled=0;
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
 							return 0;
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
@@ -390,11 +392,11 @@ public class Exploration {
 					if (width.get(2)>threshClose){
 						System.out.println("Close");
 						try {
-							this.lastDistanceTravelled=0;
+							this.lastDistanceTraveled=0;
 							this.robot.rotate(90);
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
-							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
+							if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 								return 0;
 							}
 							this.robot.rotate(-90);
@@ -407,8 +409,8 @@ public class Exploration {
 					else {
 						System.out.println("Far");
 						try {
-							this.lastDistanceTravelled=0;
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							this.lastDistanceTraveled=0;
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -422,10 +424,10 @@ public class Exploration {
 					if(width.get(2)>threshClose){
 						System.out.println("Close");
 						try {
-							this.lastDistanceTravelled=0;
+							this.lastDistanceTraveled=0;
 							this.robot.rotate(90);
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
-							if(this.lastDistanceTravelled<this.distanceRob/100) {
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
+							if(this.lastDistanceTraveled<this.distanceRob/100) {
 								System.out.println("Distance not totally travelled");
 								return 0;
 							}
@@ -438,8 +440,8 @@ public class Exploration {
 					else {
 						System.out.println("Far");
 						try {
-							this.lastDistanceTravelled=0;
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							this.lastDistanceTraveled=0;
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -450,11 +452,11 @@ public class Exploration {
 					if (width.get(2)>threshClose){
 						System.out.println("Close");
 						try {
-							this.lastDistanceTravelled=0;
+							this.lastDistanceTraveled=0;
 							this.robot.rotate(90);
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
-							if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
+							if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+								System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 								return 0;
 							}
 							this.robot.rotate(-90);
@@ -467,8 +469,8 @@ public class Exploration {
 					else {
 						System.out.println("Far");
 						try {
-							this.lastDistanceTravelled=0;
-							this.lastDistanceTravelled=this.robot.move(distanceRob);
+							this.lastDistanceTraveled=0;
+							this.lastDistanceTraveled=this.robot.move(distanceRob);
 						} catch (IOException | InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -484,8 +486,8 @@ public class Exploration {
 				if(depthR.get(0)==-1) {
 					System.out.println("000");
 					try {
-						this.lastDistanceTravelled=0;
-						this.lastDistanceTravelled=this.robot.move(distanceRob);
+						this.lastDistanceTraveled=0;
+						this.lastDistanceTraveled=this.robot.move(distanceRob);
 					} catch (IOException | InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -495,11 +497,11 @@ public class Exploration {
 				else {
 					System.out.println("001");
 					try {
-						this.lastDistanceTravelled=0;
+						this.lastDistanceTraveled=0;
 						this.robot.rotate(90);
-						this.lastDistanceTravelled=this.robot.move(distanceRob);
-						if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+						this.lastDistanceTraveled=this.robot.move(distanceRob);
+						if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 							return 0;
 						}
 						this.robot.rotate(-90);
@@ -515,10 +517,10 @@ public class Exploration {
 				if(depthR.get(0)==-1) {
 					System.out.println("010");
 					try {
-						this.lastDistanceTravelled=0;
-						this.lastDistanceTravelled=this.robot.move(distanceRob);
-						if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+						this.lastDistanceTraveled=0;
+						this.lastDistanceTraveled=this.robot.move(distanceRob);
+						if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 							return 0;
 						}
 						return 0;
@@ -530,10 +532,10 @@ public class Exploration {
 				else {
 					System.out.println("011");
 					try {
-						this.lastDistanceTravelled=0;
-						this.lastDistanceTravelled=this.robot.move(distanceRob);
-						if((this.lastDistanceTravelled)<(this.distanceRob/100) ){
-							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTravelled+ " robDistanece"+(int)this.distanceRob);
+						this.lastDistanceTraveled=0;
+						this.lastDistanceTraveled=this.robot.move(distanceRob);
+						if((this.lastDistanceTraveled)<(this.distanceRob/100) ){
+							System.out.println("Distance not totally travelled: Last"+(int)this.lastDistanceTraveled+ " robDistanece"+(int)this.distanceRob);
 							return 0;
 						}
 						return 0;

@@ -29,9 +29,9 @@ public class Scene extends SimpleApplication {
 	public Scene(InternalRepresentation env, Robot robot){
 		this.map = env;
 	}
-	
+
 	@Override
-    public void simpleInitApp(){
+	public void simpleInitApp(){
 		//Red and white color for the walls
 		this.diffuseWhite = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
 		this.diffuseRed = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
@@ -48,9 +48,9 @@ public class Scene extends SimpleApplication {
 		//Adding and positioning light
 		PointLight  sun = new PointLight ();
 		sun.setPosition(new Vector3f(0,0,10));
-        rootNode.addLight(sun);
+		rootNode.addLight(sun);
 
-        //Position of the camera (our view)
+		//Position of the camera (our view)
 		cam.setLocation(new Vector3f(0.0f,0.0f,20.0f));
 		cam.setRotation(new Quaternion().fromAngles((float) (Math.PI),0.0f,(float) (Math.PI)));
 
@@ -58,19 +58,19 @@ public class Scene extends SimpleApplication {
 		Arrow aX = new Arrow(new Vector3f(0.5f, 0 ,0));
 		Geometry guizmoX = new Geometry("guizmoX", aX);
 		guizmoX.setMaterial(red);
-		
-		
+
+
 		Arrow aY = new Arrow(new Vector3f(0, 0.5f ,0));
 		Geometry guizmoY = new Geometry("guizmoY", aY);
 		guizmoY.setMaterial(red);
-		
+
 
 		//Direction of the robot
-		Arrow robDir = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));		
+		Arrow robDir = new Arrow(new Vector3f(this.map.getRobot().getPointer().x, this.map.getRobot().getPointer().y ,0));		
 		Geometry robot = new Geometry("robot", robDir);
 		robot.setName("robot");
 		robot.setMaterial(blue);
-		robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);
+		robot.setLocalTranslation(this.map.getRobot().posX(), this.map.getRobot().posY(), 0);
 		//Adding the walls on the scene
 		for(int i=0;i<this.map.getWalls().size();i++) {
 			int idWall=this.map.getWalls().get(i).getId();
@@ -84,21 +84,21 @@ public class Scene extends SimpleApplication {
 	}
 	//update automatically the scene by updating its elements
 	@Override
-	 public void simpleUpdate(float tpf) {
-			for(int i=0;i<this.map.getWalls().size();i++) {
-				int idWall=this.map.getWalls().get(i).getId();
-				if(rootNode.getChild(idWall)!=null) {
-					if(!this.walls.contains(idWall)) {
-						addWallOnScene(idWall);
-					}
+	public void simpleUpdate(float tpf) {
+		for(int i=0;i<this.map.getWalls().size();i++) {
+			int idWall=this.map.getWalls().get(i).getId();
+			if(rootNode.getChild(idWall)!=null) {
+				if(!this.walls.contains(idWall)) {
+					addWallOnScene(idWall);
 				}
 			}
-	    	Geometry robot = (Geometry) rootNode.getChild("robot");
-	    	Arrow robDirection = new Arrow(new Vector3f(this.map.robot().getPointer().x, this.map.robot().getPointer().y ,0));	
-	    	robot.setMesh(robDirection);
-	    	robot.setLocalTranslation(this.map.robot().posX(), this.map.robot().posY(), 0);   	
-	    }
-    //add a Wall object to the Scene
+		}
+		Geometry robot = (Geometry) rootNode.getChild("robot");
+		Arrow robDirection = new Arrow(new Vector3f(this.map.getRobot().getPointer().x, this.map.getRobot().getPointer().y ,0));	
+		robot.setMesh(robDirection);
+		robot.setLocalTranslation(this.map.getRobot().posX(), this.map.getRobot().posY(), 0);   	
+	}
+	//add a Wall object to the Scene
 	public void addWallOnScene(int idWall){
 		this.walls.add(idWall);
 		Wall w=this.map.getWalls().get(idWall);
@@ -106,14 +106,14 @@ public class Scene extends SimpleApplication {
 		float height,width;
 		float maxHeight=this.map.getMaxHeight();
 		this.map.getWalls().get(idWall).updateHeight(maxHeight);
-    	
+
 		height = w.getHeight();
 		width = w.getWidth();
 		Box mur = new Box(width, this.wallDepth, height);
-		
+
 		Geometry geom = new Geometry();
 		geom.setMesh(mur);
-        geom.setName("wall"+Integer.toString(w.getId()));
+		geom.setName("wall"+Integer.toString(w.getId()));
 		float theta = w.getRotation();
 		Quaternion rot = new Quaternion();
 		rot.fromAngles(0, 0, theta);
@@ -121,7 +121,7 @@ public class Scene extends SimpleApplication {
 		geom.setLocalTranslation(2*w.posX(), 2*w.posY(),height/2);
 		geom.setMaterial(this.diffuseRed);
 
-        rootNode.attachChild(geom);
+		rootNode.attachChild(geom);
 	}
 
 	//update the visual information on JME of a certain wall w
@@ -129,15 +129,15 @@ public class Scene extends SimpleApplication {
 		Wall w=this.map.getWalls().get(idWall);
 		float height = w.getHeight();
 		float width = w.getWidth();
-		
+
 		float theta = w.getRotation();
 		Quaternion rot = new Quaternion();
 		rot.fromAngles(0, 0, theta);
-		
+
 		rootNode.getChild("wall"+Integer.toString(w.getId())).setLocalTranslation(2*w.posX(),2*w.posY(),height/2);
 		rootNode.getChild("wall"+Integer.toString(w.getId())).setLocalRotation(rot);
 		((Geometry)rootNode.getChild("wall"+Integer.toString(w.getId()))).setMesh(new Box(width, this.wallDepth, height));	
-			
+
 		if(w.getId() == this.map.getCurrentWall()){
 			rootNode.getChild("wall"+w.getId()).setMaterial(this.diffuseRed);
 		}else{
