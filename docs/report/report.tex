@@ -58,16 +58,16 @@
 	\chapter{Abstract}
 	
 	\paragraph{}
-	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of M. Cédric Herpson. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
+	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of Cédric Herpson, from June 3rd, 2019 until July 16th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
 	
 	\paragraph{}
-	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment, and to recognize a specific object. Nevertheless, the conducted works assumed some hypothesis which did not make the exploration strategy generic.
+	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment. The environment is close and composed of walls where the robot was able to locate itself. In addition, we could ask the robot to search for a specific object, and the robot was able to accomplish that task. Nevertheless, the conducted works assumed some hypotheses which did not make the exploration strategy generic.
 		
 	\paragraph{}
-	During this internship, we focused the most on improving the exploration strategy and to no longer depend on certain hypothesis. For example, in our previous works, we had some specific objects placed on corners to indicate to the robot that there is a corner at this spot. This hypothesis allowed the robot not to perform image processing to detect corners. 
+	During this internship, we focused the most on improving the exploration strategy, to no longer depend on certain hypotheses. For example, in our previous works, we had some specific objects placed on corners to indicate to the robot that there is a corner at this spot. This hypothesis allowed the robot not to perform image processing to detect corners. 
 	
 	\paragraph{}
-	Our new strategy does not depend anymore of these objects. But, it exploits some visual information like contours. Also, the information provided by the robot's sensors is taken into account. We developed so a strategy where no knowledge of the environment is necessary and with no hypothesis helping the robot building its environment.
+	Our new strategy does not depend anymore of these objects. But, it exploits some visual information like contours. Also, the information provided by the robot's sensors is taken into account. We developed so a strategy where no knowledge of the environment is necessary, and no hypothesis helping the robot building its environment are considered.
 	
 	\chapter{Acknowledgments}
 	\paragraph{}
@@ -78,6 +78,28 @@
 	
 	\tableofcontents
 	\chapter{Introduction}
+	\paragraph{}
+	When an autonomous robot navigates in a structured or unstructured environment, it should be able to build a map representing this environment, to localize itself in it and to define a safe path to move from a place to another one.
+	
+	\paragraph{}
+	There are a varied applications of the robot navigation. Such as surveillance, cleaning, transportation tasks...etc. As a result, the number of contributions of researchers in this field keeps going up \cite{bonin-font_visual_2008}.
+	
+	\paragraph{}
+	Our project aims to enable the Thymio robot\footnote{An educational programmable robot} with a camera to build roughly  its environment. The environment is close and it is composed of walls where the robot is able to locate itself. 
+	
+	Unlike our previous work where we had some landmarks helping the robot in the localization of corners, we develop a strategy totally generic. With this strategy, the robot can manage to build its entire environment autonomously.
+	
+	
+	\section{Outline of this report}
+	\paragraph{}
+	The remaining chapters are organized as follows:
+	\begin{itemize}
+		\item Chapter 4: Summarize of the state of art.
+		\item Chapter 5: Explanation of the solution.
+		\item Chapter 6: Discussion of the solution.
+		\item Chapter 7: Conclusion of our works and suggestion of future works.
+	\end{itemize}: 
+	
 	
     \chapter{Reviews of Existing Work}
 	
