@@ -3,7 +3,6 @@
     Author: Asma BRAZI
     Author: Alexandre HEINTZMANN
     Date created: 13/04/2019
-    Date last modified: 22/04/2019
     Python Version: 3.6.7
 '''
 from __future__ import print_function
@@ -40,22 +39,32 @@ from optparse import OptionParser
 import itertools
 import random
 from itertools import starmap
-cpTour=0
+
+
+cpTour=0 #
 distRob=29
 proxSensorsVal=[-1,-1,-1,-1,-1,-1,-1]
 micI=0
 temperature=0
 #pathToSensorDataFile='../../SensorDataThymio/'
 pathToSensorDataFile=''
+
+
+
+#Initalization of asebamedulla 
 def initAsebamedulla():
     os.system('asebamedulla   "ser:name=Thymio-II" &')
 
+#take a picture with the Raspberry-Pi CAmera and return the path to the image
 def takePicture(r1=600,r2=400):
+    #path to the image captured
     urlDirectory="/home/pi/VisualNav"
     imgName=datetime.datetime.now().strftime('%H%M%S%d%m')
     urlImg=urlDirectory+'/'+imgName+'.jpg'
+    #instanciate the camera
     camera = PiCamera()
     camera.resolution = (r1,r2)
+    #take a picture
     try:
         camera.start_preview()
         sleep(2)
@@ -63,8 +72,11 @@ def takePicture(r1=600,r2=400):
         camera.stop_preview()
     finally:
         camera.close()
+    #return the path to the picture captured
     return urlImg
-# the function HoughLinesP return the maximum vertical line detected (let it be our height of the wall)
+
+
+# the function HoughLinesP return the biggest vertical detected line (let it be our height of the wall)
 #maxLG:  the height of the wall that we allow to have
 def HoughLinesP(im='v.jpg',maxLG=350):
     img = cv2.imread(im)
@@ -76,6 +88,7 @@ def HoughLinesP(im='v.jpg',maxLG=350):
         x1, y1, x2, y2 = line[0]
         tmpMaxLine.append(abs(y1-y2))
     tmpMaxLine=np.array(tmpMaxLine)
+    #retrieve the biggest line
     indexMaxElement=np.where(tmpMaxLine == np.amax(tmpMaxLine))[0][0]
     x1, y1, x2, y2 = lines[indexMaxElement][0]
     cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 3)
@@ -93,25 +106,19 @@ class AsebaThread(Thread):
     def run(self):
         os.system(self.cmd)
 
-#taking picture by the rhe robot
-
-
 #type is the name of the picture 0:QRCODE 1:PEPPER 2:PLATON
 def getThreshold(type):
-    if(type==0):
+    if(type==0): #QR code
         return 20000000.0
-    if(type==1):
+    if(type==1): #Peper
         return 30000000.0
-    if(type==2):
+    if(type==2): #Platon
         return 30000000.0
-    if type==6:
-        return 2600000.0
 
-#multi= u: unique object to detect; m: multi, because for corners we assume that there is only PEPPER on.
-#So we dont really need to check each element on the DB
 #nbRefs: number of objects in the DB
 #objects must have their name in the range of (0,nbRefs)
-
+#img is the complete path to the picture to analyze
+#nbRefs is the number of objetcs to match with the picture captured
 def recognition(img,nbRefs=1):
     results=[]
     references=np.arange(0,nbRefs,1).tolist()
@@ -130,7 +137,6 @@ def recognition(img,nbRefs=1):
         template = cv2.Canny(template, 50, 150)
         (tH, tW) = template.shape[:2]
         #cv2.imshow("Template", template)
-
         # load the image, convert it to grayscale,
         image = cv2.imread(imgURL,0)
         image = normalise(image)
@@ -142,11 +148,9 @@ def recognition(img,nbRefs=1):
             # resize the image according to the scale, and keep track of the ratio of the resizing
             resized = resize(image, int(image.shape[1] * scale))
             r = image.shape[1] / float(resized.shape[1])
-
             # if the resized image is smaller than the template, then break from the loop
             if resized.shape[0] < tH or resized.shape[1] < tW:
                 break
-
             # detect edges in the resized, grayscale image and apply template
             # matching to find the template in the image
             edged = cv2.Canny(resized, 50, 150)
@@ -220,8 +224,6 @@ def intersection(l1,l2):
         return result.coords[0]
     if isinstance(result, Point):
         return result.x,result.y
-
-
 
 #Calculate the equation of a segment defined by its two extremities p1 and p2
 #return the coef a and  of the equation
@@ -337,7 +339,7 @@ def projectPointLine(a, b, p):
     ab = b-a
     result = a + np.dot(ap,ab)/np.dot(ab,ab) * ab
     return result
-
+#givien twi lines l1 and l2, the function returns a new line representing their merge
 def newLineMerging(l1,l2):
     s=getSepar(l1,l2)
     a,b,c=coefLine([s[0],s[1]],[s[2],s[3]])
@@ -368,6 +370,7 @@ def newLineMerging(l1,l2):
     #print('projection',projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y)
     return projected_point1_x,projected_point1_y,projected_point2_x,projected_point2_y
 
+#given two lines l1 and l2, the function returns a line in the middle of l1 et l2 separating them
 def getSepar(l1,l2):
     x1,y1,x2,y2=l1
     x3,y3,x4,y4=l2
@@ -382,6 +385,8 @@ def getSepar(l1,l2):
         return [int((e11[0]+e21[0])/2),int((e11[1]+e21[1])/2),int((e12[0]+e22[0])/2),int((e12[1]+e22[1])/2)]
     else:
         return [int((e11[0]+e22[0])/2),int((e11[1]+e22[1])/2),int((e12[0]+e21[0])/2),int((e12[1]+e21[1])/2)]
+
+#from a set of lines, the funcion return the longest lines accorfing to a fixed threshold
 def CaptureLongestSeg(lines,threshold=45):
     result=[]
     for line in lines:
@@ -391,6 +396,7 @@ def CaptureLongestSeg(lines,threshold=45):
             result.append(line)
     return result
 
+#given a set of lines, the functions merge the closest lines until no lines my be merged
 def mergeLines(lines,threshold=30):
     filtred_lines={}
     lines_copy=lines.copy()
@@ -429,14 +435,13 @@ def mergeLines(lines,threshold=30):
     for key,value in dicLines.items():
         filtred_lines[value[0]]=value[1]
     return filtred_lines
+
+#given a line l, the function calculates its norm
 def getLineLength(l):
     x0, y0, x1, y1 = line
     return np.sqrt((x0-x1)**2+(y0-y1)**2)
+#given three points p0, p1 and p2, the function calculates the angle (in degrees) between them
 def get_angle(p0, p1=np.array([0,0]), p2=np.array([600, 0])):
-    ''' compute angle (in degrees) for p0p1p2 corner
-    Inputs:
-        p0,p1,p2 - points in the form of [x,y]
-    '''
     v0 = np.array(p0) - np.array(p1)
     v1 = np.array(p2) - np.array(p1)
 
@@ -455,6 +460,7 @@ def LSDDetection(im):
     lines_vert=[]
     lines_horz=[]
     lines_non_vert=[]
+    #filter the detected segments to vertical, horizontal and diagonal according to the angle in degrees formed with the X-axis
     if lines is not None:
         for line in lines:
             x0 = int(round(line[0][0]))
@@ -462,20 +468,22 @@ def LSDDetection(im):
             x1 = int(round(line[0][2]))
             y1 = int(round(line[0][3]))
             line_len=np.sqrt((x0-x1)**2+(y0-y1)**2)
+            #if the line is not too small according to a fied threshold
             if line_len>20:
                 angle=abs(get_angle(np.array([x0,y0]),np.array([x1,y1]),np.array([m-1,y1])))
                 if (angle >=0 and angle <=5) or (angle >=175 and angle <=180):
+                    #horizontal line
                     #cv2.line(img, (x0, y0), (x1,y1), (0,255,255), 1, cv2.LINE_AA)
                     lines_horz.append(line[0])
                 elif  (angle >=80 and angle <=100) :
+                    #vertical line
                     #cv2.line(img, (x0, y0), (x1,y1), (0,255,0), 1, cv2.LINE_AA)
                     lines_vert.append(line[0])
                 elif (angle >=25 and angle <=70) or (angle >=110 and angle <=165):
+                    #diagonal line
                     #cv2.line(img, (x0, y0), (x1,y1), (255,0,0), 1, cv2.LINE_AA)
                     lines_non_vert.append(line[0])
-
-    
-
+    #merging the segments to get a new longest segments
     filtred_non_vert_lines=mergeLines(lines_non_vert)
     filtred_horz_lines=mergeLines(lines_horz)
     filtred_vert_lines=mergeLines(lines_vert)
@@ -513,7 +521,7 @@ def LSDDetection(im):
     depthR_x1=-1
     depthR_y1=-1
     
-    #sort lines according to the biggest Y (near from the robot)
+    #sort lines according to the biggest coordinate Y (near from the robot)
     tmp_nearstY={}
 
     if len(filtred_horz_lines) !=0:
@@ -550,6 +558,7 @@ def LSDDetection(im):
             else:
                 #the diagonal is situated on the right of the picture
                 diagR[k]=v
+    #retrieve the biggest vertical, horizontal and diagonal segments
     if len(diagL) !=0:
         depthL=max(diagL.keys())
         diagL_x0,diagL_y0,diagL_x1,diagL_y1=diagL[depthL]
@@ -566,9 +575,11 @@ def LSDDetection(im):
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
     return [height,[width,width_x0,width_y0,width_x1,width_y1],[depthL,diagL_x0,diagL_y0,diagL_x1,diagL_y1],[depthR,depthR_x0,depthR_y0,depthR_x1,depthR_y1]]
+#given a picture, appply the LSD algorithm, the same algo may be used for streaming, this is why we specify the picture based-on method 
 def PictureLSDDetection(img):
     LSDDetection(img)
 
+#retrieve the sensors's feedback
 def get_variables_reply(r):
     global proxSensorsVal
     global resultSensors
@@ -577,11 +588,13 @@ def get_variables_reply(r):
     closeAsebamedulla()
     loop.quit()
 
+#detect any poblem occured
 def get_variables_error(e):
     print ('error:')
     print (str(e))
     loop.quit()
 
+#close the asebamedulla session
 def closeAsebamedulla():
     os.system("pidof asebamedulla > pidtmp")
     reader=open("pidtmp")
@@ -589,11 +602,13 @@ def closeAsebamedulla():
     reader.close()
     os.system("rm pidtmp")
 
+#read from the Thymio's sensors the estimated distances
 def captureSensor():
     #get the values of the sensors
     network.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_variables_reply,error_handler=get_variables_error)
     return False
 
+#main method for initialize asebamedulla and capture the distances from the Thymio's sensors
 def getDistanceFromSensors():
     global network
     global loop
@@ -616,22 +631,24 @@ def getDistanceFromSensors():
     #call the callback of Braitenberg algorithm
     handle = gobject.timeout_add (100, captureSensor) #every 0.1 sec
     loop.run()
+    #return the result from the Thymio's sensors containing the estimated distances
     return resultSensors
 
+#ignoring reply
 def dbusReply():
     pass
-
+#if any error encountered, it is printed
 def dbusError(e):
     print ('error %s')
     print (str(e))
 
+#the robot's moving forward for loop (just one step)
 def mvF():
     global cpTour
-    #print('GO',cpTour)
+    #estimated time and speed to achieve the distance asked depending on the cpTour parameter
     t=500
     speed=50
     network2.GetVariable("thymio-II", "prox.horizontal",reply_handler=get_prox_reply,error_handler=get_variables_error)
-    #print("loop2.is_running()",loop2.is_running())
     if loop2.is_running():
         while(t>0):
             network2.SetVariable("thymio-II", "motor.left.target", [speed])
@@ -643,10 +660,11 @@ def mvF():
     cpTour+=1
     return True
 
+#if any obstacle has been detected the robot stops moving and retrieves the estimated distances to the obstacle 
 def get_prox_reply(r):
-    global proxSensorsVal
-    global cpTour
-    global distRob
+    global proxSensorsVal #list of sensors containing the distances to the obstacle
+    global cpTour #a fixed parameter which helps to know the real distance traveled
+    global distRob #the distance ordered to the robot to be traveled
     proxSensorsVal=r
     p=[]
     for v in r:
@@ -655,19 +673,24 @@ def get_prox_reply(r):
         #print('obstacle')
         loop2.quit()
         return 0
-    #print('tout va bien')
+    #print('it s OK')
     return 1
+
+#givien in centimeters the distance the robot has to travel (it may be not totally traveled because of an obstacle
+#in that case, the real distane traveled is returned)
 def moveForward(distCM):
     global network2
     global loop2
-    global distRob
-    global cpTour
+    global distRob #the distance ordered to the robot to be traveled
+    global cpTour #a fixed parameter which helps to know the real distance traveled
+    #init of a asebamedulla session
     initAsebamedulla()
+    #wait for initialization
     sleep(3)
     distanceTravelled=0
+    #convert the 
     distRob=29/50*distCM
     #initAsebamedulla()
-    #sleep(3)
     parser = OptionParser()
     parser.add_option("-s", "--system", action="store_true", dest="system", default=False,help="use the system bus instead of the session bus")
     (options, args) = parser.parse_args()
@@ -682,12 +705,17 @@ def moveForward(distCM):
     #call the callback of Braitenberg algorithm
     handle = gobject.timeout_add (500, mvF) #every 0.1 sec
     loop2.run()
+    #estimate the real distance traveled according to the speed the time ad the number of tour done
     distanceTravelled=(cpTour+1)*50/29
     #print("The distance travelled by the autonomous robot is: ",distanceTravelled)
+
+    #save the real distanec traveled
     with open('data/distMove', 'w') as outfile:
         outfile.write(str(distanceTravelled))
         outfile.close()
     closeAsebamedulla()
+
+
 #######################################
 #testing
 
