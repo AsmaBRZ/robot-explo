@@ -58,25 +58,25 @@
 	\chapter{Abstract}
 	
 	\paragraph{}
-	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of Cédric Herpson, from June 3rd, 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
+	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of M. Cédric Herpson, from June 3rd, 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
 	
 	\paragraph{}
-	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment. The environment is close and composed of walls where the robot was able to locate itself. In addition, we could ask the robot to search for a specific object, and the robot was able to accomplish that task. Nevertheless, the conducted works assumed some hypotheses which did not make the exploration strategy generic.
+	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment. The environment is closed and composed of walls where the robot was able to locate itself. In addition, we could ask the robot to search for a specific object, and the robot was able to accomplish that task. Nevertheless, the conducted works assumed some hypotheses which did not make the exploration strategy generic.
 		
 	\paragraph{}
-	During this internship, we focused the most on improving the exploration strategy, to no longer depend on certain hypotheses. For example, in our previous works, we had some specific objects placed on corners to indicate to the robot that there is a corner at this spot. This hypothesis allowed the robot not to perform image processing to detect corners. 
+	During this internship, we focused the most on improving the exploration strategy, to no longer depend on certain hypotheses. For example, in our previous works, we had some specific objects placed on corners to indicate to the robot that there were a corner at this spot. This hypothesis allowed the robot not to perform image processing to detect corners. 
 	
 	\paragraph{}
-	Our new strategy does not depend anymore of these objects. But, it exploits some visual information like contours. Also, the information provided by the robot's sensors is taken into account. We developed so a strategy where no knowledge of the environment is necessary, and no hypothesis helping the robot building its environment are considered.
+	Our new strategy does not depend anymore of these objects. But, it exploits some visual information as contours. Also, the information provided by the robot's sensors is taken into account. We developed so a strategy where no knowledge of the environment is necessary, and no hypothesis helping the robot building its environment are considered.
 	
 	\chapter{Acknowledgments}
 
 	\begin{center}
 		
 	
-	I would like to deeply thank my supervisor, Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
+	I would like to deeply thank my supervisor, M. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
 	
-	I can say that I have been truly lucky to have Cédrid Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
+	I can say that I have been truly lucky to have M. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
 	\end{center}
 	
 	\tableofcontents
@@ -88,10 +88,10 @@
 	There are a varied applications of the robot navigation. Such as surveillance, cleaning, transportation tasks...etc. As a result, the number of contributions of researchers in this field keeps going up \cite{bonin-font_visual_2008}.
 	
 	\paragraph{}
-	Our project aims to enable the Thymio robot\footnote{An educational programmable robot} with a camera to build roughly  its environment. The environment is close and it is composed of walls where the autonomous robot is able to locate itself. 
+	Our project aims to enable the Thymio robot\footnote{An educational programmable robot} with a camera to build roughly  its environment. The environment is closed and it is composed of walls where the autonomous robot is able to locate itself. 
 	
 	\paragraph{}
-	Unlike our previous work where we had some landmarks helping the autonomous robot in the localization of corners, we develop a strategy totally generic. The autonomous robot is based only on its sensors and camera to build the environment.
+	Unlike our previous work where we had some landmarks helping the autonomous robot in the detection of corners, we develop throughout the internship a more generic strategy. The autonomous robot is based only on its sensors and camera to build the environment.
 	
 	So with this strategy, the robot can manage to build its entire environment autonomously.
 	
@@ -125,29 +125,26 @@
 			\item The target was detected and the exploration ended.
 			\item The four walls was explored and the target was not detected. So, the exploration ended.
 			\item A corner was detected. As a result, the autonomous robot went on the next wall.
-			\item Anything was detected, the autonomous robot stepped off (Assuming being on the same wall).
+			\item Anything was detected, the autonomous moved to the next part of the same wall.
 		\end{itemize}
 		\item Repeat until the exploration ended.
 	\end{itemize}
 
 	\paragraph{}
-	However, we assumed some hypotheses that facilitated the process of the exploration. For example, we placed some objects (landmarks) in each corner of the environment and every time the autonomous robot met these objects, it concluded that this was a wall end. So the autonomous robot relied on these objects to decide whether or not it finished exploring the current wall.
+	However, we assumed some hypotheses which facilitated the exploration process. For example, we placed some objects (landmarks) in each corner of the environment and every time the autonomous robot met these objects, it concluded that this was a wall end. So the autonomous robot relied on these objects to decide whether or not it finished exploring the current wall.
 	
 	Otherwise seen, as long as the autonomous robot did not meet a landmark, then it continued moving forward assuming it is the same wall.
 	
 	\paragraph{}
-	Also, another hypothesis is when the autonomous robot did not detect anything, and it assumed that it was the continuation of the current wall. Such a hypothesis may be hard to omit if we want to adjust the strategy to be usable in a more complex environment. A complex environment may be a room with corridors. In that case, a corridor may be ignored, because the autonomous robot only takes into account the presence of objects for the decision and not the structure of the environment.
+	Also, another hypothesis is when the autonomous robot did not detect anything, and it assumed that it was the continuation of the current wall. Such a hypothesis may be hard to omit if we want to adjust the strategy to be usable in a more complex environment. A complex environment may be a room with corridors. In that case, a corridor may be ignored, because the autonomous robot only took into account the presence of objects for the decision and not the structure of the environment.
 	
 	\paragraph{}
-	To no longer depend on these hypotheses, our works present another manner to build the environment. Firstly, we not assume anymore having a rectangular room as environment, but we build a strategy which may work independently of the environment structure. 
-	
-	Than, the autonomous robot does not try to detect the walls anymore by detecting corners. Instead, it takes a picture, analyzes it to extract the contours of the environment. With these contours, the autonomous robot decides if it is in front of a close/far wall, if there is a wall behind them...etc.
+	To no longer depend on these hypotheses, our works present another manner to build the environment. Firstly, we do not assume anymore having a rectangular room as environment, but we build a strategy which may work independently of the environment structure. 
+	\paragraph{}
+	Than, the autonomous robot does not suppose the presence of a wall by detecting one of its corners. Instead, it extracts the contours of the environment with whom the autonomous robot decides if it is in front of a close/far wall, if there is a wall behind them...etc.
 	
 	By this way, the autonomous robot gathers the analysis's results to estimate the dimensions of the walls.
 	
-	\paragraph{}
-	Regarding the lengths and heights of walls, we globally estimate them in the same way as in the previous works. Nevertheless, the algorithm behind the calculations that we will develop later, is a little bit different. 
-
     \chapter{Realization}
     \paragraph{}
     We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target object to search. 
@@ -176,7 +173,7 @@
 	 As a result, these methods detect a lot of features which are not all correct corners.
 	 
 	 \paragraph{}
-	 On the other hand, if we assume that corners are situated in most cases on the bottom of the image, this assumption becomes incorrect if the robot is so far from the corner. In this case, the corner is situated on the top of the image. The figure below elucidates that:
+	 On the other hand, if we assume that corners are situated in most cases on the bottom of the image, this assumption becomes incorrect if the autonomous robot is so far from the corner. In this case, the corner is situated on the top of the image. The figure below demonstrates that:
 	 	\begin{figure}[H]
 	 	\begin{center}
 	 		\includegraphics[scale=0.6]{res/start1_c1.png}
@@ -262,7 +259,7 @@ As there are a lot of cases of movements according to the visual information, we
 \paragraph{}
 We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a close environment.
 
-If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information from the taken picture and sends them to the computer, where the orders of movements are given. 
+If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information from the picture taken and sends them to the computer, where the orders of movements are given. 
 
 From the collected information, if the target has been found, the autonomous robot stops. Otherwise, If there are any segments detected, each of these segments is represented by a wall and added to the 3D map.
 \paragraph{}
