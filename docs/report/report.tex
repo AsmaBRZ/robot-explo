@@ -72,7 +72,7 @@
 	\begin{abstract}
 	 
 	\paragraph{}
-	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of M. Cédric Herpson, from June 3rd, 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
+	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of Mr. Cédric Herpson, from June 3rd, 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
 	
 	\paragraph{}
 	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment. The environment is closed and composed of walls where the robot was able to locate itself. In addition, we could ask the robot to search for a specific object, and the robot was able to accomplish that task. Nevertheless, the conducted works assumed some hypotheses which did not make the exploration strategy generic.
@@ -92,9 +92,9 @@
 	\centering
 		
 	
-	I would like to deeply thank my supervisor, M. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
+	I would like to deeply thank my supervisor, Mr. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
 	
-	I can say that I have been truly lucky to have M. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
+	I can say that I have been truly lucky to have Mr. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
 	
 	\end{acknowledgements}
 		
@@ -170,9 +170,7 @@
 	\paragraph{}
 	Than, the autonomous robot does not suppose the presence of a wall by detecting one of its corners. Instead, it extracts the contours of the environment with whom the autonomous robot decides if it is in front of a close/far wall, if there is a wall behind them...etc.
 	
-	By this way, the autonomous robot gathers the analysis's results to estimate the dimensions of the walls.
-	
-    \chapter{Realization}
+	By this way, the autonomous robot gathers the analysis's results to estimate the dimensions of the walls.\chapter{Realization}
     \paragraph{}
     We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target object to search. 
 	\section{Exploration strategy}
@@ -391,8 +389,6 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 
 	\paragraph{}
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
-
-
 	\chapter*{Conclusion, Limitation and Future work}
 	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
 	\paragraph{}
