@@ -1926,6 +1926,7 @@
     <bcf:citekey order="1">bonin-font_visual_2008</bcf:citekey>
     <bcf:citekey order="2">grompone_von_gioi_lsd:_2012</bcf:citekey>
     <bcf:citekey order="3">bonin-font_visual_2008</bcf:citekey>
+    <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

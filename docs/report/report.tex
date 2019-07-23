@@ -9,7 +9,7 @@
 
 \usepackage[toc]{glossaries}
 \usepackage{appendix}
-\usepackage{cite}
+
 \usepackage{mathptmx}
 \makeglossaries
 
@@ -21,7 +21,7 @@
 \newcommand{\hcr}[2]{\textcolor{red}{\sout{[#1]} - \textcolor{blue}{ [#2]}}}
 \newcommand{\hc}[1]{\textcolor{red}{[#1]}}
 \newcommand{\hcc}[1]{\textcolor{green}{Pour info - [#1]}}
-\usepackage[backend=biber]{biblatex}
+\usepackage{biblatex}
 \addbibresource{references.bib}
 
 \begin{document}
@@ -384,5 +384,6 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 \paragraph{}
 To conclude, having an internship at LIP6 and being guided by an amazing supervisor provide us with unique opportunities for personal growth. I did not expect at my first day that I will learn as much knowledge at the end. Well, we come out of our internship further strengthened. 
 	\chapter{References}
- \printbibliography
+	\nocite{*}
+    \printbibliography
 \end{document}
