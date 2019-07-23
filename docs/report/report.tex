@@ -174,6 +174,12 @@ done by our predecessors}.
 
 	The main purpose of our works is to improve the functionalities developed previously. These functionalities 
 allowed one autonomous robot to move in a rectangular environment and to explore it.\\
+
+
+\hc{Insérer un schéma et un petit paragraphe pour présenter les différents composants, thymio+pi+pc et indiquer ou se 
+situent les différents traitements; Récupérer de Pandro}
+
+
 	The visual information brought by the exploration is used to build a virtual 3D representation of 
 \hcr{this}{the} environment, and to recognize a target object \hc{that should be found on one of the walls}. The target 
 object is \hcr{an object from the }{assumed to be available within the agent } knowledge database. It is specified by 
@@ -194,6 +200,7 @@ to the next part of the same wall.
 		\item Execute next move until the exploration ends.
 	\end{enumerate}
 
+	
 	
 	\hcr{However}{As it can be seen}, we assumed some hypotheses which facilitated the exploration process. For 
 example, we placed some landmarks in each corner of the environment and every time the robot met 
@@ -220,58 +227,78 @@ in the next chapter}.
 	
     \chapter{Realization}
     \label{chap:realization}
-    \paragraph{}
+    
     We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target 
 \hcr{object to search}{to be looking for}. 
+
+
 	\section{Exploration strategy}
 	 \subsection{Image processing}
 	 \paragraph{}
-	 The first task of the autonomous robot is to represent roughly the environment, using visual information. For walls detection, we distinguish three types of segments on the picture taken by the autonomous robot:
+	 The first task \hcr{of the autonomous}{for the} robot is to roughly represent the environment using visual 
+information. \hc{For that we rely on segment recognition\hc{Donner une ref présentant les algos associés}, a 
+lightweight image process.} For walls detection, we distinguish three types of segments on the picture taken by the 
+autonomous robot:
 	 \begin{itemize}
 	 	\item Vertical segment which makes almost 90 degrees with the X-axis.
 	 	\item Horizontal segment which makes almost 0 degree with the  X-axis.
 	 	\item Diagonal segment which makes an acute angle with the X-axis.
 	 \end{itemize} 
 	 
-	 
-	 \paragraph{}
 	 In the sections to come, we present the different strategies we have developed and the one we have particularly kept.
 	 
 	 \subsubsection{Corners-based detection}
-	 \paragraph{}
-	 We have begun with a strategy based on corners detection. Where we kept the same exploration strategy as in our previous works. But, we replaced only the part of corners detection. So instead of detecting a specific objects substituting the corners, we tried two methods. We developed an approach based on \textit{segments intersection} and we used a preset method from OpenCV for \textit{corners detection}. These two methods were used under a certain constraints, to decide whether it is a corner or not.
-	 \paragraph{}
-	 Defining these constraints is not that easy. For example, it is getting arduous if we have a textured floor or walls. So the method considers all the intersection points situated on the walls and on the floor as corners. 
+	 
+	 We begun with a strategy based on corners detection. \hcr{where w}{W}e kept the same exploration strategy as 
+in our previous works \hcr{But, we replaced only }{and replaced} the part on corners detection. \hcr{So }{Thus,} 
+instead of detecting a specific objects substituting the corners, we tried two methods. 
+\begin{itemize}
+ \item A hand-made approach based on \textit{segments intersection}
+ \item A method for \textit{corners detection} available in OpenCV\hc{ref}.
+\end{itemize}
+%We developed  and we used  
+These two methods \hcr{were used under a certain constraints, }{require to fix a threshold} to decide whether a corner 
+as been detected or not. Defining \hcr{these constraints}{this separating limit} is not that easy. For example, it is 
+getting arduous if we have a textured floor or walls. So the method considers all the intersection points situated on 
+the walls and on the floor as corners.\\
 	
 	 Also, if the floor and the walls have almost the same color, the segment separating the wall from the floor may not be detected.
-	 
-	 As a result, these methods detect a lot of features which are not all correct corners.
-	 
-	 \paragraph{}
-	 On the other hand, if we assume that corners are situated in most cases on the bottom of the image, this assumption becomes incorrect if the autonomous robot is so far from the corner. In this case, the corner is situated on the top of the image. The figure below demonstrates that:
-	 	\begin{figure}[H]
+	 As a result, these methods detect a lot of features which are not all correct corners.\\	 
+	 On the other hand, if we assume that corners are in most cases situated at the bottom of the image, this 
+assumption becomes incorrect when the autonomous robot is far from the corner. In this latter case, the corner is 
+situated on the top of the image. The figure \ref{fig:corner} below \hc{illustrate this situation}.
+	 	\begin{figure}[h]
 	 	\begin{center}
 	 		\includegraphics[scale=0.6]{res/start1_c1.png}
 	 		\caption{An ignored corner because of the corners placement constraint}
+	 		\label{fig:corner}
 	 	\end{center}
 	 \end{figure}
-	 \paragraph{}
-	 As a result, this corner will be ignored, because it is not situated on the bottom of the image.
+	% \paragraph{}
+	As a result, this corner will be ignored, because it is not situated on the bottom of the image.
 	 
-	 \paragraph{}
-	 These particular pictures taken by the autonomous robot make the strategy not really captivating, because it is sensitive to the autonomous robot's position.
+	% \paragraph{}
+	\hc{Pas clair cette phrase dessous}
+	 These particular pictures taken by the \hcr{autonomous}{} robot make the strategy not really captivating, 
+because it is sensitive to the autonomous robot's position.
 	 
 	 \subsubsection{Non corners-based detection}
-	 \paragraph{}
-	 After encountering some difficulties to detect the right corners, we decided to ditch this strategy because it was impractical. 
+	
+	 \hcr{After encountering some difficulties to detect the}{Facing the difficulty to detect the} right corners, 
+we decided to ditch this strategy \hc{ because it was impractical}{and to focus on the segment orientation}. 
 	 
-	 \paragraph{}
-	 The next idea is to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) segments are used to estimate the walls height (resp. width). However the diagonal segments indicate that there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is still space between them and the wall in front. So, it can always move forward.
+	 The next idea is \hc{thus} to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) 
+segments are used to estimate the walls height (resp. width). \hcr{However the d}{D}iagonal segments indicate that 
+there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is 
+still space between them and the wall in front. So, it can always move forward.
 	  
-	  \paragraph{}
-	  We have used the \textit{Line Segment Detector} algorithm (LSD) to detect straight contours on the image \cite{grompone_von_gioi_lsd:_2012}. At each pixel of the image, LSD estimates the angle of the gradient. After that, the pixels sharing nearly the same angle of gradient are merged into regions. The connected regions are called \textit{line support regions}. Then, the algorithm keeps some of these \textit{line support regions} to be a \textit{line segment}.
+	  We have used the \textit{Line Segment Detector} algorithm (LSD) to detect straight contours on the 
+image \cite{grompone_von_gioi_lsd:_2012}. At each pixel of the image, LSD estimates the angle of the gradient. After 
+that, the pixels sharing nearly the same angle of gradient are merged into regions. The connected regions are called 
+\textit{line support regions}. Then, the algorithm keeps some of these \textit{line support regions} to be a 
+\textit{line segment}.
 	  
-	  \paragraph{}
+	 
 	  The picture below shows an image on which the LSD was applied and as a result, the \textit{line support regions} that were detected.
 	  	\begin{figure}[H]
 	  	\begin{center}
@@ -279,27 +306,36 @@ in the next chapter}.
 	  		\caption{Line Support Regions. Adapted from "Rafael Grompone von Gioi, Jérémie Jakubowicz, Jean-Michel Morel, and Gregory Randall, LSD: a Line Segment Detector, Image Processing On Line, 2 (2012)" }
 	  	\end{center}
 	  \end{figure}
-  \paragraph{}
-  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to get a longer segments, we keep only the longest one from each group at the end. 
   
-\paragraph{}
-The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier between the floor and far wall. We develop a strategy where the autonomous robot does not build a wall unless it is close to it.
+  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are 
+classified into groups: \hcr{the}{} Verticals, \hcr{the }{}horizontals and \hcr{the }diagonals, up to a certain 
+tolerance $\epsilon$. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to 
+get a longer segments, we keep only the longest one from each group at the end. \hc{Each group of segments is used for a 
+certain purpose for the navigation}.
+  
+The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent 
+a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier 
+between the floor and far wall. We develop a strategy where the autonomous robot does not build a wall unless it is 
+close to it.
+
     \subsection{3D map building}
     
-    \paragraph{}
-    We remind that our goal is to build a rough 3D representation of the environment and to look for the target object. We represent the environment by defining the walls composing it. The detection of walls is based on LSD's segments.
-    
-    \paragraph{}
-    Depending on the autonomous robot's position, the picture obtained may be in one of the general cases showed in the picture below. 
+   
+    We remind that our goal is to build a rough 3D representation of the environment and to look for the target object. 
+We represent the environment by defining the walls composing it. The detection of walls is based on LSD's segments. 
+ Depending on the robot's position, the picture obtained may be in one of the general cases showed in Fig. 
+\ref{fig:walls} below. 
     
     
     	\begin{figure}[H]
     	\begin{center}
     		\includegraphics[scale=0.65]{res/cases_seg.png}
     		\caption{Walls detection depending on the robot's position}
+    		\label{fig:walls}
     	\end{center}
     \end{figure}
- \paragraph{}
+ 
+ \newpage
  The useful information that we can retrieve from each case is as follows:
  \begin{itemize}
  	\item Case A: 3 types of segments are detected, an horizontal one and 2 diagonals on 2 opposing walls.
@@ -308,13 +344,13 @@ The horizontal segments which are situated on the top of the image are ignored. 
  	\item Case E: Any segment is detected.
  	
  \end{itemize}
- \paragraph{}
+ 
  We mention that the vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only along the X and Z axis.
  \subsection{Navigation}
-     \paragraph{}
- Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting spot to a target one \cite{bonin-font_visual_2008}.
- \paragraph{}
- On the basis of visual information, the autonomous robot is able to define its next decision. The decision may be to:
+     
+ Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting 
+\hcr{spot}{point} to a target\hc{ed} one \cite{bonin-font_visual_2008}. On the basis of visual information, the 
+autonomous robot is able to define its next decision. The decision may be to:
  \begin{itemize}
  	\item Stop if the target has been found or if the robot has explored the entire environment, without spotting the target.
  	\item Avoid obstacles.
@@ -322,28 +358,38 @@ The horizontal segments which are situated on the top of the image are ignored. 
  \end{itemize}
 
 \subsubsection{Obstacle avoidance}
-\paragraph{}
-In our previous work, when the autonomous robot decided to move forward, it did not check progressively while moving whether there is an obstacle or not. But, it verified if there is an obstacle when it stopped moving. The drawback of such a decision is that the autonomous robot was not able to distinguish between its last position at the end of the movement and its position at the first moment when it met the obstacle. As a result, the autonomous robot thought that it traveled the entire distance.
 
-\paragraph{}
-In our new strategy, the autonomous robot stops as soon as it detects an obstacle. Its sensors may detect the presence of an obstacle at almost 10 centimeters. When the autonomous robot stops, the real distance traveled is returned. If there were no obstacles, the distance would be entirely traveled.
+In our previous work, when the autonomous robot decided to move forward, it did not check progressively while moving 
+whether there is an obstacle or not. \hcr{But, it verified if there is an obstacle when it }{It checked for the 
+occurrence of an obstacle after it } stopped moving. The drawback of such a decision is that the autonomous robot was 
+not able to distinguish between its last position at the end of the movement and its position at the first moment when 
+it met the obstacle. As a result, the autonomous robot thought that it travelled the entire distance.\\
+
+In our new strategy, the robot stops as soon as it detects an obstacle. Its sensors may detect the presence 
+of an obstacle at almost 10 centimeters. When the autonomous robot stops, the real distance travelled is returned. If 
+there were no obstacles, the distance would be entirely covered.
+
 \subsubsection{Strategy}
-\paragraph{}
-As there are a lot of cases of movements according to the visual information, we try to summarize these cases using an activity diagram shown in the figure below. In this diagram, the green boxes represent a physical movement done by the autonomous robot, and the blue cases represent treatments. 
 
-\paragraph{}
-We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a closed environment.
+As there are a lot of \hcr{cases of movements according to}{differents decisions to be taken depending on} the visual 
+information, we \hcr{try to } summarize these cases using an activity diagram \hcr{shown in the figure below}{(see Fig. 
+\ref{fig:activityDiag})}. In this diagram, the green boxes represent a physical movement done by the autonomous robot, 
+and the blue ones represent treatments.\\
 
-If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information and sends them to the computer, where the orders of movements are provided. 
+We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a closed 
+environment. If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a 
+picture and analyzes it. After that, it extracts the visual information and sends them to the computer, where the orders 
+of movements are provided. 
 
-From the collected information, if the target is found, the autonomous robot stops. Otherwise, If there are any segments detected, each of these segments is represented by a wall and added to the 3D map.
-\paragraph{}
-At the end of the treatment, a movement is ordered to the autonomous robot (rotate, move back...etc). Then, it regains from the beginning until it stops.
-\newpage
-	\begin{figure}[H]
+From the collected information, if the target is found, the robot stops. Otherwise, if there are any segments detected, 
+each of these segments is represented by a wall and added to the 3D map. At the end of the treatment, a movement is 
+ordered to the autonomous robot (rotate, move back...etc). Then, it regains from the beginning until it stops.
+
+\begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.55]{res/order_processing.png}
+		\includegraphics[scale=0.445]{res/order_processing.png}
 		\caption{Activity diagram of the exploration strategy}
+		\label{fig:activityDiag}
 	\end{center}
 \end{figure}
 \newpage
