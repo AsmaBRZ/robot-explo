@@ -398,23 +398,22 @@ ordered to the autonomous robot (rotate, move back...etc). Then, it regains from
 	\chapter{Testing}
 	\label{chap:testing}
 	
-	\paragraph{}
-	\section{Environment plan}
+	\section{Environment topology}
 	We chose an environment which contained corridors, obstacles, textured walls, different level of light and different types of door. Such an environment is interesting to reveal the robustness of the strategy.
 		
-	\paragraph{}
-	When launching the application, the target object is filled in. Then, the autonomous robot is going to build progressively its environment while searching the target object. The picture below represents the environment plan.
+	When launching the application, the target object is filled in. Then, the autonomous robot is going to build 
+progressively its environment while searching the target object. The figure below represents the environment topology.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[scale=0.55]{res/plan.png}
-			\caption{The environment plan}
+			\caption{\hc{The environment used as experimental testbed}}
 		\end{center}
 	\end{figure}
-	\paragraph{}
+	
 	We can see that the plan is composed of a principal corridor (A) with 5 simple doors and 3 double-doors. There are two double-doors in front of the simple ones which lead to 2 other corridors (B and C). Than, the autonomous robot is represented by a robot symbol and it is in front of a simple door in the principal corridor. The autonomous robot will try to find the target object which is represented by a red cross.
 
 	\section{Image processing}
-	\paragraph{}
+	
 	In this section, we present the environment structure detection in different spots. We precise that the vertical segments are green, the horizontal ones are red and the diagonal ones are blue.
 		\begin{figure}[H]
 		\begin{center}
@@ -487,21 +486,30 @@ ordered to the autonomous robot (rotate, move back...etc). Then, it regains from
 
 	\paragraph{}
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
-	\chapter*{Conclusion, Limitation and Future work}
-	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
-	\paragraph{}
-	During our internship, we focused the most on how to make the exploration strategy more generic. We can be somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the internship's duration.
+	
+	
+	\chapter*{Conclusion, limitations and future work}
+	\addcontentsline{toc}{chapter}{Conclusion, limitations and future work}
+	
+	During our internship, we focused the most on how to make the exploration strategy more generic. We can be 
+somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the 
+internship's duration.
+\hc{Rappeller ce que le systeme c'est faire, ainsi que ces limites en un ou deux paragraphes}.
 
-	\paragraph{}
 	Nevertheless, we suggest some ideas of how our works can be improved:
 	\begin{itemize}
-		\item Multi-agent exploration: Instead of exploring the environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, the communication between the autonomous robots is to develop and the tasks to be shared.
+		\item Smooth environment representation: In our exploration strategy, a huge wall may be explored 
+progressively. As a result, a parts of that wall are built side by side instead of building that wall as one piece. An 
+improvement would be to merge that blocks of walls into one wall.
+\item Multi-agent exploration: Instead of exploring the 
+environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, 
+the communication between the autonomous robots is to develop and the tasks to be shared.
 		\item 3D object recognition: The current database contains only a 2D models. Works could be done in that field to manipulate a 3D models instead of 2D ones. This facilitates the recognition of the object at any views. Because now, the autonomous robot should be in front of the object to be able to recognize it.
-		\item 2D/3D object detection with Deep Learning: If the database becomes large, the current object recognition may take a long time to analyze the picture. Because it tries to match the picture with each element of the database.
-		\item Smooth environment representation: In our exploration strategy, a huge wall may be explored progressively. As a result, a parts of that wall are built side by side instead of building that wall as one piece. An improvement would be to merge that blocks of walls into one wall.
-		
+		\item 2D/3D object detection with Deep Learning: If the database becomes large, the current object 
+recognition may take a long time to analyze the picture. Because it tries to match the picture with each element of the 
+database.	
 	\end{itemize}
-\paragraph{}
+
 To conclude, having an internship at LIP6 and being guided by an amazing supervisor provide us with unique opportunities for personal growth. I did not expect at my first day that I will learn as much knowledge at the end. Well, we come out of our internship further strengthened. 
 	
 	
