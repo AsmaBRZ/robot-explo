@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  23 JUL 2019 09:37
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2019.1.20)  23 JUL 2019 09:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -900,37 +900,265 @@ Package glossaries Info: Writing glossary file report.glo on input line 14.
 \ULC@box=\box59
 Package: ulem 2012/05/18
 \ULdepth=\dimen193
-) (./report.aux)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2017/12/19 v3.10 programmable bibliographies (PK/JW/AB)
+
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count190
+
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+\@xs@message=\write6
+\integerpart=\count191
+\decimalpart=\count192
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+\c@tabx@nest=\count193
+\c@listtotal=\count194
+\c@listcount=\count195
+\c@liststart=\count196
+\c@liststop=\count197
+\c@citecount=\count198
+\c@citetotal=\count199
+\c@multicitecount=\count266
+\c@multicitetotal=\count267
+\c@instcount=\count268
+\c@maxnames=\count269
+\c@minnames=\count270
+\c@maxitems=\count271
+\c@minitems=\count272
+\c@citecounter=\count273
+\c@savedcitecounter=\count274
+\c@uniquelist=\count275
+\c@uniquename=\count276
+\c@refsection=\count277
+\c@refsegment=\count278
+\c@maxextratitle=\count279
+\c@maxextratitleyear=\count280
+\c@maxextradate=\count281
+\c@maxextraalpha=\count282
+\c@abbrvpenalty=\count283
+\c@highnamepenalty=\count284
+\c@lownamepenalty=\count285
+\c@maxparens=\count286
+\c@parenlevel=\count287
+\blx@tempcnta=\count288
+\blx@tempcntb=\count289
+\blx@tempcntc=\count290
+\blx@maxsection=\count291
+\blx@maxsegment@0=\count292
+\blx@notetype=\count293
+\blx@parenlevel@text=\count294
+\blx@parenlevel@foot=\count295
+\blx@sectionciteorder@0=\count296
+\labelnumberwidth=\skip80
+\labelalphawidth=\skip81
+\biblabelsep=\skip82
+\bibitemsep=\skip83
+\bibnamesep=\skip84
+\bibinitsep=\skip85
+\bibparsep=\skip86
+\bibhang=\skip87
+\blx@bcfin=\read2
+\blx@bcfout=\write7
+\c@mincomprange=\count297
+\c@maxcomprange=\count298
+\c@mincompwidth=\count299
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count300
+\c@savedafterword=\count301
+\c@annotator=\count302
+\c@savedannotator=\count303
+\c@author=\count304
+\c@savedauthor=\count305
+\c@bookauthor=\count306
+\c@savedbookauthor=\count307
+\c@commentator=\count308
+\c@savedcommentator=\count309
+\c@editor=\count310
+\c@savededitor=\count311
+\c@editora=\count312
+\c@savededitora=\count313
+\c@editorb=\count314
+\c@savededitorb=\count315
+\c@editorc=\count316
+\c@savededitorc=\count317
+\c@foreword=\count318
+\c@savedforeword=\count319
+\c@holder=\count320
+\c@savedholder=\count321
+\c@introduction=\count322
+\c@savedintroduction=\count323
+\c@namea=\count324
+\c@savednamea=\count325
+\c@nameb=\count326
+\c@savednameb=\count327
+\c@namec=\count328
+\c@savednamec=\count329
+\c@translator=\count330
+\c@savedtranslator=\count331
+\c@shortauthor=\count332
+\c@savedshortauthor=\count333
+\c@shorteditor=\count334
+\c@savedshorteditor=\count335
+\c@labelname=\count336
+\c@savedlabelname=\count337
+\c@institution=\count338
+\c@savedinstitution=\count339
+\c@lista=\count340
+\c@savedlista=\count341
+\c@listb=\count342
+\c@savedlistb=\count343
+\c@listc=\count344
+\c@savedlistc=\count345
+\c@listd=\count346
+\c@savedlistd=\count347
+\c@liste=\count348
+\c@savedliste=\count349
+\c@listf=\count350
+\c@savedlistf=\count351
+\c@location=\count352
+\c@savedlocation=\count353
+\c@organization=\count354
+\c@savedorganization=\count355
+\c@origlocation=\count356
+\c@savedoriglocation=\count357
+\c@origpublisher=\count358
+\c@savedorigpublisher=\count359
+\c@publisher=\count360
+\c@savedpublisher=\count361
+\c@language=\count362
+\c@savedlanguage=\count363
+\c@origlanguage=\count364
+\c@savedoriglanguage=\count365
+\c@pageref=\count366
+\c@savedpageref=\count367
+\shorthandwidth=\skip88
+\shortjournalwidth=\skip89
+\shortserieswidth=\skip90
+\shorttitlewidth=\skip91
+\shortauthorwidth=\skip92
+\shorteditorwidth=\skip93
+Package biblatex Info: Trying to load enhanced support for Unicode engines...
+Package biblatex Info: ... file 'blx-unicode.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-unicode.def)
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
+\c@textcitecount=\count368
+\c@textcitetotal=\count369
+\c@textcitemaxnames=\count370
+\c@biburlnumpenalty=\count371
+\c@biburlucpenalty=\count372
+\c@biburllcpenalty=\count373
+\c@smartand=\count374
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
+\c@bbx:relatedcount=\count375
+\c@bbx:relatedtotal=\count376
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2017/12/19 v3.10 biblatex citation style (PK/JW/AB)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+
+! Package biblatex Error: Incompatible package 'cite'.
+
+See the biblatex package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.27 \begin{document}
+                     
+The 'cite' package and biblatex are incompatible.
+
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
+)
+\@quotelevel=\count377
+\@quotereset=\count378
+
+(./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Try loading font information for TU+ptm on input line 25.
-LaTeX Font Info:    No file TUptm.fd. on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Try loading font information for TU+ptm on input line 27.
+LaTeX Font Info:    No file TUptm.fd. on input line 27.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 25.
+(Font)              using `TU/lmr/m/n' instead on input line 27.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box60
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 27.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -938,15 +1166,15 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count190
+\c@section@level=\count379
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
-LaTeX Info: Redefining \nameref on input line 25.
+LaTeX Info: Redefining \ref on input line 27.
+LaTeX Info: Redefining \pageref on input line 27.
+LaTeX Info: Redefining \nameref on input line 27.
 
 (./report.out) (./report.out)
-\@outlinefile=\write6
-\openout6 = `report.out'.
+\@outlinefile=\write8
+\openout8 = `report.out'.
 
 
 *geometry* driver: auto-detecting
@@ -983,52 +1211,64 @@ LaTeX Info: Redefining \nameref on input line 25.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+Package biblatex Info: XeTeX detected.
+(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout7 = `report.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'report.bbl' found.
+(./report.bbl)
+Package biblatex Info: Reference section=0 on input line 27.
+Package biblatex Info: Reference segment=0 on input line 27.
+
 
 LaTeX Font Warning: Font shape `TU/ptm/bx/n' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 32.
+(Font)              using `TU/ptm/m/n' instead on input line 34.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 37.
+(Font)              using `TU/ptm/m/n' instead on input line 39.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 38.
+(Font)              using `TU/ptm/m/n' instead on input line 40.
 
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 40
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 42
 .
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 40
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 42
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 40
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 42
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 40
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 42
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 40.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 42.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 40.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 40.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 40.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
 File: res/logo.png Graphic file (type bmp)
 <res/logo.png>
 
@@ -1049,23 +1289,23 @@ Chapter 2.
 [2
 
 ] (./report.toc)
-\tf@toc=\write7
-\openout7 = `report.toc'.
+\tf@toc=\write9
+\openout9 = `report.toc'.
 
  [3
 
 ]
 Chapter 3.
 
-LaTeX Warning: Citation `bonin-font_visual_2008' on page 4 undefined on input l
-ine 88.
+LaTeX Warning: Citation 'bonin-font_visual_2008' on page 4 undefined on input l
+ine 90.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 91.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 93.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 91.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 93.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 91.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 93.
 [4
 
 ]
@@ -1080,8 +1320,8 @@ File: res/start1_c1.png Graphic file (type bmp)
 
 ]
 
-LaTeX Warning: Citation `grompone_von_gioi_lsd:_2012' on page 8 undefined on in
-put line 197.
+LaTeX Warning: Citation 'grompone_von_gioi_lsd:_2012' on page 8 undefined on in
+put line 199.
 
 File: res/lsr.png Graphic file (type bmp)
 <res/lsr.png>
@@ -1089,14 +1329,14 @@ File: res/lsr.png Graphic file (type bmp)
 File: res/cases_seg.png Graphic file (type bmp)
 <res/cases_seg.png>
 
-Overfull \hbox (31.83217pt too wide) in paragraph at lines 223--224
+Overfull \hbox (31.83217pt too wide) in paragraph at lines 225--226
  [] 
  []
 
 [9]
 
-LaTeX Warning: Citation `bonin-font_visual_2008' on page 10 undefined on input 
-line 240.
+LaTeX Warning: Citation 'bonin-font_visual_2008' on page 10 undefined on input 
+line 242.
 
 [10] [11]
 File: res/order_processing.png Graphic file (type bmp)
@@ -1118,14 +1358,14 @@ File: res/img_proc.png Graphic file (type bmp)
 File: res/3D_recons.png Graphic file (type bmp)
 <res/3D_recons.png>
 
-Overfull \hbox (17.08038pt too wide) in paragraph at lines 319--320
+Overfull \hbox (17.08038pt too wide) in paragraph at lines 321--322
  [] 
  []
 
 File: res/3D_recons_det.png Graphic file (type bmp)
 <res/3D_recons_det.png>
 
-Overfull \hbox (17.08038pt too wide) in paragraph at lines 328--329
+Overfull \hbox (17.08038pt too wide) in paragraph at lines 330--331
  [] 
  []
 
@@ -1144,6 +1384,9 @@ Chapter 7.
 ]
 Chapter 8.
 
+LaTeX Warning: Empty bibliography on input line 387.
+
+
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
@@ -1151,11 +1394,11 @@ This document will not have a glossary.
 [20
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 386.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 386.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 388.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 388.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 386.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 386.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 388.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 388.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1163,15 +1406,23 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 386.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                report
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'report.run.xml'.
+\openout1 = `report.run.xml'.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 388.
  ) 
 Here is how much of TeX's memory you used:
- 26087 strings out of 493007
- 468467 string characters out of 6136719
- 602659 words of memory out of 5000000
- 29599 multiletter control sequences out of 15000+600000
+ 32307 strings out of 493007
+ 585534 string characters out of 6136719
+ 1085946 words of memory out of 5000000
+ 35767 multiletter control sequences out of 15000+600000
  20422 words of font info for 59 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 62i,8n,65p,1992b,416s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,8n,65p,1992b,1075s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on report.pdf (21 pages).
