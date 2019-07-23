@@ -11,6 +11,8 @@
 \usepackage{appendix}
 \usepackage{cite}
 \usepackage{mathptmx}
+
+\usepackage{cite} %for bibliography
 \makeglossaries
 
 
@@ -22,7 +24,16 @@
 \newcommand{\hc}[1]{\textcolor{red}{[#1]}}
 \newcommand{\hcc}[1]{\textcolor{green}{Pour info - [#1]}}
 
+%for acknowledgements
+\newenvironment{acknowledgements}[1]
+{\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}}
+{\end{abstract}}
+
+
+
 \begin{document}
+
 	\begin{titlepage}
 		
 		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
@@ -55,8 +66,9 @@
 	\end{titlepage}
 	
 
-	\chapter{Abstract}
-	
+	%\chapter{Abstract}
+	\begin{abstract}
+	 
 	\paragraph{}
 	We carried out our internship at the Laboratory of Computer Sciences, Paris 6 (LIP6) under the supervision of M. Cédric Herpson, from June 3rd, 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during a university project (PANDROIDE) in our first Master's degree. 
 	
@@ -69,18 +81,30 @@
 	\paragraph{}
 	Our new strategy does not depend anymore of these objects. But, it exploits some visual information as contours. Also, the information provided by the robot's sensors is taken into account. We developed so a strategy where no knowledge of the environment is necessary, and no hypothesis helping the robot building its environment are considered.
 	
-	\chapter{Acknowledgments}
+	
+	\end{abstract}
 
-	\begin{center}
+	
+	%\chapter*{Acknowledgments}
+	\begin{acknowledgements}
+	\centering
 		
 	
 	I would like to deeply thank my supervisor, M. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
 	
 	I can say that I have been truly lucky to have M. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
-	\end{center}
 	
+	\end{acknowledgements}
+		
 	\tableofcontents
-	\chapter{Introduction}
+	\thispagestyle{empty}
+	
+	\pagenumbering{arabic}
+	
+	\setcounter{page}{0}
+	
+	\chapter*{Introduction}
+	\addcontentsline{toc}{chapter}{Introduction}
 	\paragraph{}
 	When an autonomous robot navigates in a structured or unstructured environment, it should be able to build a map representing this environment, to localize itself in it, and to define a safe path to move from a place to another one.
 	
@@ -96,7 +120,8 @@
 	So with this strategy, the robot can manage to build its entire environment autonomously.
 	
 	
-	\section{Outline of this report}
+	\section*{Outline of this report}
+	\addcontentsline{toc}{section}{Outline of this report}
 	\paragraph{}
 	The remaining chapters are organized as follows:
 	\begin{itemize}
@@ -366,7 +391,8 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a markers objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters, and the same exploration strategy run at a scale of centimeters would have a smoother representation.
 
 
-	\chapter{Conclusion, Limitation and Future work}
+	\chapter*{Conclusion, Limitation and Future work}
+	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
 	\paragraph{}
 	During our internship, we focused the most on how to make the exploration strategy more generic. We can be somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the internship's duration.
 
@@ -381,6 +407,10 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\end{itemize}
 \paragraph{}
 To conclude, having an internship at LIP6 and being guided by an amazing supervisor provide us with unique opportunities for personal growth. I did not expect at my first day that I will learn as much knowledge at the end. Well, we come out of our internship further strengthened. 
-	\chapter{References}
- 
+	
+	
+\bibliographystyle{plain}
+\bibliography{references}
+
+
 \end{document}

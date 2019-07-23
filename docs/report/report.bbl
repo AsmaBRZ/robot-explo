@@ -1,20 +1,15 @@
-% $ biblatex auxiliary file $
-% $ biblatex bbl format version 2.9 $
-% Do not modify the above lines!
-%
-% This is an auxiliary file used by the 'biblatex' package.
-% This file may safely be deleted. It will be recreated by
-% biber as required.
-%
-\begingroup
-\makeatletter
-\@ifundefined{ver@biblatex.sty}
-  {\@latex@error
-     {Missing 'biblatex' package}
-     {The bibliography requires the 'biblatex' package.}
-      \aftergroup\endinput}
-  {}
-\endgroup
+\begin{thebibliography}{1}
 
-\endinput
+\bibitem{bonin-font_visual_2008}
+Francisco Bonin-Font, Alberto Ortiz, and Gabriel Oliver.
+\newblock Visual {Navigation} for {Mobile} {Robots}: {A} {Survey}.
+\newblock {\em Journal of Intelligent and Robotic Systems}, 53(3):263--296,
+  November 2008.
 
+\bibitem{grompone_von_gioi_lsd:_2012}
+Rafael Grompone~von Gioi, Jérémie Jakubowicz, Jean-Michel Morel, and Gregory
+  Randall.
+\newblock {LSD}: a {Line} {Segment} {Detector}.
+\newblock {\em Image Processing On Line}, 2:35--55, March 2012.
+
+\end{thebibliography}
