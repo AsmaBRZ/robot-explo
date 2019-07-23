@@ -174,8 +174,13 @@ However, we note some differences between our two methods. Indeed, the robot pre
 	The main purpose of our works is to improve the functionalities developed previously. These functionalities 
 allowed one autonomous robot to move in a rectangular environment and to explore it.\\
 	The visual information brought by the exploration is used to build a virtual 3D representation of 
-the environment, and to recognize a target object that should be found on one of the walls. The target 
-object is assumed to be available within the agent knowledge database. It is specified by 
+the environment, and to recognize a target object that should be found on one of the walls. 
+
+\paragraph {}
+The image processing is performed by the robot. So the robot, sends at the end of each image analysis a set of visual information (target detected or not...etc). Than, the computer relies on the visual information to define the next robot's movement. After that, the robot performs the movement asked and than takes a picture again...etc.
+
+\paragraph {}
+The target object is assumed to be available within the agent knowledge database. It is specified by 
 the user at the launching of the application.
 In short, the previous strategy can be summarized as follows:
 	\begin{enumerate}
@@ -415,6 +420,9 @@ ordered to the autonomous robot (rotate, move back...etc). Then, it regains from
 	
 	\paragraph{}
 	Beyond these weak points, the algorithm is able to extract the most important contours from the image, which remains sufficient for the decision. 
+	\paragraph{}
+	We have tested our exploration strategy in only one environment, and our results depend only of the structure of this environment. So, we hope that the strategy developed remains efficient in another type of environment.
+	
 	\section{3D map building}
 	\paragraph{}
 	The picture below represents a 3D map representation of the environment at the end of the exploration. We precise that the environment has been built at a scale of 1/100 centimeters, hence the eventual impression that the walls are very offbeat.
@@ -470,13 +478,18 @@ ordered to the autonomous robot (rotate, move back...etc). Then, it regains from
 
 	\paragraph{}
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
+	
+	
+	
 	\chapter*{Conclusion, Limitation and Future work}
 	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
 	\paragraph{}
 	During our internship, we focused the most on how to make the exploration strategy more generic. We can be somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the internship's duration.
-
+    
+    \paragraph{}
+    We have improved the previous strategy by removing any assumptions about the structure of the environment. Also, the robot does not need any help from a specific objects placed on the walls, in order to help them with the walls detection. Than, we made the robot able to avoid obstacles using its sensors.
 	\paragraph{}
-	Nevertheless, we suggest some ideas of how our works can be improved:
+	Nevertheless, we suggest some ideas of how our works can be improved in the future:
 	\begin{itemize}
 		\item Multi-agent exploration: Instead of exploring the environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, the communication between the autonomous robots is to develop and the tasks to be shared.
 		\item 3D object recognition: The current database contains only a 2D models. Works could be done in that field to manipulate a 3D models instead of 2D ones. This facilitates the recognition of the object at any views. Because now, the autonomous robot should be in front of the object to be able to recognize it.
