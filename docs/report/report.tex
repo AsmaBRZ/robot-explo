@@ -162,46 +162,67 @@ and possible future works}
     \chapter{Reviews of Existing Work}
     \label{chap:review}
 	
-	\paragraph{}
-	The main purpose of our works is to improve the functionalities developed previously. These functionalities allowed the autonomous robot to move in its environment (A rectangular room) and to explore it. 
-	
-	\paragraph{}
-	The visual information brought by the exploration is used to build a virtual 3D representation of this environment, and to recognize a target object. The target object is an object from the knowledge database. It is specified by the user, at the launching of the application.
-	
-	\paragraph{}
-	In short, our previous strategy can be summarized as follows:
-	\begin{itemize}
-		\item At each move, the autonomous robot took a picture and analyzed it.
-		\item The analysis of the picture brought a new knowledge to the autonomous robot.
-		\item With this new knowledge, The autonomous robot was in one of these situations:
-		\begin{itemize}
-			\item The target was detected and the exploration ended.
-			\item The four walls was explored and the target was not detected. So, the exploration ended.
-			\item A corner was detected. As a result, the autonomous robot went on the next wall.
-			\item Anything was detected, the autonomous moved to the next part of the same wall.
-		\end{itemize}
-		\item Repeat until the exploration ended.
-	\end{itemize}
+	\hc{In this chapter, we first propose a brief overview of the literature before presenting the work 
+done by our predecessors}.
 
-	\paragraph{}
-	However, we assumed some hypotheses which facilitated the exploration process. For example, we placed some objects (landmarks) in each corner of the environment and every time the autonomous robot met these objects, it concluded that this was a wall end. So the autonomous robot relied on these objects to decide whether or not it finished exploring the current wall.
+\section{Brief overview of the litterature}
+
+\hc{Insert here Pandro biblio section}
+
+
+\section{State of the project}
+
+	The main purpose of our works is to improve the functionalities developed previously. These functionalities 
+allowed one autonomous robot to move in a rectangular environment and to explore it.\\
+	The visual information brought by the exploration is used to build a virtual 3D representation of 
+\hcr{this}{the} environment, and to recognize a target object \hc{that should be found on one of the walls}. The target 
+object is \hcr{an object from the }{assumed to be available within the agent } knowledge database. It is specified by 
+the user at the launching of the application.
+In short, the previous strategy can be summarized as follows:
+\hc{Passage au style direct pour plus de clarté}
+	\begin{enumerate}
+		\item The autonomous robot takes a picture and analyses it.
+		\item The analysis generates new knowledge. The robot populates its 3D representation accordingly. 
+		\item The robot is then in one of the following situations:
+		\begin{itemize}
+			\item The target is detected and the exploration ends.
+			\item The four walls are explored and the target was not detected. So, the exploration ends.
+			\item A corner is detected. As a result, the autonomous robot goes on the next wall.
+			\item Beside the wall distance and size, nothing is acquired, the autonomous is ready to move 
+to the next part of the same wall.
+		\end{itemize}
+		\item Execute next move until the exploration ends.
+	\end{enumerate}
+
 	
-	Otherwise seen, as long as the autonomous robot did not meet a landmark, then it continued moving forward assuming it is the same wall.
+	\hcr{However}{As it can be seen}, we assumed some hypotheses which facilitated the exploration process. For 
+example, we placed some landmarks in each corner of the environment and every time the robot met 
+these objects, it concluded that this was a wall end. So the robot relied on these objects to decide whether 
+or not it finished exploring the current wall. Otherwise seen, as long as the autonomous robot did not meet a landmark, 
+then it continued moving forward assuming it is the same wall.\\
 	
-	\paragraph{}
-	Also, another hypothesis is when the autonomous robot did not detect anything, and it assumed that it was the continuation of the current wall. Such a hypothesis may be hard to omit if we want to adjust the strategy to be usable in a more complex environment. A complex environment may be a room with corridors. In that case, a corridor may be ignored, because the autonomous robot only took into account the presence of objects for the decision and not the structure of the environment.
+	\hcr{Also, a}{A}nother hypothesis is when the \hcr{autonomous}{} robot did not detect anything, and it assumed 
+that it was the continuation of the current wall. Such a hypothesis may be hard to omit if we want to adjust the 
+strategy to be usable in a more complex environment. A complex environment may be a room with corridors. In that case, a 
+corridor may be ignored, because the \hcr{autonomous}{} robot only took into account the presence of objects for the 
+decision and not the structure of the environment.\\
 	
-	\paragraph{}
-	To no longer depend on these hypotheses, our works present another manner to build the environment. Firstly, we do not assume anymore having a rectangular room as environment, but we build a strategy which may work independently of the environment structure. 
-	\paragraph{}
-	Than, the autonomous robot does not suppose the presence of a wall by detecting one of its corners. Instead, it extracts the contours of the environment with whom the autonomous robot decides if it is in front of a close/far wall, if there is a wall behind them...etc.
-	
-	By this way, the autonomous robot gathers the analysis's results to estimate the dimensions of the walls.
+	To no longer depend on these hypotheses, \hcr{our works 
+present another manner to build the environment}{we decided to change the way we build the environment}. Firstly, we do 
+not anymore assume having a rectangular environment \hcr{, but we build}{and propose}  a strategy which may work 
+independently of the environment structure.\\
+\hcr{Than, the autonomous robot does}{Secondly, we will} not suppose the 
+presence of a wall by detecting one of its corners. Instead, \hcr{it extracts }{we will extract} the contours of the 
+environment. \hcr{with whom the autonomous robot }{From there, the agent will have to decide} if it is facing a 
+close/far wall, if there is a wall behind them...etc. \hcr{	By this way, the autonomous robot gathers the }{We will 
+also use images } analysis's results to estimate the dimensions of the walls.\hc{We will present these steps in detail 
+in the next chapter}.
 	
     \chapter{Realization}
     \label{chap:realization}
     \paragraph{}
-    We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target object to search. 
+    We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target 
+\hcr{object to search}{to be looking for}. 
 	\section{Exploration strategy}
 	 \subsection{Image processing}
 	 \paragraph{}
