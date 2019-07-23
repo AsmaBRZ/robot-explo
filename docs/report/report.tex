@@ -60,7 +60,7 @@
 		\end{minipage}\\[4cm]
 		
 		
-		{\large \hcr{Laboratory of Computer Sciences, Paris 6}{LIP6 Computer Science laboratory} \\ Sorbonne 
+		{LIP6 Computer Science laboratory} \\ {Sorbonne 
 University - Faculty of Sciences and Engineering}\\[3cm] 
 		{\large June - July 2019 }\\[3cm] 
 		\includegraphics[width=0.6\textwidth]{res/logo.png}\\[1cm] 
@@ -73,10 +73,10 @@ University - Faculty of Sciences and Engineering}\\[3cm]
 	\begin{abstract}
 	 
 	\paragraph{}
-	We carried out our internship at the \hcr{Laboratory of Computer Sciences, Paris 6 (LIP6)}{LIP6, the computer 
-science laboratory of Sorbonne University, Paris, France} under the supervision of Dr. Cédric Herpson, from June 3rd, 
+	We carried out our internship at the LIP6, the computer 
+science laboratory of Sorbonne University, Paris, France under the supervision of Dr. Cédric Herpson, from June 3rd, 
 2019 until July 26th, 2019. The internship was mainly considered as a continuation of works that we carried out during 
-a university project (PANDROIDE) in our first \hc{year of} Master's degree. 
+a university project (PANDROIDE) in our first year of Master's degree. 
 	
 	\paragraph{}
 	Our previous works presented a naive approach of object recognition and exploration strategy that allowed an autonomous robot with a camera to roughly build its environment. The environment is closed and composed of walls where the robot was able to locate itself. In addition, we could ask the robot to search for a specific object, and the robot was able to accomplish that task. Nevertheless, the conducted works assumed some hypotheses which did not make the exploration strategy generic.
@@ -88,9 +88,8 @@ that there were a corner at this spot. This hypothesis allowed the robot not to 
 corners. 
 	
 	\paragraph{}
-	Our new strategy does not \hcr{depend anymore of these objects}{depends on these objects anymore}. \hcr{But, 
-i}{I}t exploits some visual information as contours. Also, the information provided by the robot's \hc{IR} sensors is 
-taken into account. We \hc{thus} developed \hcr{so}{} a strategy where no \hc{prior} knowledge of the environment is 
+	Our new strategy does not depends on these objects anymore.It exploits some visual information as contours. Also, the information provided by the robot's IR sensors is 
+taken into account. We thus developed a strategy where no prior knowledge of the environment is 
 necessary, and no hypotheses helping the robot building its environment are considered.
 	
 	
@@ -120,24 +119,22 @@ necessary, and no hypotheses helping the robot building its environment are cons
 	\paragraph{}
 	When an autonomous robot navigates in a structured or unstructured environment, it should be able to build a map 
 representing this environment, to localize itself in it, and to define a safe path to move from a place to another 
-one.\hc{These tasks are traditionally called Simultaneous Localisation And Mapping (SLAM)}
+one. These tasks are traditionally called Simultaneous Localization And Mapping (SLAM).
 	
 	\paragraph{}
-	\hcr{There are a varied applications of the robot 
-navigation. Such as}{Applications to autonomous robot navigation are numerous :} surveillance, cleaning, transportation 
-tasks...etc. \hcp{Paired with the progresses in term of computational embedded capabilities,} the number of 
+Applications to autonomous robot navigation are numerous : surveillance, cleaning, transportation 
+tasks...etc. Paired with the progresses in term of computational embedded capabilities, the number of 
 contributions of researchers in this field keeps going up \cite{bonin-font_visual_2008}.
 	
 	\paragraph{}
-	Our project aims to enable \hcr{the}{a} Thymio robot\footnote{An educational programmable robot} with a 
-\hc{monocular} camera to roughly build its environment. \hc{We assume that } the environment is closed and it is 
-composed of walls where the autonomous robot is able to locate itself. \hc{Note that even if we focus on a specific 
-platform for the experimentations, our proposal intends to be generic.}
+	Our project aims to enable a Thymio robot\footnote{An educational programmable robot} with a 
+monocular camera to roughly build its environment. We assume that  the environment is closed and it is 
+composed of walls where the autonomous robot is able to locate itself. Note that even if we focus on a specific 
+platform for the experimentation, our proposal intends to be generic.
 	
 	\paragraph{}
 	Unlike our previous work where we had some landmarks helping the autonomous robot in the detection of corners, 
-we develop throughout th\hcr{e}{is} internship a more generic strategy. The autonomous robot \hcr{is based only on its 
-sensors and camera to build }{only use its sensors (IR and camera) to build its own representation of }the environment.
+we develop throughout this internship a more generic strategy. The autonomous robot only uses its sensors (IR and camera) to build its own representation of the environment.
 	
 	So with this strategy, the robot can manage to build its entire environment autonomously.
 	
@@ -145,47 +142,42 @@ sensors and camera to build }{only use its sensors (IR and camera) to build its 
 	\section*{Outline of this report}
 	\addcontentsline{toc}{section}{Outline of this report}
 	\paragraph{}
-	\hcr{The remaining chapters are}{This document is} organized as follows:
+	This document is organized as follows:
 	\begin{itemize}
-		\item Chapter \ref{chap:review}: \hcr{Summarize the state of art}{We realize a brief overview of the 
-state of the art related to SLAM}.
-		\item Chapter \ref{chap:realization}: \hcr{Explanation of the solution}{We detail the proposed 
-approach}.
-		\item Chapter \ref{chap:testing}: \hcr{Discussion and test of the solution}{We present our experiments 
-and discuss the associated results}.
-		%\item Chapter \ref{chap:conlusion} Conclusion and suggestion of future works.
+		\item Chapter \ref{chap:review}: We realize a brief overview of the state of the art related to SLAM.
+		\item Chapter \ref{chap:realization}: We detail the proposed approach.
+		\item Chapter \ref{chap:testing}: We present our experiments and discuss the associated results.
+
 	\end{itemize}
-	\hc{Finally we conclude this work and highlight its current limitations before suggesting potential solutions 
-and possible future works}
+	Finally we conclude this work and highlight its current limitations before suggesting potential solutions 
+and possible future works.
 	
 	
     \chapter{Reviews of Existing Work}
     \label{chap:review}
-	
-	\hc{In this chapter, we first propose a brief overview of the literature before presenting the work 
-done by our predecessors}.
+	\paragraph{}
+	In this chapter, we first propose a brief overview of the literature before presenting the work 
+done by our predecessors.
 
-\section{Brief overview of the litterature}
+\section{Brief overview of the literature}
 
-\hc{Insert here Pandro biblio section}
+\paragraph {}
+The exploration method we propose is based on the article \textbf {Exploration of an Indoor-Environment by an Autonomous Mobile Robot} \cite{edlinger_exploration_1994}, written by Ewald von Puttkamer and Thomas Edlinger, at the University of Kaiserslautern and published in 1994. This paper presents an algorithm for exploring an indoor-environment. The robot used is provided with an optical range finder, which is considered as the principal sensor for perception. 
 
+\paragraph {}
+However, we note some differences between our two methods. Indeed, the robot presented in the article uses its 16 infrared sensors, a camera on pan/tilt-unit and a laser-scanner. Whereas our robot uses only its own 7 sensors and a  5-megapixels Raspberry-camera. Briefly, their robot is equipped with a stronger sensors unlike our robot. Therefore our robot needs to stop at regular short intervals to take a picture and retrieve visual information. 
 
+\paragraph {}
+\textbf{MonoSLAM} \cite{davison_monoslam:_2007} is another paper which interests us a lot because it uses only a camera as a source of information. MonoSLAM is a real-time algorithm based on SLAM \footnote{A problem of simultaneous mapping and localization of an agent in an unknown environment} for 3D localization and mapping. The main difference with this approach is that it is performed in real-time, and it is especially designed for powerful humanoid robot and augmented reality. Unlike our strategy as explained above, the robot takes a picture, stops moving while analyzing it and than decides for the next movement. So, the mapping and the movement are sequential. 
 \section{State of the project}
-
+\paragraph {}
 	The main purpose of our works is to improve the functionalities developed previously. These functionalities 
 allowed one autonomous robot to move in a rectangular environment and to explore it.\\
-
-
-\hc{Insérer un schéma et un petit paragraphe pour présenter les différents composants, thymio+pi+pc et indiquer ou se 
-situent les différents traitements; Récupérer de Pandro}
-
-
 	The visual information brought by the exploration is used to build a virtual 3D representation of 
-\hcr{this}{the} environment, and to recognize a target object \hc{that should be found on one of the walls}. The target 
-object is \hcr{an object from the }{assumed to be available within the agent } knowledge database. It is specified by 
+the environment, and to recognize a target object that should be found on one of the walls. The target 
+object is assumed to be available within the agent knowledge database. It is specified by 
 the user at the launching of the application.
 In short, the previous strategy can be summarized as follows:
-\hc{Passage au style direct pour plus de clarté}
 	\begin{enumerate}
 		\item The autonomous robot takes a picture and analyses it.
 		\item The analysis generates new knowledge. The robot populates its 3D representation accordingly. 
@@ -201,43 +193,40 @@ to the next part of the same wall.
 	\end{enumerate}
 
 	
-	
-	\hcr{However}{As it can be seen}, we assumed some hypotheses which facilitated the exploration process. For 
+	As it can be seen, we assumed some hypotheses which facilitated the exploration process. For 
 example, we placed some landmarks in each corner of the environment and every time the robot met 
 these objects, it concluded that this was a wall end. So the robot relied on these objects to decide whether 
 or not it finished exploring the current wall. Otherwise seen, as long as the autonomous robot did not meet a landmark, 
 then it continued moving forward assuming it is the same wall.\\
 	
-	\hcr{Also, a}{A}nother hypothesis is when the \hcr{autonomous}{} robot did not detect anything, and it assumed 
+	Another hypothesis is when the robot did not detect anything, and it assumed 
 that it was the continuation of the current wall. Such a hypothesis may be hard to omit if we want to adjust the 
 strategy to be usable in a more complex environment. A complex environment may be a room with corridors. In that case, a 
-corridor may be ignored, because the \hcr{autonomous}{} robot only took into account the presence of objects for the 
+corridor may be ignored, because the robot only took into account the presence of objects for the 
 decision and not the structure of the environment.\\
 	
-	To no longer depend on these hypotheses, \hcr{our works 
-present another manner to build the environment}{we decided to change the way we build the environment}. Firstly, we do 
-not anymore assume having a rectangular environment \hcr{, but we build}{and propose}  a strategy which may work 
+	To no longer depend on these hypotheses, we decided to change the way we build the environment. Firstly, we do 
+not anymore assume having a rectangular environment and propose  a strategy which may work 
 independently of the environment structure.\\
-\hcr{Than, the autonomous robot does}{Secondly, we will} not suppose the 
-presence of a wall by detecting one of its corners. Instead, \hcr{it extracts }{we will extract} the contours of the 
-environment. \hcr{with whom the autonomous robot }{From there, the agent will have to decide} if it is facing a 
-close/far wall, if there is a wall behind them...etc. \hcr{	By this way, the autonomous robot gathers the }{We will 
-also use images } analysis's results to estimate the dimensions of the walls.\hc{We will present these steps in detail 
-in the next chapter}.
+Secondly, we will not suppose the 
+presence of a wall by detecting one of its corners. Instead, we will extract the contours of the 
+environment. From there, the agent will have to decide if it is facing a 
+close/far wall, if there is a wall behind them...etc. We will 
+also use images analysis's results to estimate the dimensions of the walls. We will present these steps in detail 
+in the next chapter.
 	
-    \chapter{Realization}
+       \chapter{Realization}
     \label{chap:realization}
     
-    We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target 
-\hcr{object to search}{to be looking for}. 
+    We suppose that the autonomous robot is situated in a closed environment, and it has been informed about the target to be looking for. 
 
 
 	\section{Exploration strategy}
 	 \subsection{Image processing}
 	 \paragraph{}
-	 The first task \hcr{of the autonomous}{for the} robot is to roughly represent the environment using visual 
-information. \hc{For that we rely on segment recognition\hc{Donner une ref présentant les algos associés}, a 
-lightweight image process.} For walls detection, we distinguish three types of segments on the picture taken by the 
+	 The first task for the robot is to roughly represent the environment using visual 
+information. For that we rely on segment recognition, a 
+lightweight image process. \cite{s._rahmdel_review_2015} For walls detection, we distinguish three types of segments on the picture taken by the 
 autonomous robot:
 	 \begin{itemize}
 	 	\item Vertical segment which makes almost 90 degrees with the X-axis.
@@ -249,16 +238,14 @@ autonomous robot:
 	 
 	 \subsubsection{Corners-based detection}
 	 
-	 We begun with a strategy based on corners detection. \hcr{where w}{W}e kept the same exploration strategy as 
-in our previous works \hcr{But, we replaced only }{and replaced} the part on corners detection. \hcr{So }{Thus,} 
-instead of detecting a specific objects substituting the corners, we tried two methods. 
+	 We begun with a strategy based on corners detection. We kept the same exploration strategy as 
+in our previous works and replaced the part on corners detection. Thus, instead of detecting a specific objects substituting the corners, we tried two methods. 
 \begin{itemize}
  \item A hand-made approach based on \textit{segments intersection}
- \item A method for \textit{corners detection} available in OpenCV\hc{ref}.
+ \item A method for \textit{corners detection} available in OpenCV \cite{opencv_documentation}.
 \end{itemize}
 %We developed  and we used  
-These two methods \hcr{were used under a certain constraints, }{require to fix a threshold} to decide whether a corner 
-as been detected or not. Defining \hcr{these constraints}{this separating limit} is not that easy. For example, it is 
+These two methods require to fix a threshold to decide whether a corner has been detected or not. Defining this separating limit is not that easy. For example, it is 
 getting arduous if we have a textured floor or walls. So the method considers all the intersection points situated on 
 the walls and on the floor as corners.\\
 	
@@ -266,7 +253,7 @@ the walls and on the floor as corners.\\
 	 As a result, these methods detect a lot of features which are not all correct corners.\\	 
 	 On the other hand, if we assume that corners are in most cases situated at the bottom of the image, this 
 assumption becomes incorrect when the autonomous robot is far from the corner. In this latter case, the corner is 
-situated on the top of the image. The figure \ref{fig:corner} below \hc{illustrate this situation}.
+situated on the top of the image. The figure \ref{fig:corner} below illustrates this situation.
 	 	\begin{figure}[h]
 	 	\begin{center}
 	 		\includegraphics[scale=0.6]{res/start1_c1.png}
@@ -278,17 +265,17 @@ situated on the top of the image. The figure \ref{fig:corner} below \hc{illustra
 	As a result, this corner will be ignored, because it is not situated on the bottom of the image.
 	 
 	% \paragraph{}
-	\hc{Pas clair cette phrase dessous}
-	 These particular pictures taken by the \hcr{autonomous}{} robot make the strategy not really captivating, 
+	
+	 The previous case makes the strategy not really captivating, 
 because it is sensitive to the autonomous robot's position.
 	 
 	 \subsubsection{Non corners-based detection}
 	
-	 \hcr{After encountering some difficulties to detect the}{Facing the difficulty to detect the} right corners, 
-we decided to ditch this strategy \hc{ because it was impractical}{and to focus on the segment orientation}. 
+	 Facing the difficulty to detect the right corners, 
+we decided to ditch this strategy  because it was impractical and to focus on the segment orientation. 
 	 
-	 The next idea is \hc{thus} to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) 
-segments are used to estimate the walls height (resp. width). \hcr{However the d}{D}iagonal segments indicate that 
+	 The next idea is thus to consider the segments on the 3 axis X,Y and Z. The vertical (resp. horizontal) 
+segments are used to estimate the walls height (resp. width). Diagonal segments indicate that 
 there is a depth. Knowing that a certain depth exists on the image, guarantees to the autonomous robot that there is 
 still space between them and the wall in front. So, it can always move forward.
 	  
@@ -308,10 +295,9 @@ that, the pixels sharing nearly the same angle of gradient are merged into regio
 	  \end{figure}
   
   So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are 
-classified into groups: \hcr{the}{} Verticals, \hcr{the }{}horizontals and \hcr{the }diagonals, up to a certain 
-tolerance $\epsilon$. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to 
-get a longer segments, we keep only the longest one from each group at the end. \hc{Each group of segments is used for a 
-certain purpose for the navigation}.
+classified into groups: Verticals, horizontals and diagonals, up to a certain tolerance $\epsilon$. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to 
+get a longer segments, we keep only the longest one from each group at the end. Each group of segments is used for a 
+certain purpose for the navigation.
   
 The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent 
 a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier 
@@ -348,8 +334,7 @@ We represent the environment by defining the walls composing it. The detection o
  We mention that the vertical segments are used only to set the height of walls, they are not used in the exploration strategy because the autonomous robot is moving only along the X and Z axis.
  \subsection{Navigation}
      
- Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting 
-\hcr{spot}{point} to a target\hc{ed} one \cite{bonin-font_visual_2008}. On the basis of visual information, the 
+ Navigation is the determination of an adequate and secure path for the autonomous robot, to move from a starting point to a targeted one \cite{bonin-font_visual_2008}. On the basis of visual information, the 
 autonomous robot is able to define its next decision. The decision may be to:
  \begin{itemize}
  	\item Stop if the target has been found or if the robot has explored the entire environment, without spotting the target.
@@ -360,20 +345,18 @@ autonomous robot is able to define its next decision. The decision may be to:
 \subsubsection{Obstacle avoidance}
 
 In our previous work, when the autonomous robot decided to move forward, it did not check progressively while moving 
-whether there is an obstacle or not. \hcr{But, it verified if there is an obstacle when it }{It checked for the 
-occurrence of an obstacle after it } stopped moving. The drawback of such a decision is that the autonomous robot was 
+whether there is an obstacle or not. It checked for the 
+occurrence of an obstacle after it stopped moving. The drawback of such a decision is that the autonomous robot was 
 not able to distinguish between its last position at the end of the movement and its position at the first moment when 
-it met the obstacle. As a result, the autonomous robot thought that it travelled the entire distance.\\
+it met the obstacle. As a result, the autonomous robot thought that it traveled the entire distance.\\
 
 In our new strategy, the robot stops as soon as it detects an obstacle. Its sensors may detect the presence 
-of an obstacle at almost 10 centimeters. When the autonomous robot stops, the real distance travelled is returned. If 
+of an obstacle at almost 10 centimeters. When the autonomous robot stops, the real distance traveled is returned. If 
 there were no obstacles, the distance would be entirely covered.
 
 \subsubsection{Strategy}
 
-As there are a lot of \hcr{cases of movements according to}{differents decisions to be taken depending on} the visual 
-information, we \hcr{try to } summarize these cases using an activity diagram \hcr{shown in the figure below}{(see Fig. 
-\ref{fig:activityDiag})}. In this diagram, the green boxes represent a physical movement done by the autonomous robot, 
+As there are a lot of different decisions to be taken depending on the visual information, we summarize these cases using an activity diagram (see Fig.\ref{fig:activityDiag}). In this diagram, the green boxes represent a physical movement done by the autonomous robot, 
 and the blue ones represent treatments.\\
 
 We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a closed 
@@ -398,22 +381,23 @@ ordered to the autonomous robot (rotate, move back...etc). Then, it regains from
 	\chapter{Testing}
 	\label{chap:testing}
 	
-	\section{Environment topology}
+	\paragraph{}
+	\section{Environment plan}
 	We chose an environment which contained corridors, obstacles, textured walls, different level of light and different types of door. Such an environment is interesting to reveal the robustness of the strategy.
 		
-	When launching the application, the target object is filled in. Then, the autonomous robot is going to build 
-progressively its environment while searching the target object. The figure below represents the environment topology.
+	\paragraph{}
+	When launching the application, the target object is filled in. Then, the autonomous robot is going to build progressively its environment while searching the target object. The picture below represents the environment plan.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[scale=0.55]{res/plan.png}
-			\caption{\hc{The environment used as experimental testbed}}
+			\caption{The environment plan}
 		\end{center}
 	\end{figure}
-	
+	\paragraph{}
 	We can see that the plan is composed of a principal corridor (A) with 5 simple doors and 3 double-doors. There are two double-doors in front of the simple ones which lead to 2 other corridors (B and C). Than, the autonomous robot is represented by a robot symbol and it is in front of a simple door in the principal corridor. The autonomous robot will try to find the target object which is represented by a red cross.
 
 	\section{Image processing}
-	
+	\paragraph{}
 	In this section, we present the environment structure detection in different spots. We precise that the vertical segments are green, the horizontal ones are red and the diagonal ones are blue.
 		\begin{figure}[H]
 		\begin{center}
@@ -486,30 +470,21 @@ progressively its environment while searching the target object. The figure belo
 
 	\paragraph{}
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
-	
-	
-	\chapter*{Conclusion, limitations and future work}
-	\addcontentsline{toc}{chapter}{Conclusion, limitations and future work}
-	
-	During our internship, we focused the most on how to make the exploration strategy more generic. We can be 
-somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the 
-internship's duration.
-\hc{Rappeller ce que le systeme c'est faire, ainsi que ces limites en un ou deux paragraphes}.
+	\chapter*{Conclusion, Limitation and Future work}
+	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
+	\paragraph{}
+	During our internship, we focused the most on how to make the exploration strategy more generic. We can be somewhat satisfied with the work that has been done so far, comparing to our previous works and with respect to the internship's duration.
 
+	\paragraph{}
 	Nevertheless, we suggest some ideas of how our works can be improved:
 	\begin{itemize}
-		\item Smooth environment representation: In our exploration strategy, a huge wall may be explored 
-progressively. As a result, a parts of that wall are built side by side instead of building that wall as one piece. An 
-improvement would be to merge that blocks of walls into one wall.
-\item Multi-agent exploration: Instead of exploring the 
-environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, 
-the communication between the autonomous robots is to develop and the tasks to be shared.
+		\item Multi-agent exploration: Instead of exploring the environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, the communication between the autonomous robots is to develop and the tasks to be shared.
 		\item 3D object recognition: The current database contains only a 2D models. Works could be done in that field to manipulate a 3D models instead of 2D ones. This facilitates the recognition of the object at any views. Because now, the autonomous robot should be in front of the object to be able to recognize it.
-		\item 2D/3D object detection with Deep Learning: If the database becomes large, the current object 
-recognition may take a long time to analyze the picture. Because it tries to match the picture with each element of the 
-database.	
+		\item 2D/3D object detection with Deep Learning: If the database becomes large, the current object recognition may take a long time to analyze the picture. Because it tries to match the picture with each element of the database.
+		\item Smooth environment representation: In our exploration strategy, a huge wall may be explored progressively. As a result, a parts of that wall are built side by side instead of building that wall as one piece. An improvement would be to merge that blocks of walls into one wall.
+		
 	\end{itemize}
-
+\paragraph{}
 To conclude, having an internship at LIP6 and being guided by an amazing supervisor provide us with unique opportunities for personal growth. I did not expect at my first day that I will learn as much knowledge at the end. Well, we come out of our internship further strengthened. 
 	
 	
