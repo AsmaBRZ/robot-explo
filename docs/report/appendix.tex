@@ -9,7 +9,7 @@
 
 \usepackage[toc]{glossaries}
 \usepackage{appendix}
-\usepackage{cite}
+
 \usepackage{mathptmx}
 \makeglossaries
 
@@ -110,10 +110,16 @@
 \paragraph{}
 In this section, we explain how we built the conversion system which permitted us to use the distances in pixels in the reality.
 \paragraph{}
-Firstly, we performed some measurements to know the dimensions of some objects in pixels and in centimeters depending on a certain distance from the camera.
-\subsection{Nonlinear Regression}
+Firstly, we performed measurements to know the dimensions of objects in pixels and in centimeters depending on a certain distance from the camera. So we measured:
+\begin{itemize}
+	\item The real distance from the autonomous robot to the object (in centimeters).
+	\item The real width of the object (in centimeters).
+	\item The distance in pixels between the autonomous robot and the object.
+	\item The width in pixels of the object.
+\end{itemize}
+\section{Nonlinear Regression}
 	\paragraph{}
-	The first table contains the equivalence between the real distance in centimeters and the one in pixels, between an object and the autonomous robot. The distance in pixels is the column \textbf{X} and the one in centimeters is in the column \textbf{Y}.
+	The first table contains the equivalence between the real distance in centimeters and the one in pixels, between an object and the autonomous robot. The distance in pixels is the column X and the one in centimeters is in the column Y.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[scale=0.6]{res/reg2D.png}
@@ -124,19 +130,37 @@ Firstly, we performed some measurements to know the dimensions of some objects i
 We performed a Nonlinear Regression on the data to obtain an equation with the distance in pixels as entry and the distance in centimeters as a result.
 
 \paragraph{}
-We can see in the column \textbf{Best function calculated Y} the result of the equation, knowing the distance in pixels. And in the  \textbf{Best function error}, the difference between the distance in centimeters we have measured and the one estimated by the equation. The biggest error is estimated to 14.15 with X=253 and Y=320. The error remains acceptable because it is in centimeters and we remind that our goal is only to build roughly the environment. So, we do not need that precision of estimation.
-\subsection{Multiple Polynomial Regression}
-The second table contains 
+We can see in the column "Best function calculated Y" the real distance estimated by the equation, knowing the distance in pixels. And in the column "Best function error", the difference between the distance in centimeters we have measured and the one estimated by the equation. The biggest error is estimated at 14.15 with X=253 and Y=320. 
+\section{Multiple Polynomial Regression}
+In the second table, we have 2 entries: The width in pixels of that object in pixels (X1), and the real distance between the object and the autonomous robot (X2). The third column represents the output which is the real width of the object.
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.6]{res/reg3D.png}
 	\end{center}
 \end{figure} 
-	\chapter{3D Object recognition}
+
+\paragraph{}
+We performed a Multiple Polynomial Regression on the data to obtain an equation which estimates the real width of the object.
+
+\paragraph{}
+We can see in the column "Calculated Y" the real width estimated by the equation. And in the column "Error", the difference between the real width of the object we have measured and the one estimated by the equation. The biggest error is estimated at 4.15 with X1=100, X2= 24.36 and Y=11.
+
+\paragraph{}
+For both Nonlinear Regression and Multiple Polynomial Regression, the error remains acceptable because it is in centimeters and we remind that our goal is only to build roughly the environment. So, we do not need that precision of estimation.
+	\chapter{3D Object recognition for Deep Learning}
 
 	\paragraph{}
-	This project may improved for 3D Object Recognition. Currently, the objects to detect are only in 2D. Obviously, it will be more interesting to make the autonomous robot able to detect 3D object, and to integrate them to the 3D virtual map.  
+	Our works may improved by considering a database with 3D models, instead of a 2D ones. Than, if the database is large, the recognition process takes a long time to execute. Because in our strategy, we try to match the picture taken by the autonomous robot with each element of the database. Using deep learning for 3D object recognition may be a suitable solution to this issue.
 	
 	\paragraph{}
-	In this case, we have begun to work on 3D object recognition, and we have thought about a solution where Deep Learning is used. For that, 
+	In this case, we have begun to work on 3D object recognition. We developed a \textbf{View Generator} which reads a mesh file and performs a 2D projections of the 3D model at different views.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[scale=0.6]{res/multiviews.png}
+			\caption{Multi-views generation of a 3D model}
+		\end{center}
+	\end{figure} 
+\paragraph{}
+After generating the multi-views of different objects, the result consists of the new database on which the learning phase should stand. 
 \end{document}
