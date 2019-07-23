@@ -102,9 +102,9 @@ necessary, and no hypotheses helping the robot building its environment are cons
 	\centering
 		
 	
-	I would like to deeply thank my supervisor, Mr. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
+	I would like to deeply thank my supervisor, M. Cédric Herpson, for his guidance and help, his presence and his trust in me to lead the initiative in my work. 
 	
-	I can say that I have been truly lucky to have Mr. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
+	I can say that I have been truly lucky to have M. Cédric Herpson as a supervisor who cared so much about my work, although he had a lot of work ahead of him. 
 	
 	\end{acknowledgements}
 		
@@ -147,12 +147,9 @@ sensors and camera to build }{only use its sensors (IR and camera) to build its 
 	\paragraph{}
 	\hcr{The remaining chapters are}{This document is} organized as follows:
 	\begin{itemize}
-		\item Chapter \ref{chap:review}: \hcr{Summarize the state of art}{We realize a brief overview of the 
-state of the art related to SLAM}.
-		\item Chapter \ref{chap:realization}: \hcr{Explanation of the solution}{We detail the proposed 
-approach}.
-		\item Chapter \ref{chap:testing}: \hcr{Discussion and test of the solution}{We present our experiments 
-and discuss the associated results}.
+		\item Chapter \ref{chap:review}: Summarize the state of art.
+		\item Chapter \ref{chap:realization}: Explanation of the solution.
+		\item Chapter \ref{chap:testing}: Discussion and test of the solution.
 		%\item Chapter \ref{chap:conlusion} Conclusion and suggestion of future works.
 	\end{itemize}
 	\hc{Finally we conclude this work and highlight its current limitations before suggesting potential solutions 
@@ -420,6 +417,8 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 
 	\paragraph{}
 	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
+
+
 	\chapter*{Conclusion, Limitation and Future work}
 	\addcontentsline{toc}{chapter}{Conclusion, Limitation and Future work}
 	\paragraph{}
