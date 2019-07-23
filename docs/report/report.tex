@@ -9,10 +9,11 @@
 
 \usepackage[toc]{glossaries}
 \usepackage{appendix}
-\usepackage{cite}
+
 \usepackage{mathptmx}
 
 \usepackage{cite} %for bibliography
+
 \makeglossaries
 
 
@@ -23,6 +24,7 @@
 \newcommand{\hcr}[2]{\textcolor{red}{\sout{[#1]} - \textcolor{blue}{ [#2]}}}
 \newcommand{\hc}[1]{\textcolor{red}{[#1]}}
 \newcommand{\hcc}[1]{\textcolor{green}{Pour info - [#1]}}
+
 
 %for acknowledgements
 \newenvironment{acknowledgements}[1]
@@ -206,7 +208,7 @@
 	 	\end{center}
 	 \end{figure}
 	 \paragraph{}
-	 As a result, this corner will be ignored as it is not situated on the bottom of the image.
+	 As a result, this corner will be ignored, because it is not situated on the bottom of the image.
 	 
 	 \paragraph{}
 	 These particular pictures taken by the autonomous robot make the strategy not really captivating, because it is sensitive to the autonomous robot's position.
@@ -230,14 +232,14 @@
 	  	\end{center}
 	  \end{figure}
   \paragraph{}
-  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to get a longer segments, and we keep only the longest one from each group at the end. 
+  So, on each picture taken by the autonomous robot, we apply LSD to obtain segments. After that, the segments are classified into groups: the verticals, the horizontals and the diagonals, up to a certain tolerance $\epsilon$. Each group of segments is used for a certain purpose for the navigation. Then, in each group, we merge the closet segments up to a certain tolerance $\lambda$, in order to get a longer segments, we keep only the longest one from each group at the end. 
   
 \paragraph{}
-The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier between the floor and far wall. We built a strategy where the autonomous robot does not build a wall unless it is close to it.
+The horizontal segments which are situated on the top of the image are ignored. We assume that theses segments represent a ceiling. We do not risk anything by ignoring theses segments because, even if the segments represent a frontier between the floor and far wall. We develop a strategy where the autonomous robot does not build a wall unless it is close to it.
     \subsection{3D map building}
     
     \paragraph{}
-    We remind that our goal is to build a rough 3D representation of the environment and look for the target object. We represent the environment by defining the walls composing it. The detection of walls is based on LSD's segments.
+    We remind that our goal is to build a rough 3D representation of the environment and to look for the target object. We represent the environment by defining the walls composing it. The detection of walls is based on LSD's segments.
     
     \paragraph{}
     Depending on the autonomous robot's position, the picture obtained may be in one of the general cases showed in the picture below. 
@@ -282,11 +284,11 @@ In our new strategy, the autonomous robot stops as soon as it detects an obstacl
 As there are a lot of cases of movements according to the visual information, we try to summarize these cases using an activity diagram shown in the figure below. In this diagram, the green boxes represent a physical movement done by the autonomous robot, and the blue cases represent treatments. 
 
 \paragraph{}
-We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a close environment.
+We assume that the user has already mentioned the name of the object to find, and that the robot is situated in a closed environment.
 
-If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information from the picture taken and sends them to the computer, where the orders of movements are given. 
+If we start with the initial point of the diagram, we can see that the autonomous robot begins by taking a picture and analyzes it. After that, it extracts the visual information and sends them to the computer, where the orders of movements are provided. 
 
-From the collected information, if the target has been found, the autonomous robot stops. Otherwise, If there are any segments detected, each of these segments is represented by a wall and added to the 3D map.
+From the collected information, if the target is found, the autonomous robot stops. Otherwise, If there are any segments detected, each of these segments is represented by a wall and added to the 3D map.
 \paragraph{}
 At the end of the treatment, a movement is ordered to the autonomous robot (rotate, move back...etc). Then, it regains from the beginning until it stops.
 \newpage
@@ -309,11 +311,11 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[scale=0.55]{res/plan.png}
-			\caption{Plan of the environment}
+			\caption{The environment plan}
 		\end{center}
 	\end{figure}
 	\paragraph{}
-	We can see that the plan is composed of a principal corridor (A) with 5 simple doors and 3 double-doors. There are two double-doors in front of the simple ones which lead to 2 other corridors (B and C). Than, the autonomous robot is represented by a robot symbol and it is in front of a door in the principal corridor. The autonomous robot will try to find the target object which is represented by a red cross.
+	We can see that the plan is composed of a principal corridor (A) with 5 simple doors and 3 double-doors. There are two double-doors in front of the simple ones which lead to 2 other corridors (B and C). Than, the autonomous robot is represented by a robot symbol and it is in front of a simple door in the principal corridor. The autonomous robot will try to find the target object which is represented by a red cross.
 
 	\section{Image processing}
 	\paragraph{}
@@ -325,12 +327,12 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 		\end{center}
 	\end{figure}
 	\paragraph{}
-	The segments shown in the figure above are not all considered. For example for those which are on the top of the image (On the ceiling) are ignored by the algorithm later. Also, we remind that we keep only the longest segment from each category (Horizontal, vertical and diagonal).
+	The segments shown in the figure above are not all considered. For example for those which are on the top of the image (On the ceiling), they are ignored by the algorithm later. Also, we remind that we keep only the longest segment from each category (Horizontal, vertical and diagonal).
 	\paragraph{}
-	The weak point of this algorithm is when the floor and the wall have almost the same color, we can see that in the figure C. However the algorithm encounters any difficulties while detecting segments on the brown wall. But, it fails at the detection of the frontier between the gray wall and the floor.
+	The weak point of this algorithm is when the floor and the wall have almost the same color, we can see that in the figure C. However the algorithm encounters any difficulties while detecting segments on the brown wall. But, it fails at the detection of the frontier between the gray wall and the floor on the left.
 	
 	\paragraph{}
-	Another weak point may be noticed is when there is not enough lights in the room, as in the figure D. The wall on the left is nearly dark. Moreover both  the wall and the floor are gray.
+	Another weak point which may be noticed is when there is not enough lights in the room, as in the figure D. The wall on the left is nearly dark. Moreover both the wall and the floor are gray.
 	
 	\paragraph{}
 	Beyond these weak points, the algorithm is able to extract the most important contours from the image, which remains sufficient for the decision. 
@@ -338,7 +340,7 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\paragraph{}
 	The picture below represents a 3D map representation of the environment at the end of the exploration. We precise that the environment has been built at a scale of 1/100 centimeters, hence the eventual impression that the walls are very offbeat.
 	\paragraph{}
-	At the beginning and as shown on the plan, the autonomous robot is in front of the first simple-door from the left. As mentioned in the strategy that the autonomous robot goes always right while exploring the wall, the autonomous robot explores almost all the environment before finding the target object.
+	At the beginning and as shown on the plan, the autonomous robot is in front of the door 5. As mentioned in the strategy that the autonomous robot goes always right while exploring the wall. Consequently, the autonomous robot explores almost all the environment before finding the target object.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[scale=0.90]{res/3D_recons.png}
@@ -355,8 +357,8 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 		\end{center}
 	\end{figure}
 	\begin{itemize}
-		\item Case A: The autonomous robot is close to the opposite wall and it travels a short distance to explore a new part of the same wall. So, the recovery phenomenon can take place because a part of the wall explored at the first spot remains in the field of view of the autonomous robot at the second spot. As a result, we get two bunk walls.
-		\item Case B: There is a gap between the double-door and the floor. As a result, the segment separating the wall and the double-door may sometimes not be detected. According to the strategy, the autonomous robot moves forward and meets an obstacle (The double-door). Consequently, it draws a wall with a small width and continue exploring the rest of the environment. The picture below shows that specific case.
+		\item Case A: The autonomous robot is close to the opposite wall and it travels a short distance to explore a new part of the same wall. So, the recovery phenomenon can take place because a part of the explored wall at the first spot remains in the field of view of the autonomous robot at the second spot. As a result, we get two bunk walls.
+		\item Case B: There is a gap between the double-door and the floor. As a result, the segment separating the wall and the double-door may sometimes not be detected. According to the strategy, the autonomous robot moves forward and meets an obstacle (The double-door). Consequently, it draws a wall with a small width and continues exploring the rest of the environment. The picture below shows that specific case.
 
 			\begin{figure}[H]
 			\begin{center}
@@ -375,20 +377,20 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\end{center}
 \end{figure}
 	
-		\item Case D: We turn off the lights of the corridor 1 to see how the autonomous robot behaves. Naturally, the corridor is dark on the picture at this spot. As a result, any segment of the corridor 1 is detected. But, the autonomous robot is located in the principal corridor where the lights is on, and the floor of the principal corridor and the corridor 1 had different colors. Consequently, The limit between the two floors is detected as an horizontal segment and the autonomous robot believes that it is a wall.
+		\item Case D: We turn off the lights of the corridor 1 to see how the autonomous robot behaves. Naturally, the corridor is dark on the picture at this spot. As a result, any segment of the corridor 1 is detected. But, the autonomous robot is located in the principal corridor where the lights is on. And the floor of the principal corridor and the corridor 1 had different colors. Consequently, The limit between the two floors is detected as an horizontal segment and the autonomous robot believes that it is a wall.
 		\begin{figure}[H]
 			\begin{center}
 				\includegraphics[scale=0.80]{res/limit_cor.jpg}
 				\caption{Two floors with different colors case}
 			\end{center}
 		\end{figure}
-	\item Case E: We keep the lights on in the corridor 2. We notice that the far wall of the corridor 2 is detected. Normally, the autonomous robot should move forward, because it detects too the diagonal segments which guarantee the presence of a depth. Nevertheless, we have omitted from our strategy the consideration of diagonals in decision. Because, a shadow was detected once as a diagonal in a case where there were any depth, ans this misleads the autonomous robot.
+	\item Case E: We keep the lights on in the corridor 2. We notice that the far wall of the corridor 2 is detected. Normally, the autonomous robot should move forward, because it detects too the diagonal segments which guarantee the presence of a depth. Nevertheless, we have omitted from our strategy the consideration of diagonals in decision. Because, a shadow was detected once as a diagonal in a case where there were any depth, and this misleads the autonomous robot.
 	
 	\item Cases F and G: Bearing in mind the margin of error in rotation and movement, the closed doors 2 and 4 are detected properly. However the doors 1, 4 and 5 may be missed and considered as a walls.
 	\end{itemize}
 
 	\paragraph{}
-	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a markers objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters, and the same exploration strategy run at a scale of centimeters would have a smoother representation.
+	After testing the strategy in a complex environment contrary to a simple rectangular room, we can judge that the strategy remains more generic and does not depend anymore of the environment structure, a specific objects substituting corners...etc. Also, we arrived at a precision at a scale of 1/100 centimeters. And the same exploration strategy runs at a scale of centimeters would have a smoother representation.
 
 
 	\chapter*{Conclusion, Limitation and Future work}
@@ -399,7 +401,7 @@ At the end of the treatment, a movement is ordered to the autonomous robot (rota
 	\paragraph{}
 	Nevertheless, we suggest some ideas of how our works can be improved:
 	\begin{itemize}
-		\item Multi-agent exploration: Instead of exploring the environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, the communication between the robots is to develop.
+		\item Multi-agent exploration: Instead of exploring the environment with only one autonomous robot, we can imagine having a group of autonomous robots doing so. In this case, the communication between the autonomous robots is to develop and the tasks to be shared.
 		\item 3D object recognition: The current database contains only a 2D models. Works could be done in that field to manipulate a 3D models instead of 2D ones. This facilitates the recognition of the object at any views. Because now, the autonomous robot should be in front of the object to be able to recognize it.
 		\item 2D/3D object detection with Deep Learning: If the database becomes large, the current object recognition may take a long time to analyze the picture. Because it tries to match the picture with each element of the database.
 		\item Smooth environment representation: In our exploration strategy, a huge wall may be explored progressively. As a result, a parts of that wall are built side by side instead of building that wall as one piece. An improvement would be to merge that blocks of walls into one wall.
